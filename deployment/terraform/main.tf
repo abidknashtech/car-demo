@@ -73,7 +73,7 @@ resource "google_sql_user" "my_sql_user" {
 
 resource "null_resource" "create_order_table" {
   provisioner "local-exec" {
-    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.orders_db_name} ${var.create_order_table}"
+    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.orders_db_name} '${var.create_order_table}'"
   }
   depends_on = [google_sql_database.order_db, google_sql_database_instance.my_sql, random_id.user_password, random_id.instance_id, google_sql_user.my_sql_user]
 }

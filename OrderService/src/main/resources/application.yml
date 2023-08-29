@@ -1,1 +1,24 @@
+server:
+  port: 9090
+spring:
+  application:
+  name: OrderService
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/order_db?createDatabaseIfNotExist=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+
+axon:
+  eventhandling:
+    processors:
+      order-group:
+        mode: subscribing
+  axonserver:
+    client-id: OrderService
+    servers: localhost:8124
 

@@ -1,44 +1,47 @@
-package com.nashtech.order.events.handler;
+package com.nashtech.order.commands;
 
+import com.nashtech.order.exception.UserNotFoundException;
+import com.nashtech.order.repository.entity.OrderLookup;
+import com.nashtech.order.repository.OrderLookupRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 
 @Component
 @Slf4j
 public class CreateOrderCommandInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
 
-	private final ProductLookupRepository productLookupRepository;
+	private final OrderLookupRepository orderLookupRepository;
 	
-	public CreateOrderCommandInterceptor(ProductLookupRepository productLookupRepository) {
-		this.productLookupRepository = productLookupRepository;
+	public CreateOrderCommandInterceptor(OrderLookupRepository productLookupRepository) {
+		this.orderLookupRepository = productLookupRepository;
 	}
  
 	@Override
-	public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(
-			List<? extends CommandMessage<?>> messages) {
+	public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(List<? extends CommandMessage<?>> messages) {
 		 
 		return (index, command) -> {
 			
-			LOGGER.info("Intercepted command: " + command.getPayloadType());
+			log.info("Intercepted command: " + command.getPayloadType());
 			
-			if(CreateProductCommand.class.equals(command.getPayloadType())) {
+			if(CreateOrderCommand.class.equals(command.getPayloadType())) {
+				String userId = "27b95829-4f3f-4ddf-8983-151ba010e35b";
+				CreateOrderCommand createOrderCommand = (CreateOrderCommand)command.getPayload();
+				if (!userId.equals(createOrderCommand.getUserId())) {
+					throw new UserNotFoundException(
+							String.format("User [%s] does not exist", createOrderCommand.getUserId()));
+				}
+				Optional<OrderLookup> orderLookup =  orderLookupRepository.findById(createOrderCommand.getOrderId());
 				
-				CreateProductCommand createProductCommand = (CreateProductCommand)command.getPayload();
-				
-				ProductLookupEntity productLookupEntity =  productLookupRepository.findByProductIdOrTitle(createProductCommand.getProductId(),
-						createProductCommand.getTitle());
-				
-				if(productLookupEntity != null) {
+				if(orderLookup.isPresent()) {
 					throw new IllegalStateException(
-							String.format("Product with productId %s or title %s already exist", 
-									createProductCommand.getProductId(), createProductCommand.getTitle())
-							);
+							String.format("Car with orderId %s or carId %s already exist",
+									createOrderCommand.getOrderId(), createOrderCommand.getCarId()));
 				}
 
 			}
@@ -47,9 +50,4 @@ public class CreateOrderCommandInterceptor implements MessageDispatchInterceptor
 		};
 	}
 
-	@Nonnull
-	@Override
-	public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(@Nonnull List<? extends CommandMessage<?>> list) {
-		return null;
-	}
 }

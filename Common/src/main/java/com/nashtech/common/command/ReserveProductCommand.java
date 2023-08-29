@@ -1,4 +1,4 @@
-package com.nashtech.order.commands;
+package com.nashtech.common.command;
 
 import com.nashtech.common.model.User;
 import lombok.Builder;
@@ -13,7 +13,7 @@ public class ReserveProductCommand {
     String carId;
 	int quantity;
 	String orderId;
-	User user;
+	String userId;
 	
 	
 }

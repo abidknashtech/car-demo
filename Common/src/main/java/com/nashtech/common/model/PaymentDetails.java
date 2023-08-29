@@ -10,5 +10,5 @@ public class PaymentDetails {
     private final String cardNumber;
     private final int validUntilMonth;
     private final int validUntilYear;
-    private final String cvv;
+    private final int cvv;
 }

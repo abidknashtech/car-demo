@@ -1,15 +1,27 @@
 package com.nashtech.order.api.request;
 
+import com.nashtech.common.model.PaymentDetails;
+import lombok.Data;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
-public class OrderCreateRest {
-    @NotBlank(message = "Order productId is a required field")
-    private String productId;
+public class OrderCreateRequest {
+    @NotBlank(message = "Order carId is a required field")
+    private String carId;
     
     @Min(value = 1, message = "Quantity cannot be lower than 1")
-    @Max(value = 5, message = "Quantity cannot be larger than 5")
     private int quantity;
     
-    @NotBlank(message = "Order addressId is a required field")
-    private String addressId;
-    
+    @NotBlank(message = "UserId is a required field")
+    private String userId;
+
+    @DecimalMin(value = "1.0")
+    private Double price;
+
+    @NotNull
+    private PaymentDetails paymentDetails;
 }

@@ -1,4 +1,4 @@
-package com.nashtech.order.repository;
+package com.nashtech.order.repository.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

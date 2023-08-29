@@ -1,5 +1,6 @@
 package com.nashtech.common.model;
 
+import com.nashtech.common.model.PaymentDetails;
 import lombok.Builder;
 import lombok.Data;
 

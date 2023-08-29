@@ -1,7 +1,7 @@
 package com.nashtech.order.exception;
 
-public class UserNotFoundException extends RuntimeException{
-    public UserNotFoundException(String s) {
+public class OrderNotFoundException extends RuntimeException{
+    public OrderNotFoundException(String s) {
         super(s);
     }
 }

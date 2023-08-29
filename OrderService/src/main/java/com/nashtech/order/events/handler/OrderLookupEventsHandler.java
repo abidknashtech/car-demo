@@ -1,37 +1,30 @@
 package com.nashtech.order.events.handler;
-
+import com.nashtech.order.events.OrderCreatedEvent;
+import com.nashtech.order.repository.entity.OrderLookup;
+import com.nashtech.order.repository.OrderLookupRepository;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.eventhandling.ResetHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.stereotype.Component;
 
-import com.appsdeveloperblog.estore.ProductsService.core.data.ProductLookupEntity;
-import com.appsdeveloperblog.estore.ProductsService.core.data.ProductLookupRepository;
-import com.appsdeveloperblog.estore.ProductsService.core.events.ProductCreatedEvent;
-
 @Component
-@ProcessingGroup("product-group")
-public class ProductLookupEventsHandler {
+@ProcessingGroup("order-group")
+public class OrderLookupEventsHandler {
 	
-	private final ProductLookupRepository productLookupRepository;
+	private final OrderLookupRepository orderLookupRepository;
 	
-	public ProductLookupEventsHandler(ProductLookupRepository productLookupRepository) {
-		this.productLookupRepository = productLookupRepository;
+	public OrderLookupEventsHandler(OrderLookupRepository orderLookupRepository) {
+		this.orderLookupRepository = orderLookupRepository;
 	}
 
 	@EventHandler
-	public void on(ProductCreatedEvent event) {
-		
-		ProductLookupEntity productLookupEntity = new ProductLookupEntity(event.getProductId(),
-				event.getTitle());
-		
-		productLookupRepository.save(productLookupEntity);
-		
+	public void on(OrderCreatedEvent event) {
+		OrderLookup orderLookup = new OrderLookup(event.getOrderId());
+		orderLookupRepository.save(orderLookup);
 	}
-	
-	@ResetHandler
-	public void reset() {
-		productLookupRepository.deleteAll();
+
+	@ExceptionHandler
+	public void handle(Exception exception) throws Exception {
+		throw exception;
 	}
-	
 }

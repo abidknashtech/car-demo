@@ -1,7 +1,8 @@
-## deploy mysql on GCP
+## deploy mysql on GCP using gcloud cli
 
 ### 1. Authenticate gcloud
 ```
+install gcloud cli if not installed https://cloud.google.com/sdk/docs/install 
 a) export GOOGLE_APPLICATION_CREDENTIALS=key.json
 b) gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
 ```
@@ -73,5 +74,14 @@ python create_tables.py --host 35.237.111.227 --user java_db_user --password Jav
 
 follow the link - https://cloud.google.com/sql/docs/mysql/create-instance 
 
+## Deploy mysql on GCP through terraform
 
+install terraform in your local
+
+- terraform init
+- terraform plan
+- terraform apply
+
+To destroy the mysql resources
+- terraform destroy
 

@@ -11,7 +11,7 @@
 	<groupId>com.nashtech.shipment</groupId>
 	<artifactId>ShipmentService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Shipment-Mircoservice</name>
+	<name>ShipmentService</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -33,9 +33,19 @@
 			<version>4.8.1</version>
 		</dependency>
 		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.nashtech.common</groupId>
+			<artifactId>CommonService</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

@@ -5,11 +5,14 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ProductReservedEvent {
-    String productId;
-    Double price;
-    Integer quantity;
+public class ShipmentCancelledEvent {
     String orderId;
+    String productId;
+    Integer quantity;
+    Double price;
     String userId;
+    String reasonToFailed;
+    String paymentId;
+    String shipmentId;
 
 }

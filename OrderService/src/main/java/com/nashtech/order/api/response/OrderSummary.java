@@ -1,14 +1,13 @@
 package com.nashtech.order.api.response;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import com.nashtech.common.utils.OrderStatus;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class OrderSummary {
-	private  String orderId;
-	private  OrderStatus orderStatus;
+    private String orderId;
+    private String orderStatus;
+    private String reason;
+
 }

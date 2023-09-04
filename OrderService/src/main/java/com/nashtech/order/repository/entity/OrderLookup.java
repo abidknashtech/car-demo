@@ -7,13 +7,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="order_lookup")
-public class OrderLookup  {
-	
-	@Id
-	private String orderId;
+@Table(name = "order_lookup")
+public class OrderLookup {
+    @Id
+    private String orderId;
+    private Date timestamp;
+
 }

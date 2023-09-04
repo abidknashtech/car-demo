@@ -1,4 +1,4 @@
-package com.nashtech.order.commands;
+package com.nashtech.common.command;
 
 import lombok.Builder;
 import lombok.Value;
@@ -6,12 +6,14 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Value
 @Builder
-public class CreateOrderCommand {
+public class CancelPaymentCommand {
     @TargetAggregateIdentifier
+    String paymentId;
     String orderId;
-    String carId;
-    Double price;
     Integer quantity;
     String userId;
+    String reasonToFailed;
+    String productId;
+    Double price;
 
 }

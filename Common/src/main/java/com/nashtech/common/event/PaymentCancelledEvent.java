@@ -5,7 +5,11 @@ import lombok.Value;
 
 @Value
 @Builder
-public class OrderShippedEvent {
+public class PaymentCancelledEvent {
     String orderId;
+    Integer quantity;
+    String userId;
+    String reason;
+    String productId;
 
 }

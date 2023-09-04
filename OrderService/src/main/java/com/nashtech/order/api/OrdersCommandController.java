@@ -1,8 +1,6 @@
 package com.nashtech.order.api;
 
 
-import java.util.UUID;
-
 import com.nashtech.order.api.request.OrderCreateRequest;
 import com.nashtech.order.api.response.OrderSummary;
 import com.nashtech.order.commands.CreateOrderCommand;
@@ -12,44 +10,43 @@ import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.queryhandling.SubscriptionQueryResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import com.nashtech.common.utils.OrderStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
 public class OrdersCommandController {
 
-	private final CommandGateway commandGateway;
-	private final QueryGateway queryGateway;
+    private final CommandGateway commandGateway;
+    private final QueryGateway queryGateway;
 
-	@Autowired
-	public OrdersCommandController(CommandGateway commandGateway, QueryGateway queryGateway) {
-		this.commandGateway = commandGateway;
-		this.queryGateway = queryGateway;
-	}
+    @Autowired
+    public OrdersCommandController(CommandGateway commandGateway, QueryGateway queryGateway) {
+        this.commandGateway = commandGateway;
+        this.queryGateway = queryGateway;
+    }
 
-	@PostMapping("/create")
-	public OrderSummary createOrder(@Valid @RequestBody OrderCreateRequest order) {
+    @PostMapping("/create")
+    public OrderSummary createOrder(@Valid @RequestBody OrderCreateRequest orderRequest) {
+        String orderId = UUID.randomUUID().toString();
 
-		String orderId = UUID.randomUUID().toString();
-
-		CreateOrderCommand createOrderCommand = CreateOrderCommand.builder()
-				.carId(order.getCarId()).userId(order.getUserId())
-				.quantity(order.getQuantity()).orderId(orderId)
-				.price(order.getPrice())
-				.orderStatus(OrderStatus.ORDER_CREATED)
-				.paymentDetails(order.getPaymentDetails())
-				.build();
+        CreateOrderCommand createOrderCommand = CreateOrderCommand.builder()
+                .carId(orderRequest.getCarId()).userId(orderRequest.getUserId())
+                .quantity(orderRequest.getQuantity()).orderId(orderId)
+                .price(orderRequest.getPrice())
+                .build();
 
         try (SubscriptionQueryResult<OrderSummary, OrderSummary> queryResult = queryGateway.subscriptionQuery(
                 new FindOrderQuery(orderId), ResponseTypes.instanceOf(OrderSummary.class),
                 ResponseTypes.instanceOf(OrderSummary.class))) {
-            commandGateway.sendAndWait(createOrderCommand);
+            commandGateway.send(createOrderCommand);
             return queryResult.updates().blockFirst();
         }
-
-	}
+    }
 
 }

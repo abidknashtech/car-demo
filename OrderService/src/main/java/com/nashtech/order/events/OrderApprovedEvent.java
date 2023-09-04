@@ -6,9 +6,8 @@ import lombok.Value;
 
 @Value
 @Builder
-public class OrderCancelledEvent {
+public class OrderApprovedEvent {
     String orderId;
     OrderStatus orderStatus;
-    String reason;
 
 }

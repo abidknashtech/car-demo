@@ -1,14 +1,15 @@
 package com.nashtech.common.command;
 
+import com.nashtech.common.utils.OrderStatus;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-@Data
+@Value
 @Builder
-public class ShipOrderCommand {
-
+public class ApproveOrderCommand {
     @TargetAggregateIdentifier
-    private String shipmentId;
-    private String orderId;
+    String orderId;
+    OrderStatus orderStatus;
+
 }

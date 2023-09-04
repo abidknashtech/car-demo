@@ -1,14 +1,15 @@
 package com.nashtech.common.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 @Builder
 public class PaymentDetails {
-    private final String bank;
-    private final String cardNumber;
-    private final int validUntilMonth;
-    private final int validUntilYear;
-    private final int cvv;
+    String bank;
+    String cardNumber;
+    Integer validUntilMonth;
+    Integer validUntilYear;
+    Integer cvv;
+
 }

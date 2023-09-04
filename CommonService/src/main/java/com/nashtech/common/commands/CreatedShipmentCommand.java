@@ -3,13 +3,14 @@ package com.nashtech.common.commands;
 import com.nashtech.common.model.ShipmentStatus;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-@Data
+@Value
 @Builder
 public class CreatedShipmentCommand {
     @TargetAggregateIdentifier
-    private String shipmentId;
-    private String orderId;
-    private ShipmentStatus shipmentStatus = ShipmentStatus.CREATED;
+    String shipmentId;
+    String orderId;
+    ShipmentStatus shipmentStatus = ShipmentStatus.SHIPMENT_CREATED;
 }

@@ -1,11 +1,14 @@
 package com.nashtech.common.event;
 
 import com.nashtech.common.model.ShipmentStatus;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
+@Builder
 public class ShipmentCancelEvent {
-    private String shipmentId;
-    private String orderId;
-    private ShipmentStatus shipmentStatus;
+    String shipmentId;
+    String orderId;
+    ShipmentStatus shipmentStatus;
 }

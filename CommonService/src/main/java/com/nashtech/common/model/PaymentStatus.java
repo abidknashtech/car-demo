@@ -1,4 +1,4 @@
-package com.nashtech.common.commands;
+package com.nashtech.common.model;
 
 public enum PaymentStatus {
     PAYMENT_APPROVED,

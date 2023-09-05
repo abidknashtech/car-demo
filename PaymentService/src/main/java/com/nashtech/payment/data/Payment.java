@@ -1,5 +1,6 @@
 package com.nashtech.payment.data;
 
+import com.nashtech.common.model.PaymentStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +21,7 @@ public class Payment {
     @Id
     private String  paymentId;
     private String orderId;
-    private String paymentStatus;
+    private PaymentStatus paymentStatus;
 
 
 }

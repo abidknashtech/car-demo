@@ -1,13 +1,14 @@
 package com.nashtech.common.events;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.nashtech.common.model.PaymentStatus;
+import lombok.Builder;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+import lombok.Value;
+
+@Value
+@Builder
 public class PaymentProcessedEvent {
-    private String paymentId;
-    private String orderId;
+     String paymentId;
+     String orderId;
+     PaymentStatus paymentStatus;
 }

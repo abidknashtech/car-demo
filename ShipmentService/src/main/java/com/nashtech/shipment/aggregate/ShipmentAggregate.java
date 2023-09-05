@@ -29,7 +29,7 @@ public class ShipmentAggregate {
 
     @CommandHandler
     public ShipmentAggregate(CreatedShipmentCommand createdShipmentCommand) {
-        LOGGER.info("CreatedShipmentCommand is called for shipmentId: " + createdShipmentCommand.getShipmentId());
+        LOGGER.info("CreatedShipmentCommand is called for shipmentId: {}", createdShipmentCommand.getShipmentId());
         ShipmentCreatedEvent shipmentCreatedEvent = ShipmentCreatedEvent.builder()
                     .shipmentId(createdShipmentCommand.getShipmentId())
                     .orderId(createdShipmentCommand.getOrderId())
@@ -39,7 +39,7 @@ public class ShipmentAggregate {
 
     @CommandHandler
     public void handle(CancelShipmentCommand cancelShipmentCommand) {
-        LOGGER.info("CancelShipmentCommand is called for shipmentId: " + cancelShipmentCommand.getShipmentId());
+        LOGGER.info("CancelShipmentCommand is called for shipmentId: {}", cancelShipmentCommand.getShipmentId());
         ShipmentCancelEvent cancelShipmentEvent = ShipmentCancelEvent.builder()
                 .shipmentId(cancelShipmentCommand.getShipmentId())
                 .orderId(cancelShipmentCommand.getOrderId())

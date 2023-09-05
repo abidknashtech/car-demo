@@ -34,9 +34,9 @@ public class ShipmentEventHandler {
     public void on(ShipmentCancelEvent shipmentCancelEvent) {
         ShipmentEntity shipmentEntity = shipmentRepository.findByShipmentId(shipmentCancelEvent.getShipmentId());
         if (shipmentEntity == null) {
-            LOGGER.info("No record found for shipmentId: " + shipmentCancelEvent.getShipmentId());
+            LOGGER.info("No record found for shipmentId: {}", shipmentCancelEvent.getShipmentId());
         } else {
-            LOGGER.info("ShipmentCancelEvent is called for shipmentId: " + shipmentCancelEvent.getShipmentId());
+            LOGGER.info("ShipmentCancelEvent is called for shipmentId: {}", shipmentCancelEvent.getShipmentId());
             shipmentEntity.setShipmentStatus(shipmentCancelEvent.getShipmentStatus());
             shipmentRepository.save(shipmentEntity);
         }

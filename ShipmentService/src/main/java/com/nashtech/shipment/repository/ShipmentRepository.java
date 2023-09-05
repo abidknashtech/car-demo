@@ -4,5 +4,5 @@ import com.nashtech.shipment.entity.ShipmentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShipmentRepository extends JpaRepository<ShipmentEntity, String> {
-    ShipmentEntity findByShipmentId(String shipmentId);
+    ShipmentEntity findByOrderId(String orderId);
 }

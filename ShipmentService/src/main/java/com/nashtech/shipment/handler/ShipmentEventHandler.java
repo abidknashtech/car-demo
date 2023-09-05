@@ -32,7 +32,7 @@ public class ShipmentEventHandler {
 
     @EventHandler
     public void on(ShipmentCancelEvent shipmentCancelEvent) {
-        ShipmentEntity shipmentEntity = shipmentRepository.findByShipmentId(shipmentCancelEvent.getShipmentId());
+        ShipmentEntity shipmentEntity = shipmentRepository.findByOrderId(shipmentCancelEvent.getOrderId());
         if (shipmentEntity == null) {
             LOGGER.info("No record found for shipmentId: {}", shipmentCancelEvent.getShipmentId());
         } else {

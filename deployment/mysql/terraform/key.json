@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "boreal-gravity-396810",
+  "private_key_id": "3f02bc6a9cb23bddc82ee6e0506f7c0560621dba",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDQUB7ycwKxD3q/\nOG+g/jq/tvWjbCpLVQ8ojhNTs3OHgjvd1uAeMNM3kNeURRTW7GVDbTTWVir1Bhqp\no0rn+uNdsUbzNjD1DIndPNqkld/12DMsv2i6ceSd1+fbaOzA9/HnnHB3IumKVifJ\nbDdzhDfVi3RlambAxvUDnA+wt7V5zEbmK6JlLMeIS6TGyZfBfg5N2/CQwbAnk8Ck\nCK9aIx7hNiNSCcrhtOcw7Qqx+HK0kjnEcwS6jtb/zGJWgnfWO7myIEDcB6Q4uN0J\nG1BRaJTuWtGUGZlBva/kusRVK6DcQpDJtBBjqXXhg3SFzvriVLvM+/RbzpqIppzr\nhCv5Nf71AgMBAAECggEAA2NHhZDk78/nzU6pKMNJsvl87Yn3oXRXg+9/lU0QqW5Z\nnpDSjJslrDyA97UsksGTH1waJQw6CZ8Y9ZOlcbgM/5E/rU/pzupudDh7o9FDgazg\n9C7ZZgLZLCSpQtJmMKM3qMPMuRtKagi0VUcbGxgA4nUF+7+Vvo0zHzpoBOs6mn72\nUKYSUIi3YMVnJY50gGdCb6a4Gyi7HGU9Me5dEPEemsGfELVSN+KAe5mTjGvtGR6m\nQ+gW1FfL8X2evKsV4+SeZ6FOlSYOJ1qrWlWFK52sRFZu3bqQlzHhw73VVl2i61IN\nEoUPAcPzxUhVMZOAE5d34I/mOwq51ymiRYIgNRqWRwKBgQDnL0kaa33Hg9GrSe7G\nDxLLu+1SLqi89ooEo4FRx0jVtasrQKFAxnJW+6s65F69yc105e8qy+14Bx41cX2O\nxw03KWFwBTON7Qv3tjR9gYIxBLrQB3uGUUtljh4W1qyNLeP/H1MigIS39m2eTDG+\nw4H6+uWFd3bgFzvWVeG5WZxOWwKBgQDmrFgIIU6gOcVLCoqAoKmWVj+KRtXVLYLj\nJt1adTmW0g8I9ktf0vNfi6ueZ6/W2kGdOYqFFQezxMjckAkPQRk4xtzywZ5pn1fc\nE2cK5zxdlcqhZTQI1DsjE/n4vsC9YlEvK+2sPPvH/WUQfg+lx+eTsrd9Hf+HEdQd\nI1R0fWII7wKBgD40aPUk6ykd/PKb6BV+xM3w+QBd8aU2qRhqbkd02dI3GaF/uGPX\ngbiJ6x7jh+KFRDUqEVpwmKrtL2Gt8dzTDmlDRyZ/H8oWeFvkuOb0S/WokiObf886\nXJEs1kfK547tRCXHZfUoo41kT0aCtffgXz8K92scI+5UEhOv9BaNWBN1AoGBAIPE\nvYDfbeevOJmWSuoRXO7JFADsV+gv2E3j/JxYzG3wTrBi6Umy2l2hDoctWdAU21hx\n70P4cG7roYYFLXeuSzcYukxd+B0D7g+Ecd9TmjMnhxnNEv1cJu/x0GCcrsNAb3nP\n0TQLnhRvFpVmPZAI8qt3csOhKD/DGnUOoobsvNy3AoGAE2VnGy9XZ4ItdzLY4oIy\nRD+0RMjSvZheq2MEPejfHbdnqVaMLT+IObvplwztwVPo4F1JYCqTwjqc+MrvVhdK\nI4nx94ExzKSkhUyP3Z/IuvC+SeYqDwVqktzw06niM5oiHHoPwtnIG+Jbg0+lanjG\nyECJHgith0fDdaek8AYT6Fo=\n-----END PRIVATE KEY-----\n",
+  "client_email": "java-competency-service-accoun@boreal-gravity-396810.iam.gserviceaccount.com",
+  "client_id": "114533029358534801445",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/java-competency-service-accoun%40boreal-gravity-396810.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

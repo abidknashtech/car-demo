@@ -1,7 +1,7 @@
 package com.nashtech.shipment.aggregate;
 
-import com.nashtech.common.commands.CancelShipmentCommand;
-import com.nashtech.common.commands.CreatedShipmentCommand;
+import com.nashtech.common.command.CancelShipmentCommand;
+import com.nashtech.common.command.CreatedShipmentCommand;
 import com.nashtech.common.event.ShipmentCancelEvent;
 import com.nashtech.common.event.ShipmentCreatedEvent;
 import com.nashtech.common.model.ShipmentStatus;

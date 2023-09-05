@@ -9,6 +9,10 @@ target/
 
 # BlueJ files
 *.ctxt
+*.terraform
+*.tfstate*
+*.hcl
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

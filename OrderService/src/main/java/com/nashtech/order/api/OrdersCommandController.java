@@ -42,7 +42,7 @@ public class OrdersCommandController {
                 .build();
 
         try (SubscriptionQueryResult<OrderSummary, OrderSummary> queryResult = queryGateway.subscriptionQuery(
-                new FindOrderQuery(orderId), ResponseTypes.instanceOf(OrderSummary.class),
+                FindOrderQuery.builder().orderId(orderId).build(), ResponseTypes.instanceOf(OrderSummary.class),
                 ResponseTypes.instanceOf(OrderSummary.class))) {
             commandGateway.send(createOrderCommand);
             return queryResult.updates().blockFirst();

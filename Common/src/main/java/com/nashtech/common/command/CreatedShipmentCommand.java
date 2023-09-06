@@ -11,5 +11,10 @@ public class CreatedShipmentCommand {
     @TargetAggregateIdentifier
     String shipmentId;
     String orderId;
+    String productId;
+    Integer quantity;
+    Double price;
+    String userId;
+    String paymentId;
     ShipmentStatus shipmentStatus = ShipmentStatus.SHIPMENT_CREATED;
 }

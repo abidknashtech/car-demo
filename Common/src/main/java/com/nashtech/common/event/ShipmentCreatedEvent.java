@@ -9,5 +9,10 @@ import lombok.Value;
 public class ShipmentCreatedEvent {
     String shipmentId;
     String orderId;
+    String productId;
+    Integer quantity;
+    Double price;
+    String userId;
+    String paymentId;
     ShipmentStatus shipmentStatus;
 }

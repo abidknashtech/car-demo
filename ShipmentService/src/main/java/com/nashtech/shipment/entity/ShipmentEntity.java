@@ -20,5 +20,13 @@ public class ShipmentEntity {
     private String shipmentId;
     @Column(unique = true)
     private String orderId;
+    @Column(unique = true)
+    private String productId;
+    private Integer quantity;
+    private Double price;
+    @Column(unique = true)
+    private String userId;
+    @Column(unique = true)
+    private String paymentId;
     private ShipmentStatus shipmentStatus;
 }

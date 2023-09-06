@@ -2,10 +2,11 @@ package com.nashtech.shipment.aggregate;
 
 import com.nashtech.common.command.CancelShipmentCommand;
 import com.nashtech.common.command.CreatedShipmentCommand;
-import com.nashtech.common.event.ShipmentCancelEvent;
+import com.nashtech.common.event.ShipmentCancelledEvent;
 import com.nashtech.common.event.ShipmentCreatedEvent;
 import com.nashtech.common.model.ShipmentStatus;
 import com.nashtech.shipment.handler.ShipmentEventHandler;
+import jakarta.persistence.Column;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -22,6 +23,12 @@ public class ShipmentAggregate {
     @AggregateIdentifier
     private String shipmentId;
     private String orderId;
+    private String productId;
+    private Integer quantity;
+    private Double price;
+    private String userId;
+    private String reasonToFailed;
+    private String paymentId;
     private ShipmentStatus shipmentStatus;
 
     public ShipmentAggregate() {
@@ -33,6 +40,11 @@ public class ShipmentAggregate {
         ShipmentCreatedEvent shipmentCreatedEvent = ShipmentCreatedEvent.builder()
                     .shipmentId(createdShipmentCommand.getShipmentId())
                     .orderId(createdShipmentCommand.getOrderId())
+                    .productId(createdShipmentCommand.getProductId())
+                    .quantity(createdShipmentCommand.getQuantity())
+                    .price(createdShipmentCommand.getPrice())
+                    .userId(createdShipmentCommand.getUserId())
+                    .paymentId(createdShipmentCommand.getPaymentId())
                     .shipmentStatus(createdShipmentCommand.getShipmentStatus()).build();
         AggregateLifecycle.apply(shipmentCreatedEvent);
     }
@@ -40,24 +52,39 @@ public class ShipmentAggregate {
     @CommandHandler
     public void handle(CancelShipmentCommand cancelShipmentCommand) {
         LOGGER.info("CancelShipmentCommand is called for shipmentId: {}", cancelShipmentCommand.getShipmentId());
-        ShipmentCancelEvent cancelShipmentEvent = ShipmentCancelEvent.builder()
+        ShipmentCancelledEvent shipmentCancelledEvent = ShipmentCancelledEvent.builder()
                 .shipmentId(cancelShipmentCommand.getShipmentId())
                 .orderId(cancelShipmentCommand.getOrderId())
+                .productId(cancelShipmentCommand.getProductId())
+                .quantity(cancelShipmentCommand.getQuantity())
+                .price(cancelShipmentCommand.getPrice())
+                .userId(cancelShipmentCommand.getUserId())
+                .paymentId(cancelShipmentCommand.getPaymentId())
                 .shipmentStatus(cancelShipmentCommand.getShipmentStatus()).build();
-        AggregateLifecycle.apply(cancelShipmentEvent);
+        AggregateLifecycle.apply(shipmentCancelledEvent);
     }
 
     @EventSourcingHandler
     public  void on(ShipmentCreatedEvent shipmentCreatedEvent) {
         this.shipmentId = shipmentCreatedEvent.getShipmentId();
         this.orderId = shipmentCreatedEvent.getOrderId();
+        this.productId = shipmentCreatedEvent.getProductId();
+        this.quantity = shipmentCreatedEvent.getQuantity();
+        this.price = shipmentCreatedEvent.getPrice();
+        this.userId = shipmentCreatedEvent.getUserId();
+        this.paymentId = shipmentCreatedEvent.getPaymentId();
         this.shipmentStatus = shipmentCreatedEvent.getShipmentStatus();
     }
 
     @EventSourcingHandler
-    public void on(ShipmentCancelEvent cancelShipmentEvent) {
-        this.shipmentId = cancelShipmentEvent.getShipmentId();
-        this.orderId = cancelShipmentEvent.getOrderId();
-        this.shipmentStatus = cancelShipmentEvent.getShipmentStatus();
+    public void on(ShipmentCancelledEvent shipmentCancelledEvent) {
+        this.shipmentId = shipmentCancelledEvent.getShipmentId();
+        this.orderId = shipmentCancelledEvent.getOrderId();
+        this.productId = shipmentCancelledEvent.getProductId();
+        this.quantity = shipmentCancelledEvent.getQuantity();
+        this.price = shipmentCancelledEvent.getPrice();
+        this.userId = shipmentCancelledEvent.getUserId();
+        this.paymentId = shipmentCancelledEvent.getPaymentId();
+        this.shipmentStatus = shipmentCancelledEvent.getShipmentStatus();
     }
 }

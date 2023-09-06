@@ -1,6 +1,6 @@
 package com.nashtech.shipment.handler;
 
-import com.nashtech.common.event.ShipmentCancelEvent;
+import com.nashtech.common.event.ShipmentCancelledEvent;
 import com.nashtech.common.event.ShipmentCreatedEvent;
 import com.nashtech.shipment.entity.ShipmentEntity;
 import com.nashtech.shipment.repository.ShipmentRepository;
@@ -25,19 +25,24 @@ public class ShipmentEventHandler {
         ShipmentEntity shipmentEntity = new ShipmentEntity(
                 shipmentCreatedEvent.getShipmentId(),
                 shipmentCreatedEvent.getOrderId(),
+                shipmentCreatedEvent.getProductId(),
+                shipmentCreatedEvent.getQuantity(),
+                shipmentCreatedEvent.getPrice(),
+                shipmentCreatedEvent.getUserId(),
+                shipmentCreatedEvent.getPaymentId(),
                 shipmentCreatedEvent.getShipmentStatus()
         );
         shipmentRepository.save(shipmentEntity);
     }
 
     @EventHandler
-    public void on(ShipmentCancelEvent shipmentCancelEvent) {
-        ShipmentEntity shipmentEntity = shipmentRepository.findByOrderId(shipmentCancelEvent.getOrderId());
+    public void on(ShipmentCancelledEvent shipmentCancelledEvent) {
+        ShipmentEntity shipmentEntity = shipmentRepository.findByOrderId(shipmentCancelledEvent.getOrderId());
         if (shipmentEntity == null) {
-            LOGGER.info("No record found for shipmentId: {}", shipmentCancelEvent.getShipmentId());
+            LOGGER.info("No record found for orderId: {}", shipmentCancelledEvent.getOrderId());
         } else {
-            LOGGER.info("ShipmentCancelEvent is called for shipmentId: {}", shipmentCancelEvent.getShipmentId());
-            shipmentEntity.setShipmentStatus(shipmentCancelEvent.getShipmentStatus());
+            LOGGER.info("ShipmentCancelEvent is called for shipmentId: {}", shipmentCancelledEvent.getShipmentId());
+            shipmentEntity.setShipmentStatus(shipmentCancelledEvent.getShipmentStatus());
             shipmentRepository.save(shipmentEntity);
         }
     }

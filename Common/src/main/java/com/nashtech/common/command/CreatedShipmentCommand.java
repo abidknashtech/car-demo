@@ -7,7 +7,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Value
 @Builder
-public class CancelShipmentCommand {
+public class CreatedShipmentCommand {
     @TargetAggregateIdentifier
     String shipmentId;
     String orderId;
@@ -15,7 +15,6 @@ public class CancelShipmentCommand {
     Integer quantity;
     Double price;
     String userId;
-    String reasonToFailed;
     String paymentId;
-    ShipmentStatus shipmentStatus = ShipmentStatus.SHIPMENT_CANCELLED;
+    ShipmentStatus shipmentStatus = ShipmentStatus.SHIPMENT_CREATED;
 }

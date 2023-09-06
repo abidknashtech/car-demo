@@ -11,7 +11,7 @@
 	<groupId>com.nashtech.payment</groupId>
 	<artifactId>PaymentService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Payment-Mircoservice</name>
+	<name>PaymentService</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

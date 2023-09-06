@@ -6,14 +6,13 @@ import lombok.Value;
 
 @Value
 @Builder
-public class ShipmentCancelledEvent {
+public class ShipmentCreatedEvent {
     String shipmentId;
     String orderId;
     String productId;
     Integer quantity;
     Double price;
     String userId;
-    String reasonToFailed;
     String paymentId;
     ShipmentStatus shipmentStatus;
 }

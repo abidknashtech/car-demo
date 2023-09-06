@@ -21,4 +21,8 @@ axon:
   axonserver:
     client-id: OrderService
     servers: ${AXON_HOST}
-
+# Possible values for these keys are `default`, `xstream`, `java`, and `jackson`.
+  serializer:
+    general: default
+    events: jackson
+    messages: jackson

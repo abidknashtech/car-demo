@@ -1,11 +1,12 @@
 package com.nashtech.order.query;
 
-import lombok.Builder;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class FindOrderQuery {
     String orderId;
-
 }

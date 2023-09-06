@@ -15,7 +15,7 @@ public class OrderCreateRequest {
     private String carId;
 
     @Min(value = 1, message = "Quantity cannot be lower than 1")
-    private int quantity;
+    private Integer quantity;
 
     @NotBlank(message = "UserId is a required field")
     private String userId;

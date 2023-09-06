@@ -15,6 +15,7 @@ public class CancelShipmentCommand {
     Integer quantity;
     Double price;
     String userId;
+    String reasonToFailed;
     String paymentId;
     ShipmentStatus shipmentStatus = ShipmentStatus.SHIPMENT_CANCELLED;
 }

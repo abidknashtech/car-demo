@@ -6,7 +6,6 @@ import com.nashtech.common.event.ShipmentCancelledEvent;
 import com.nashtech.common.event.ShipmentCreatedEvent;
 import com.nashtech.common.model.ShipmentStatus;
 import com.nashtech.shipment.handler.ShipmentEventHandler;
-import jakarta.persistence.Column;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -59,6 +58,7 @@ public class ShipmentAggregate {
                 .quantity(cancelShipmentCommand.getQuantity())
                 .price(cancelShipmentCommand.getPrice())
                 .userId(cancelShipmentCommand.getUserId())
+                .reasonToFailed(cancelShipmentCommand.getReasonToFailed())
                 .paymentId(cancelShipmentCommand.getPaymentId())
                 .shipmentStatus(cancelShipmentCommand.getShipmentStatus()).build();
         AggregateLifecycle.apply(shipmentCancelledEvent);
@@ -84,6 +84,7 @@ public class ShipmentAggregate {
         this.quantity = shipmentCancelledEvent.getQuantity();
         this.price = shipmentCancelledEvent.getPrice();
         this.userId = shipmentCancelledEvent.getUserId();
+        this.reasonToFailed = shipmentCancelledEvent.getReasonToFailed();
         this.paymentId = shipmentCancelledEvent.getPaymentId();
         this.shipmentStatus = shipmentCancelledEvent.getShipmentStatus();
     }

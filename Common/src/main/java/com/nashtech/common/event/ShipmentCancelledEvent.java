@@ -13,6 +13,7 @@ public class ShipmentCancelledEvent {
     Integer quantity;
     Double price;
     String userId;
+    String reasonToFailed;
     String paymentId;
     ShipmentStatus shipmentStatus;
 }

@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Build and Publish Maven
-        with:
-          r: ${{ github.token }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           . servicedeploy.sh

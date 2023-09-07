@@ -1,6 +1,7 @@
 package com.nashtech.common.command;
 
 import com.nashtech.common.model.PaymentDetails;
+import com.nashtech.common.model.PaymentStatus;
 import com.nashtech.common.model.User;
 import lombok.Builder;
 import lombok.Value;
@@ -17,5 +18,7 @@ public class ProcessPaymentCommand {
     String productId;
     User userDetails;
     PaymentDetails paymentDetails;
+    PaymentStatus paymentStatus = PaymentStatus.PAYMENT_APPROVED;
+
 
 }

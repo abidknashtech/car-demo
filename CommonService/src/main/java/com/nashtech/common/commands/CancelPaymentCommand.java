@@ -12,5 +12,10 @@ public class CancelPaymentCommand {
     @TargetAggregateIdentifier
      String paymentId;
      String orderId;
+     Double price;
+     Integer quantity;
+     String userId;
+     String reasonToFailed;
+     String productId;
      PaymentStatus paymentStatus = PaymentStatus.PAYMENT_CANCELED;
 }

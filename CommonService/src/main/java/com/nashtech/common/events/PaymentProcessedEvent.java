@@ -10,5 +10,9 @@ import lombok.Value;
 public class PaymentProcessedEvent {
      String paymentId;
      String orderId;
+     Double price;
+     String userId;
+     Integer quantity;
+     String productId;
      PaymentStatus paymentStatus;
 }

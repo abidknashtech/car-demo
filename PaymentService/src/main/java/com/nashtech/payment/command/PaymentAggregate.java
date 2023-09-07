@@ -19,73 +19,54 @@ public class PaymentAggregate {
     @AggregateIdentifier
     private String paymentId;
     private String orderId;
+    private String productId;
+    private Integer quantity;
+    private Double price;
+    private String userId;
+    private String reasonToFailed;
     private String paymentStatus;
+    private String reason;
 
     public PaymentAggregate() {
     }
     @CommandHandler
     public PaymentAggregate(ProcessPaymentCommand processPaymentCommand) {
-        //validate the payment details
-        //publish the payment process event
 
-        if(processPaymentCommand.getPaymentDetails() == null) {
-            throw new IllegalArgumentException("Missing payment details");
-        }
+        if(processPaymentCommand.getPrice() <= 0) {
 
-        if(processPaymentCommand.getOrderId() == null) {
-            throw new IllegalArgumentException("Missing orderId");
-        }
-
-        if(processPaymentCommand.getPaymentId() == null) {
-            throw new IllegalArgumentException("Missing paymentId");
-        }
-
-        log.info("Executing ProcessPaymentCommand for " +
-                        "Order Id: {} and Payment Id: {}",
-                processPaymentCommand.getOrderId(),
-                processPaymentCommand.getPaymentId());
-
-        PaymentProcessedEvent paymentProcessedEvent =
-                PaymentProcessedEvent.builder()
-                        .orderId(processPaymentCommand.getOrderId())
-                        .paymentId(processPaymentCommand.getPaymentId())
-                        .paymentStatus(processPaymentCommand.getPaymentStatus())
-                        .build();
-
-        AggregateLifecycle.apply(paymentProcessedEvent);
-        log.info("PaymentProcessedEvent Applied");
-    }
-
-    @CommandHandler
-    public void handle(CancelPaymentCommand cancelPaymentCommand) {
-        if (PaymentStatus.PAYMENT_CANCELED.equals(cancelPaymentCommand.getPaymentStatus())) {
-
-            PaymentCancelledEvent paymentCancelledEvent =
-                    PaymentCancelledEvent.builder()
-                            .orderId(cancelPaymentCommand.getOrderId())
-                            .paymentId(cancelPaymentCommand.getPaymentId())
-                            .paymentStatus(cancelPaymentCommand.getPaymentStatus())
-                            .build();
+            PaymentCancelledEvent paymentCancelledEvent = PaymentCancelledEvent.builder()
+                    .paymentId(processPaymentCommand.getPaymentId())
+                    .orderId(processPaymentCommand.getOrderId())
+                    .userId(processPaymentCommand.getUserDetails().getUserId())
+                    .reason("Insufficient Amount").build();
 
             AggregateLifecycle.apply(paymentCancelledEvent);
+
+            return;
         }
 
-    }
+            PaymentProcessedEvent paymentProcessedEvent =
+                    PaymentProcessedEvent.builder()
+                            .orderId(processPaymentCommand.getOrderId())
+                            .paymentId(processPaymentCommand.getPaymentId())
+                            .productId(processPaymentCommand.getProductId())
+                            .price(processPaymentCommand.getPrice())
+                            .quantity(processPaymentCommand.getQuantity())
+                            .paymentStatus(processPaymentCommand.getPaymentStatus())
+                            .build();
 
-
+            AggregateLifecycle.apply(paymentProcessedEvent);
+        }
 
     @EventSourcingHandler
     public void on(PaymentProcessedEvent paymentProcessedEvent){
         this.paymentId = paymentProcessedEvent.getPaymentId();
         this.orderId = paymentProcessedEvent.getOrderId();
+        this.productId = paymentProcessedEvent.getProductId();
+        this.quantity = paymentProcessedEvent.getQuantity();
+        this.price = paymentProcessedEvent.getPrice();
+        this.userId = paymentProcessedEvent.getUserId();
         this.paymentStatus = String.valueOf(paymentProcessedEvent.getPaymentStatus());
-    }
-
-    @EventSourcingHandler
-    public void on(PaymentCancelledEvent paymentCancelledEvent) {
-        this.paymentId = paymentCancelledEvent.getPaymentId();
-        this.orderId = paymentCancelledEvent.getOrderId();
-        this.paymentStatus = String.valueOf(paymentCancelledEvent.getPaymentStatus());
     }
 
 }

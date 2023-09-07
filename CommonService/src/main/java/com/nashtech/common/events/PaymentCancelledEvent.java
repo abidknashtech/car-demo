@@ -9,5 +9,10 @@ import lombok.Value;
 public class PaymentCancelledEvent {
      String paymentId;
      String orderId;
+     Integer quantity;
+     String userId;
+     String reason;
+     String productId;
      PaymentStatus paymentStatus;
+
 }

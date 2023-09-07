@@ -3,4 +3,4 @@
 cwd=`pwd`
 cd Common
 
-mvn clean deploy --file pom.xml
+mvn -B -e -X clean deploy --file pom.xml

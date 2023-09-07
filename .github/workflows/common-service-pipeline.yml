@@ -21,4 +21,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.RWP_TOKEN }}
         run: |
-          mvn clean deploy --file pom.xml
+          . servicedeploy.sh

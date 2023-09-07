@@ -23,6 +23,6 @@ jobs:
 
       - name: Build and Publish Maven
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github. }}
         run: |
           . servicedeploy.sh

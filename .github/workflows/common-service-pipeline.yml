@@ -17,6 +17,8 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
+          server-id: github
+          settings-path: ${{ github.workspace }}
           cache: maven
 
       - name: Build and Publish Maven

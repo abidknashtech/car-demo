@@ -3,4 +3,4 @@
 cwd=`pwd`
 cd Common
 
-mvn -B -e -X clean deploy --file pom.xml
+mvn -B clean deploy -s $GITHUB_WORKSPACE/settings.xml --file pom.xml

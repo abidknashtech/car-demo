@@ -18,6 +18,14 @@ jobs:
 
 
       - name: Build and Publish Maven
+        uses: s4u/maven-settings-action@v2.3.0
+        with:
+          servers: |
+              [{
+                "id": "github-library-project-b",
+                "username": "${{ secrets.USER_PACKAGE_READ }}",
+                "password": "${{ secrets.TOKEN_PACKAGE_READ }}"
+              }]
         env:
           GITHUB_TOKEN: ${{ secrets.RWP_TOKEN }}
         run: |

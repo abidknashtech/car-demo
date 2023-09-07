@@ -3,7 +3,7 @@ package com.nashtech.inventory.query;
 
 import com.nashtech.common.event.ProductReserveCancelledEvent;
 import com.nashtech.common.event.ProductReservedEvent;
-import com.nashtech.inventory.core.data.ProductEntity;
+import com.nashtech.inventory.core.data.Product;
 import com.nashtech.inventory.core.data.ProductsRepository;
 import com.nashtech.inventory.core.events.ProductCreatedEvent;
 import org.axonframework.config.ProcessingGroup;
@@ -41,7 +41,7 @@ public class ProductEventsHandler {
 	@EventHandler
 	public void on(ProductCreatedEvent event) {
 
-		ProductEntity productEntity = new ProductEntity();
+		Product productEntity = new Product();
 		BeanUtils.copyProperties(event, productEntity);
 
 		try {
@@ -54,7 +54,7 @@ public class ProductEventsHandler {
 
 	@EventHandler
 	public void on(ProductReservedEvent productReservedEvent) {
-		ProductEntity productEntity = productsRepository.findByProductId(productReservedEvent.getProductId());
+		Product productEntity = productsRepository.findByProductId(productReservedEvent.getProductId());
 
 		LOGGER.debug("ProductReservedEvent: Current product quantity " + productEntity.getQuantity());
 
@@ -71,7 +71,7 @@ public class ProductEventsHandler {
 
 	@EventHandler
 	public void on(ProductReserveCancelledEvent productReservationCancelledEvent) {
-		ProductEntity currentlyStoredProduct =  productsRepository.findByProductId(productReservationCancelledEvent.getOrderId());
+		Product currentlyStoredProduct =  productsRepository.findByProductId(productReservationCancelledEvent.getOrderId());
 
 		LOGGER.debug("ProductReservationCancelledEvent: Current product quantity "
 		+ currentlyStoredProduct.getQuantity() );

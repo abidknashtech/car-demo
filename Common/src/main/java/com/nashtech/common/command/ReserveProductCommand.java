@@ -9,9 +9,10 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class ReserveProductCommand {
     @TargetAggregateIdentifier
     String productId;
-    Double price;
+    String title;
+    Double basePrice;
     Integer quantity;
+    Float tax;
     String orderId;
     String userId;
-
 }

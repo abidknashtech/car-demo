@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nashtech.common</groupId>
-    <artifactId>Common</artifactId>
+    <artifactId>common</artifactId>
     <version>1.0</version>
     <name>common</name>
     <description>order flow</description>

@@ -1,10 +1,9 @@
-package com.nashtech.payment.command;
+package com.nashtech.payment.command.aggregate;
 
-import com.nashtech.common.commands.CancelPaymentCommand;
-import com.nashtech.common.commands.ProcessPaymentCommand;
-import com.nashtech.common.events.PaymentCancelledEvent;
-import com.nashtech.common.events.PaymentProcessedEvent;
-import com.nashtech.common.model.PaymentStatus;
+import com.nashtech.common.command.ProcessPaymentCommand;
+
+import com.nashtech.common.event.PaymentApprovedEvent;
+import com.nashtech.common.event.PaymentCancelledEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -45,8 +44,8 @@ public class PaymentAggregate {
             return;
         }
 
-            PaymentProcessedEvent paymentProcessedEvent =
-                    PaymentProcessedEvent.builder()
+            PaymentApprovedEvent paymentApprovedEvent =
+                    PaymentApprovedEvent.builder()
                             .orderId(processPaymentCommand.getOrderId())
                             .paymentId(processPaymentCommand.getPaymentId())
                             .productId(processPaymentCommand.getProductId())
@@ -55,18 +54,18 @@ public class PaymentAggregate {
                             .paymentStatus(processPaymentCommand.getPaymentStatus())
                             .build();
 
-            AggregateLifecycle.apply(paymentProcessedEvent);
+            AggregateLifecycle.apply(paymentApprovedEvent);
         }
 
     @EventSourcingHandler
-    public void on(PaymentProcessedEvent paymentProcessedEvent){
-        this.paymentId = paymentProcessedEvent.getPaymentId();
-        this.orderId = paymentProcessedEvent.getOrderId();
-        this.productId = paymentProcessedEvent.getProductId();
-        this.quantity = paymentProcessedEvent.getQuantity();
-        this.price = paymentProcessedEvent.getPrice();
-        this.userId = paymentProcessedEvent.getUserId();
-        this.paymentStatus = String.valueOf(paymentProcessedEvent.getPaymentStatus());
+    public void on(PaymentApprovedEvent paymentApprovedEvent){
+        this.paymentId = paymentApprovedEvent.getPaymentId();
+        this.orderId = paymentApprovedEvent.getOrderId();
+        this.productId = paymentApprovedEvent.getProductId();
+        this.quantity = paymentApprovedEvent.getQuantity();
+        this.price = paymentApprovedEvent.getPrice();
+        this.userId = paymentApprovedEvent.getUserId();
+        this.paymentStatus = String.valueOf(paymentApprovedEvent.getPaymentStatus());
     }
 
 }

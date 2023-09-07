@@ -1,5 +1,6 @@
 package com.nashtech.common.command;
 
+import com.nashtech.common.model.PaymentStatus;
 import lombok.Builder;
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
@@ -15,5 +16,6 @@ public class CancelPaymentCommand {
     String reasonToFailed;
     String productId;
     Double price;
+    PaymentStatus paymentStatus = PaymentStatus.PAYMENT_CANCELED;
 
 }

@@ -2,9 +2,9 @@ package com.nashtech.inventory.core.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductsRepository extends JpaRepository<ProductEntity, String> {
+public interface ProductsRepository extends JpaRepository<Product, String> {
 
-	ProductEntity findByProductId(String productId);
-	ProductEntity findByProductIdOrTitle(String productId, String title);
+	Product findByProductId(String productId);
+	Product findByProductIdOrTitle(String productId, String title);
 
 }

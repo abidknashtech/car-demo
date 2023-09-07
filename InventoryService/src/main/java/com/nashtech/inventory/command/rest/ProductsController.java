@@ -1,7 +1,6 @@
 package com.nashtech.inventory.command.rest;
 
 import com.nashtech.inventory.command.CreateProductCommand;
-import com.nashtech.inventory.core.data.ProductEntity;
 import com.nashtech.inventory.query.FindProductsQuery;
 import com.nashtech.inventory.query.rest.ProductRestModel;
 import org.axonframework.commandhandling.gateway.CommandGateway;

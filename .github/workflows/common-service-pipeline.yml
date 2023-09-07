@@ -16,9 +16,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-
       - name: Build and Publish Maven
         env:
-          GITHUB_TOKEN: ${{ github.RWP_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RWP_TOKEN }}
         run: |
           . servicedeploy.sh

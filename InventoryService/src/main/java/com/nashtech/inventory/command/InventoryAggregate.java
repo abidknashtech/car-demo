@@ -15,7 +15,7 @@ import org.springframework.beans.BeanUtils;
 
 
 @Aggregate
-public class ProductAggregate {
+public class InventoryAggregate{
 
 	@AggregateIdentifier
 	private String productId;
@@ -23,12 +23,12 @@ public class ProductAggregate {
 	private Double price;
 	private Integer quantity;
 
-	public ProductAggregate() {
+	public InventoryAggregate() {
 
 	}
 
 	@CommandHandler
-	public ProductAggregate(CreateProductCommand createProductCommand) {
+	public InventoryAggregate(CreateProductCommand createProductCommand) {
 
 		if(createProductCommand.getTitle() == null
 				|| createProductCommand.getTitle().isBlank()) {

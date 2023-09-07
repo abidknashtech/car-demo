@@ -20,6 +20,7 @@ axon:
         mode: subscribing
   axonserver:
     client-id: InventoryService
+    servers: ${AXON_HOST}
   serializer:
     general: default
     events: jackson

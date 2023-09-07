@@ -1,5 +1,6 @@
 package com.nashtech.common.event;
 
+import com.nashtech.common.model.PaymentStatus;
 import lombok.Builder;
 import lombok.Value;
 
@@ -12,5 +13,7 @@ public class PaymentApprovedEvent {
     String userId;
     Integer quantity;
     String productId;
+    PaymentStatus paymentStatus;
+
 
 }

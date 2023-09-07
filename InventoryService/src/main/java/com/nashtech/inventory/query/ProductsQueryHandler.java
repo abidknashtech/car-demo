@@ -3,7 +3,7 @@ package com.nashtech.inventory.query;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.nashtech.inventory.core.data.ProductEntity;
+import com.nashtech.inventory.core.data.Product;
 import com.nashtech.inventory.core.data.ProductsRepository;
 import com.nashtech.inventory.query.rest.ProductRestModel;
 import org.axonframework.queryhandling.QueryHandler;
@@ -25,9 +25,9 @@ public class ProductsQueryHandler {
 
 		List<ProductRestModel> productsRest = new ArrayList<>();
 
-		List<ProductEntity> storedProducts =  productsRepository.findAll();
+		List<Product> storedProducts =  productsRepository.findAll();
 
-		for(ProductEntity productEntity: storedProducts) {
+		for(Product productEntity: storedProducts) {
 			ProductRestModel productRestModel = new ProductRestModel();
 			BeanUtils.copyProperties(productEntity, productRestModel);
 			productsRest.add(productRestModel);

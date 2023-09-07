@@ -8,4 +8,5 @@ import lombok.Value;
 public class ProductReserveCancelledEvent {
     String orderId;
     String reasonToFailed;
+    Integer quantity;
 }

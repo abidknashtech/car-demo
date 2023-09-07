@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cwd=`pwd`
-cd Common
+cd common
 mvn -B clean deploy --file pom.xml

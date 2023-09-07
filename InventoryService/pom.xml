@@ -14,7 +14,12 @@
 	<name>Inventory-Mircoservice</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>19</java.version>
+		<common.version>1.0</common.version>
+		<mysql-connector.version>8.0.33</mysql-connector.version>
+		<axon-starter.version>4.8.1</axon-starter.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -30,13 +35,50 @@
 		<dependency>
 			<groupId>org.axonframework</groupId>
 			<artifactId>axon-spring-boot-starter</artifactId>
-			<version>4.8.1</version>
+			<version>${axon-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.nashtech.common</groupId>
+			<artifactId>Common</artifactId>
+			<version>${common.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.appsdeveloperblog.estore</groupId>-->
+<!--			<artifactId>core</artifactId>-->
+<!--			<version>0.0.1-SNAPSHOT</version>-->
+<!--		</dependency>-->
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation-api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-commons</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

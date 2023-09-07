@@ -13,7 +13,21 @@
     <version>1.0</version>
     <name>common</name>
     <description>order flow</description>
-
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/NashTech-Labs/car-demo</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </distributionManagement>
     <properties>
         <java.version>19</java.version>
         <axon-starter.version>4.8.1</axon-starter.version>

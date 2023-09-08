@@ -35,4 +35,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          . servicedeploy.sh
+          . service-deploy.sh

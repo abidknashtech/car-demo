@@ -9,11 +9,14 @@ import lombok.Value;
 public class PaymentApprovedEvent {
     String paymentId;
     String orderId;
-    Double price;
-    String userId;
+    Double subTotal;
+    Double grantTotal;
+    Float tax;
     Integer quantity;
     String productId;
+    String userId;
+    String firstName;
+    String lastName;
+    String address;
     PaymentStatus paymentStatus;
-
-
 }

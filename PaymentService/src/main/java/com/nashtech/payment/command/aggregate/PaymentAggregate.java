@@ -4,6 +4,8 @@ import com.nashtech.common.command.ProcessPaymentCommand;
 
 import com.nashtech.common.event.PaymentApprovedEvent;
 import com.nashtech.common.event.PaymentCancelledEvent;
+import com.nashtech.common.model.PaymentDetails;
+import com.nashtech.common.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -25,18 +27,36 @@ public class PaymentAggregate {
     private String reasonToFailed;
     private String paymentStatus;
     private String reason;
+    private Double baseAmount;
 
     public PaymentAggregate() {
     }
     @CommandHandler
     public PaymentAggregate(ProcessPaymentCommand processPaymentCommand) {
 
-        if(processPaymentCommand.getPrice() <= 0) {
+        User user = getUser();
+
+        if(!processPaymentCommand.getUserId().equals(user.getUserId())) {
+            PaymentCancelledEvent paymentCancelledEvent = PaymentCancelledEvent.builder()
+                    .paymentId(processPaymentCommand.getPaymentId())
+                    .orderId(processPaymentCommand.getOrderId())
+                    .userId(processPaymentCommand.getUserId())
+                    .reason("User does not Exist").build();
+
+            AggregateLifecycle.apply(paymentCancelledEvent);
+
+            return;
+        }
+
+        Double subTotal = processPaymentCommand.getQuantity() * processPaymentCommand.getBaseAmount();
+        Double grantTotal = subTotal + (processPaymentCommand.getQuantity() * processPaymentCommand.getTax());
+
+        if(grantTotal >= user.getPaymentDetails().getBalanceAmount()){
 
             PaymentCancelledEvent paymentCancelledEvent = PaymentCancelledEvent.builder()
                     .paymentId(processPaymentCommand.getPaymentId())
                     .orderId(processPaymentCommand.getOrderId())
-                    .userId(processPaymentCommand.getUserDetails().getUserId())
+                    .userId(processPaymentCommand.getUserId())
                     .reason("Insufficient Amount").build();
 
             AggregateLifecycle.apply(paymentCancelledEvent);
@@ -49,8 +69,9 @@ public class PaymentAggregate {
                             .orderId(processPaymentCommand.getOrderId())
                             .paymentId(processPaymentCommand.getPaymentId())
                             .productId(processPaymentCommand.getProductId())
-                            .price(processPaymentCommand.getPrice())
                             .quantity(processPaymentCommand.getQuantity())
+                            .userId(processPaymentCommand.getUserId())
+                            .tax(processPaymentCommand.getTax())
                             .paymentStatus(processPaymentCommand.getPaymentStatus())
                             .build();
 
@@ -63,9 +84,31 @@ public class PaymentAggregate {
         this.orderId = paymentApprovedEvent.getOrderId();
         this.productId = paymentApprovedEvent.getProductId();
         this.quantity = paymentApprovedEvent.getQuantity();
-        this.price = paymentApprovedEvent.getPrice();
         this.userId = paymentApprovedEvent.getUserId();
         this.paymentStatus = String.valueOf(paymentApprovedEvent.getPaymentStatus());
     }
 
+    //Hard coded User details
+    private User getUser() {
+        return User.builder()
+                .firstName("Abid")
+                .lastName("Khan")
+                .address("Noida")
+                .userId("9768")
+                .paymentDetails(getPaymentDetails())
+                .build();
+    }
+
+    //Hard coded payment details
+    private PaymentDetails getPaymentDetails(){
+
+        return PaymentDetails.builder()
+                .bank("SBI")
+                .cardNumber("0900987654435443")
+                .validUntilYear(2028)
+                .validUntilMonth(6)
+                .cvv(334)
+                .balanceAmount(1000D)
+                .build();
+    }
 }

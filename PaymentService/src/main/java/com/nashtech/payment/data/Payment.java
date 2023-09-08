@@ -24,9 +24,10 @@ public class Payment {
     private String orderId;
     private String productId;
     private String quantity;
-    private Double price;
-    private String userId;
-    private PaymentDetails paymentDetails;
+    private Double baseAmount;
+    private Double subTotal;
+    private Double grantTotal;
+    private Float tax;
     private PaymentStatus paymentStatus;
 
 }

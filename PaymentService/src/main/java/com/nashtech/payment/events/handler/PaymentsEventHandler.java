@@ -27,8 +27,9 @@ public class PaymentsEventHandler {
                 .orderId(paymentApprovedEvent.getOrderId())
                 .productId(paymentApprovedEvent.getProductId())
                 .quantity(String.valueOf(paymentApprovedEvent.getQuantity()))
-                .price(paymentApprovedEvent.getPrice())
-                .userId(paymentApprovedEvent.getUserId())
+                .subTotal(paymentApprovedEvent.getSubTotal())
+                .tax(paymentApprovedEvent.getTax())
+                .grantTotal(paymentApprovedEvent.getGrantTotal())
                 .paymentStatus(paymentApprovedEvent.getPaymentStatus())
                 .build();
 

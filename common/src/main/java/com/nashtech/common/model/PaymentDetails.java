@@ -11,5 +11,7 @@ public class PaymentDetails {
     Integer validUntilMonth;
     Integer validUntilYear;
     Integer cvv;
+    String userId;
+    Double balanceAmount;
 
 }

@@ -21,8 +21,8 @@ do
      echo "packaging done, start docker build"
      docker build -f Dockerfile --tag us.gcr.io/$PROJECT_ID/orderservice:1.0.1 . || continue
      echo  "docker build done, docker push"
-     docker tag orderservice:1.0.1 ocker us.gcr.io/$PROJECT_ID/orderservice:1.0.1
-     docker push gcr.io/$PROJECT_ID/orderservice:latest || continue
+     docker tag orderservice:1.0.1 us.gcr.io/$PROJECT_ID/orderservice:1.0.1
+     docker push gcr.io/$PROJECT_ID/orderservice:1.0.1 || continue
      echo  "pushed docker image"
 
   esac

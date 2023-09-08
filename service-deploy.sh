@@ -17,8 +17,8 @@ do
   "order-service")
      cd order-service || continue
      mvn clean install || continue
-    docker build -f Dockerfile --tag us.gcr.io/$PROJECT_ID/ordeservice:latest . || continue
-    docker push gcr.io/$PROJECT_ID/ordeservice || continue
+    docker build -f Dockerfile --tag us.gcr.io/$PROJECT_ID/orderservice:latest . || continue
+    docker push gcr.io/$PROJECT_ID/orderservice:latest || continue
 
   esac
 

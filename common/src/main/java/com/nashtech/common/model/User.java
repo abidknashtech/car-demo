@@ -10,5 +10,5 @@ public class User {
     String lastName;
     String userId;
     String address;
-
+    PaymentDetails paymentDetails;
 }

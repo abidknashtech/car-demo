@@ -1,6 +1,5 @@
 package com.nashtech.shipment.entity;
 
-import com.nashtech.common.model.ShipmentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -20,7 +19,12 @@ public class ShipmentEntity {
     private String productId;
     private Integer quantity;
     private Double price;
+    private Double subTotal;
+    private Double grandTotal;
+    private Float tax;
     private String userId;
+    private String firstName;
+    private String lastName;
+    private String address;
     private String paymentId;
-    private ShipmentStatus shipmentStatus;
 }

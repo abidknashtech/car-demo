@@ -2,6 +2,7 @@ package com.nashtech.inventory.command;
 
 
 import com.nashtech.common.command.ReserveProductCommand;
+import com.nashtech.common.event.ProductFailedEvent;
 import com.nashtech.common.event.ProductReserveCancelledEvent;
 import com.nashtech.common.event.ProductReservedEvent;
 import com.nashtech.inventory.core.events.ProductCreatedEvent;
@@ -46,9 +47,11 @@ public class InventoryAggregate{
 	public void handle(ReserveProductCommand reserveProductCommand) {
 
 		if(quantity < reserveProductCommand.getQuantity()) {
-			ProductReserveCancelledEvent productReserveCancelledEvent = ProductReserveCancelledEvent.builder()
+			ProductFailedEvent productFailedEvent = ProductFailedEvent.builder()
 					.orderId(reserveProductCommand.getOrderId())
 					.reasonToFailed("Insufficient number of items in stock").build();
+			AggregateLifecycle.apply(productFailedEvent);
+			return;
 		}
 
 		ProductReservedEvent productReservedEvent = ProductReservedEvent.builder()

@@ -46,7 +46,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.nashtech.common</groupId>
-			<artifactId>Common</artifactId>
+			<artifactId>common</artifactId>
 			<version>${common.version}</version>
 			<scope>compile</scope>
 		</dependency>

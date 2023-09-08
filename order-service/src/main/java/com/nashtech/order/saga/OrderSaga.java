@@ -56,7 +56,7 @@ public class OrderSaga {
         ReserveProductCommand reserveProductCommand = ReserveProductCommand.builder()
                 .productId(orderCreatedEvent.getCarId())
                 .orderId(orderCreatedEvent.getOrderId())
-                .price(orderCreatedEvent.getPrice())
+                .basePrice(orderCreatedEvent.getPrice())
                 .quantity(orderCreatedEvent.getQuantity())
                 .userId(orderCreatedEvent.getUserId())
                 .build();

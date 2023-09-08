@@ -3,9 +3,11 @@ name: car-demo-common-service
 on:
   push:
     branches: [ main ]
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
 
 jobs:
-  build:
+  setup-build-publish-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,8 +20,18 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
           cache: maven
+      - uses: google-github-actions/setup-gcloud@1bee7de035d65ec5da40a31f8589e240eba8fde5
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
 
-      - name: Build and Publish Maven
+        # Configure Docker to use the gcloud command-line tool as a credential
+        # helper for authentication
+      - name: configure docker
+        run: |-
+          gcloud --quiet auth configure-docker
+
+      - name: Build, Publish, and Deploy
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |

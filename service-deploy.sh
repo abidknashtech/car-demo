@@ -19,9 +19,9 @@ do
      mvn clean install || continue
      gcloud --quiet auth configure-docker
      echo "---------packaging done, start docker build-----------"
-     docker build --tag us.gcr.io/$PROJECT_ID/orderservice:1.0.0 . || continue
+     sudo docker build --tag us.gcr.io/$PROJECT_ID/orderservice:1.0.0 . || continue
      echo  "--------docker build done, docker push---------------"
-     docker push us.gcr.io/$PROJECT_ID/orderservice:1.0.0
+     sudo docker push us.gcr.io/$PROJECT_ID/orderservice:1.0.0
      echo  "--------pushed docker image--------------------------"
 
   esac

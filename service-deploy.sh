@@ -18,9 +18,9 @@ do
      cd order-service || continue
      mvn clean install || continue
      echo "---------packaging done, start docker build-----------"
-     sudo docker build --tag gcr.io/$PROJECT_ID/orderservice . || continue
+     sudo docker build -f Dockerfile --tag us.gcr.io/$PROJECT_ID/orderservice . || continue
      echo  "--------docker build done, docker push---------------"
-     sudo docker push gcr.io/$PROJECT_ID/orderservice
+     sudo docker push us.gcr.io/$PROJECT_ID/orderservice
      echo  "--------pushed docker image--------------------------"
 
   esac

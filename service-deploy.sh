@@ -20,8 +20,9 @@ do
      docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA" .
      echo  "--------docker build done, docker push---------------"
      docker push gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA"
-     echo  "--------pushed docker image--------------------------"
+     echo  "--------pushed docker image, deploy to gke cluster--------------------------"
 
+      gcloud container clusters get-credentials "order-service-gke" --region us-east1
       # setup kustomize
       curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
       chmod u+x ./kustomize

@@ -36,4 +36,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          . service-deploy.sh ${{ env.GKE_PROJECT }}
+          . service-deploy.sh

@@ -17,11 +17,10 @@ do
   "order-service")
      cd order-service || continue
      mvn clean install || continue
-     gcloud auth configure-docker
      echo "---------packaging done, start docker build-----------"
-     sudo docker build --tag gcr.io/$PROJECT_ID/orderservice:1.0.0 . || continue
+     sudo docker build --tag gcr.io/$PROJECT_ID/orderservice . || continue
      echo  "--------docker build done, docker push---------------"
-     sudo docker push gcr.io/$PROJECT_ID/orderservice:1.0.0
+     sudo docker push gcr.io/$PROJECT_ID/orderservice
      echo  "--------pushed docker image--------------------------"
 
   esac

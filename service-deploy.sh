@@ -1,6 +1,5 @@
 #!/bin/bash
 
-gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
 PROJECT_ID="$(gcloud config get-value project)"
 for project in $(cat projects-deploy.txt)
 do

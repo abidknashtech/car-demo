@@ -1,6 +1,7 @@
 #!/bin/bash
 
 PROJECT_ID="$(gcloud config get-value project)"
+gcloud components install gke-gcloud-auth-plugin
 for project in $(cat projects-deploy.txt)
 do
    :

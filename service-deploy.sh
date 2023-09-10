@@ -14,14 +14,24 @@ do
 
   # case 2 build and deploy order-service
   "order-service")
-     cd order-service || continue
-     mvn clean install || continue
+     cd order-service || exit
+     mvn clean install
      echo "---------packaging done, start docker build-----------"
-    docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA" . || continue
+     docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA" .
      echo  "--------docker build done, docker push---------------"
-    docker push gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA"
+     docker push gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA"
      echo  "--------pushed docker image--------------------------"
 
+      # setup kustomize
+      curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+      chmod u+x ./kustomize
+
+      # set docker image for kustomize
+     ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/"$PROJECT_ID"/orderservice:"$GITHUB_SHA"
+     # deploy through kubectl
+     ./kustomize build . | kubectl apply -f -
+      kubectl rollout status deployment/orderservice
+      kubectl get services -o wide
   esac
 
 done

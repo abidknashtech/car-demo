@@ -17,3 +17,7 @@ axon:
   axonserver:
     client-id: ShipmentService
     servers: ${AXON_HOST}
+
+pubsub:
+  project-id: ${GCP_PROJECT_ID}
+  topic-id: ${PUB_SUB_TOPIC_ID}

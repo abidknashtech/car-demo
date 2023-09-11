@@ -4,39 +4,7 @@ PROJECT_ID="$(gcloud config get-value project)"
 REGION="$1"
 # install gke-gcloud-auth-plugin to install kubectl and authenticate gke.
 gcloud components install gke-gcloud-auth-plugin
-for project in $(cat projects-changes-deploy.txt)
-do
-   :
-  case $project in
-  # case 1 build and deploy package common
-  "common")
-    cd common || exit
-    mvn -B clean deploy --file pom.xml
-    cd ..;;
 
-  # case 2 build and deploy order-service
-  "order-service")
-    build_and_deploy_service "order-service" "order-service-gke" "orderservice"
-    cd ..;;
-
-  # case 3 build and deploy inventory-service
-  "inventory-service")
-    build_and_deploy_service "inventory-service" "inventory-service-gke" "inventoryservice"
-    cd ..;;
-
-  # case 4 build and deploy payment-service
-  "payment-service")
-    build_and_deploy_service "payment-service" "payment-service-gke" "paymentservice"
-    cd ..;;
-
-  # case 5 build and deploy order-service
-  "shipment-service")
-    build_and_deploy_service "inventory-service" "inventory-service-gke" "inventoryservice"
-    cd ..;;
-
-  esac
-
-done
 build_and_deploy_service(){
 
    SERVICE_NAME=$1
@@ -63,3 +31,38 @@ build_and_deploy_service(){
     kubectl get services -o wide
     echo "-------------$SERVICE_NAME deployed on $CLUSTER_NAME----------"
 }
+
+
+for project in $(cat projects-changes-deploy.txt)
+do
+   :
+  case $project in
+  # case 1 build and deploy package common
+  "common")
+    cd common || exit
+    mvn -B clean deploy --file pom.xml
+    cd ..;;
+
+  # case 2 build and deploy order-service
+  "order-service")
+    build_and_deploy_service order-service order-service-gke orderservice
+    cd ..;;
+
+  # case 3 build and deploy inventory-service
+  "inventory-service")
+    build_and_deploy_service inventory-service inventory-service-gke inventoryservice
+    cd ..;;
+
+  # case 4 build and deploy payment-service
+  "payment-service")
+    build_and_deploy_service payment-service payment-service-gke paymentservice
+    cd ..;;
+
+  # case 5 build and deploy order-service
+  "shipment-service")
+    build_and_deploy_service inventory-service inventory-service-gke inventoryservice
+    cd ..;;
+
+  esac
+
+done

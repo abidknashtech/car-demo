@@ -4,7 +4,7 @@ PROJECT_ID="$(gcloud config get-value project)"
 REGION="$1"
 # install gke-gcloud-auth-plugin to install kubectl and authenticate gke.
 gcloud components install gke-gcloud-auth-plugin
-for project in $(cat projects-deploy.txt)
+for project in $(cat projects-changes-deploy.txt)
 do
    :
   case $project in

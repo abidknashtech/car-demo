@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipmentservice
+  labels:
+    app: shipmentservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipmentservice
+  template:
+    metadata:
+      labels:
+        app: shipmentservice
+    spec:
+      containers:
+        - name: shipmentservice
+          image: gcr.io/PROJECT_ID/IMAGE:TAG
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 9093
+              protocol: TCP

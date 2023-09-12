@@ -3,6 +3,7 @@
 PROJECT_ID="$(gcloud config get-value project)"
 REGION="$1"
 SA="$2"
+echo "$SA"
 # install gke-gcloud-auth-plugin to install kubectl and authenticate gke.
 gcloud components install gke-gcloud-auth-plugin
 kubectl create secret generic gcpsm-secret --from-file=secret-access-credentials="$SA"

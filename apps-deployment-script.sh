@@ -2,14 +2,17 @@
 
 PROJECT_ID="$(gcloud config get-value project)"
 REGION="$1"
+SA="$2"
 # install gke-gcloud-auth-plugin to install kubectl and authenticate gke.
 gcloud components install gke-gcloud-auth-plugin
+kubectl create secret generic gcpsm-secret --from-file=secret-access-credentials="$SA"
 
 build_and_deploy_service(){
 
    SERVICE_NAME=$1
    CLUSTER_NAME=$2
    DEPLOYMENT_NAME=$3
+   echo "---------build and deploy $SERVICE_NAME-----------"
    cd "$SERVICE_NAME" || exit
    mvn clean install
    echo "---------packaging done, start docker build-----------"
@@ -26,7 +29,7 @@ build_and_deploy_service(){
     # set docker image for kustomize
    ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA"
    # deploy through kubectl
-   ./kustomize build . | kubectl apply -f -
+   ./kustomize build . | kubectl apply -f kuberesources/
     kubectl rollout status deployment/"$DEPLOYMENT_NAME"
     kubectl get services -o wide
     echo "-------------$SERVICE_NAME deployed on $CLUSTER_NAME----------"

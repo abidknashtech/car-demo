@@ -38,4 +38,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          . apps-deployment-script.sh "us-east1"
+          . apps-deployment-script.sh "us-east1" ${{ secrets.GKE_KEY }}

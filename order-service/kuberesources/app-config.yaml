@@ -1,0 +1,8 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: orderservice-configmap
+data:
+  # Configuration values can be set as key-value properties
+  MYSQL_HOST: 35.231.13.75
+  AXON_HOST: 34.139.161.101:8124

@@ -1,11 +1,10 @@
-package com.knoldus.car.cart.services;
+package com.nashtech.car.cart.services;
 
-import com.knoldus.car.cart.model.CartItem;
-import com.knoldus.car.cart.repository.CartItemRepository;
+import com.nashtech.car.cart.model.CartItem;
+import com.nashtech.car.cart.repository.CartItemRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service
 public class CartService {
@@ -13,13 +12,14 @@ public class CartService {
     private CartItemRepository cartItemRepository;
 
     @Transactional
-    public void addToCart(Long carId, int quantity) {
+    public void addToCart(Long carId, int quantity , String userId) {
         CartItem cartItem = cartItemRepository.findByCarId(carId);
 
         if (cartItem == null) {
             cartItem = new CartItem();
             cartItem.setCarId(carId);
             cartItem.setQuantity(quantity);
+            cartItem.setUserId(userId);
         } else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
         }

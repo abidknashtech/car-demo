@@ -1,13 +1,12 @@
-package com.knoldus.car.cart.audit;
+package com.nashtech.car.cart.audit;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass

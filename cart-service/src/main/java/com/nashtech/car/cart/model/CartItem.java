@@ -1,10 +1,10 @@
-package com.knoldus.car.cart.model;
+package com.nashtech.car.cart.model;
 
-import com.knoldus.car.cart.audit.Auditable;
+import com.nashtech.car.cart.audit.Auditable;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -17,4 +17,5 @@ public class CartItem extends Auditable<String> implements Serializable {
     private Long id;
     private Long carId;
     private int quantity;
+    private String userId;
 }

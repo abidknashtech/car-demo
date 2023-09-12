@@ -8,10 +8,10 @@
 		<version>3.1.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.nashtech.car</groupId>
+	<groupId>com.knoldus.car</groupId>
 	<artifactId>cart-service</artifactId>
-	<version>1.0.0</version>
-	<name>CartService</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Cart Service</name>
 	<description>Cart service for car demo</description>
 
 	<repositories>
@@ -40,6 +40,7 @@
 
 	<properties>
 		<java.version>19</java.version>
+		<maven.compiler.source>19</maven.compiler.source>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
 		<axon-starter.version>4.8.1</axon-starter.version>
 		<common.version>1.0</common.version>
@@ -72,15 +73,15 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.nashtech.common</groupId>
-			<artifactId>common</artifactId>
-			<version>${common.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.transaction</groupId>
+			<artifactId>jakarta.transaction-api</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 	</dependencies>
 

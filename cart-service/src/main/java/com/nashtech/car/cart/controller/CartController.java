@@ -1,6 +1,6 @@
-package com.knoldus.car.cart.controller;
+package com.nashtech.car.cart.controller;
 
-import com.knoldus.car.cart.services.CartService;
+import com.nashtech.car.cart.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ public class CartController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addToCart(@RequestParam Long carId, @RequestParam int quantity,
-                                            @RequestParam string userId) {
+                                            @RequestParam String userId) {
         cartService.addToCart(carId, quantity,userId);
         return ResponseEntity.ok("Car added to cart.");
     }

@@ -1,6 +1,6 @@
-package com.knoldus.car.cart.repository;
+package com.nashtech.car.cart.repository;
 
-import com.knoldus.car.cart.model.CartItem;
+import com.nashtech.car.cart.model.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

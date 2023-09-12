@@ -29,7 +29,7 @@ build_and_deploy_service(){
     # set docker image for kustomize
    ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA"
    # deploy through kubectl
-   ./kustomize build . | kubectl apply -f kuberesources/
+   ./kustomize build . | kubectl apply -f -
     kubectl rollout status deployment/"$DEPLOYMENT_NAME"
     kubectl get services -o wide
     echo "-------------$SERVICE_NAME deployed on $CLUSTER_NAME----------"

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testapp
+  name: adminservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: testapp
+      app: adminservice
   template:
     metadata:
       labels:
-        app: testapp
+        app: adminservice
     spec:
       containers:
-        - name: testapp
-          image: ghcr.io/sahilbabbar12/demo_gcp_deployment/gcpdeployment:latest
+        - name: adminservice
+          image: gcr.io/PROJECT_ID/IMAGE:TAG
           ports:
             - containerPort: 8080
           env:
@@ -27,10 +27,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: testapp-service
+  name: adminservice
 spec:
   selector:
-    app: testapp
+    app: adminservice
   ports:
     - protocol: TCP
       port: 80

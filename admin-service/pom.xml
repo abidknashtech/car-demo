@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.nashtech</groupId>
-	<artifactId>java-competency-demo</artifactId>
+	<artifactId>admin-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>java-competency-demo</name>
 	<description>Demo project for Spring Boot</description>

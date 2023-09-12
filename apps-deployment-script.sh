@@ -4,8 +4,6 @@ PROJECT_ID="$(gcloud config get-value project)"
 REGION="$1"
 # install gke-gcloud-auth-plugin to install kubectl and authenticate gke.
 gcloud --quiet components install gke-gcloud-auth-plugin
-gcloud --quiet beta iam service-accounts keys get-public-key 4a80d16de2bb10e8128a88d83448f34250169649 --iam-account=car-demo@boreal-gravity-396810.iam.gserviceaccount.com --output-file=key.pem
-kubectl  create secret generic gcpsm-secret --from-file=secret-access-credentials=key.pem
 
 build_and_deploy_service(){
 
@@ -22,6 +20,8 @@ build_and_deploy_service(){
    echo  "--------pushed docker image, deploy to gke cluster--------------------------"
 
     gcloud container clusters get-credentials "$CLUSTER_NAME" --region "$REGION"
+    gcloud --quiet beta iam service-accounts keys get-public-key 4a80d16de2bb10e8128a88d83448f34250169649 --iam-account=car-demo@boreal-gravity-396810.iam.gserviceaccount.com --output-file=key.pem
+    kubectl  create secret generic gcpsm-secret --from-file=secret-access-credentials=key.pem
     # setup kustomize
     curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
     chmod u+x ./kustomize

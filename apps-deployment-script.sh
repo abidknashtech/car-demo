@@ -62,7 +62,7 @@ do
 
   # case 5 build and deploy order-service
   "shipment-service")
-    build_and_deploy_service inventory-service $GKE_CLUSTER inventoryservice
+    build_and_deploy_service shipment-service $GKE_CLUSTER shipmentservice
     cd ..;;
 
   esac

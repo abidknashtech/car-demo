@@ -26,15 +26,15 @@ spec:
             - name: MYSQL_DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                name: car-demo-secret
-                key: mysql-db-username
-                optional: false
+                  name: car-demo-secret
+                  key: mysql-db-username
+                  optional: false
             - name: MYSQL_DB_PASSWORD
               valueFrom:
                   secretKeyRef:
-                  name: car-demo-secret
-                  key: mysql-db-userpassword
-                  optional: false
+                    name: car-demo-secret
+                    key: mysql-db-userpassword
+                    optional: false
           envFrom:
             - configMapRef:
                 name: orderservice-configmap

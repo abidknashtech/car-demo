@@ -6,7 +6,10 @@ import lombok.Value;
 @Value
 @Builder
 public class ProductReserveCancelledEvent {
+    String productId;
     String orderId;
-    String reasonToFailed;
+    String userId;
     Integer quantity;
+    String reasonToFailed;
+
 }

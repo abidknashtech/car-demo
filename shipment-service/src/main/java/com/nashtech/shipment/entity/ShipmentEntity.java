@@ -16,15 +16,20 @@ public class ShipmentEntity {
     @Id
     private String shipmentId;
     private String orderId;
-    private String productId;
-    private Integer quantity;
-    private Double price;
-    private Double subTotal;
-    private Double grandTotal;
-    private Float tax;
+    private String paymentId;
+
     private String userId;
     private String firstName;
     private String lastName;
     private String address;
-    private String paymentId;
+    private String emailId;
+    private String mobileNumber;
+
+    private String productId;
+    private Integer quantity;
+    private Double basePrice;
+    private Double subTotal;
+    private Double total;
+    private Float tax;
+
 }

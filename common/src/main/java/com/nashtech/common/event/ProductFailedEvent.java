@@ -7,6 +7,8 @@ import lombok.Value;
 @Builder
 public class ProductFailedEvent  {
     String orderId;
-    String reasonToFailed;
+    String productId;
     Integer quantity;
+    String reasonToFailed;
+
 }

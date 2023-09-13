@@ -7,5 +7,6 @@ import lombok.Value;
 @Builder
 public class OrderShippedEvent {
     String orderId;
-
+    String paymentId;
+    String shipmentId;
 }

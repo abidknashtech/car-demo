@@ -64,4 +64,5 @@ public class PubSubPublisherService {
             log.error("Error : {} while publishing data to pub sub topic : {}", exception.getMessage(), topicId);
         }
     }
+
 }

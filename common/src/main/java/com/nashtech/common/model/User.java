@@ -1,14 +1,16 @@
 package com.nashtech.common.model;
 
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 @Builder
 public class User {
-    String firstName;
-    String lastName;
-    String userId;
-    String address;
-    PaymentDetails paymentDetails;
+    private String userId;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String emailId;
+    private String mobileNumber;
+
 }

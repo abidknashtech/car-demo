@@ -1,6 +1,5 @@
 package com.nashtech.common.command;
 
-import com.nashtech.common.model.PaymentStatus;
 import lombok.Builder;
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
@@ -16,7 +15,5 @@ public class ProcessPaymentCommand {
     Double baseAmount;
     String productId;
     String userId;
-    PaymentStatus paymentStatus = PaymentStatus.PAYMENT_APPROVED;
-
 
 }

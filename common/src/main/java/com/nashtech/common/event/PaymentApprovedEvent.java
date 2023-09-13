@@ -1,6 +1,6 @@
 package com.nashtech.common.event;
 
-import com.nashtech.common.model.PaymentStatus;
+import com.nashtech.common.model.User;
 import lombok.Builder;
 import lombok.Value;
 
@@ -9,11 +9,12 @@ import lombok.Value;
 public class PaymentApprovedEvent {
     String paymentId;
     String orderId;
-    Double price;
-    String userId;
-    Integer quantity;
     String productId;
-    PaymentStatus paymentStatus;
-
+    User user;
+    Integer quantity;
+    Double subTotal;
+    Double total;
+    Float tax;
+    Double basePrice;
 
 }

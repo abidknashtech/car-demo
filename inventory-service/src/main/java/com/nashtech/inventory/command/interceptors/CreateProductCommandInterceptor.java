@@ -1,24 +1,20 @@
 package com.nashtech.inventory.command.interceptors;
 
-import java.math.BigDecimal;
+import com.nashtech.inventory.command.CreateProductCommand;
+import com.nashtech.inventory.repository.ProductLookupEntity;
+import com.nashtech.inventory.repository.ProductLookupRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.CommandMessage;
+import org.axonframework.messaging.MessageDispatchInterceptor;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.function.BiFunction;
 
 
-import com.nashtech.inventory.command.CreateProductCommand;
-import com.nashtech.inventory.core.data.ProductLookupEntity;
-import com.nashtech.inventory.core.data.ProductLookupRepository;
-import org.axonframework.commandhandling.CommandMessage;
-import org.axonframework.messaging.MessageDispatchInterceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-
 @Component
+@Slf4j
 public class CreateProductCommandInterceptor implements MessageDispatchInterceptor<CommandMessage<?>> {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(CreateProductCommandInterceptor.class);
 	private final ProductLookupRepository productLookupRepository;
 
 	public CreateProductCommandInterceptor(ProductLookupRepository productLookupRepository) {
@@ -31,14 +27,13 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
 
 		return (index, command) -> {
 
-			LOGGER.info("Intercepted command: " + command.getPayloadType());
+			log.info("Intercepted command: " + command.getPayloadType());
 
 			if(CreateProductCommand.class.equals(command.getPayloadType())) {
 
 				CreateProductCommand createProductCommand = (CreateProductCommand)command.getPayload();
 
-				ProductLookupEntity productLookupEntity =  productLookupRepository.findByProductIdOrTitle(createProductCommand.getProductId(),
-						createProductCommand.getTitle());
+				ProductLookupEntity productLookupEntity =  productLookupRepository.findByProductId(createProductCommand.getProductId());
 
 				if(productLookupEntity != null) {
 					throw new IllegalStateException(

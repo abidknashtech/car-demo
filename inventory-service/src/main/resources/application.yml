@@ -4,10 +4,10 @@ spring:
   application:
     name: InventoryService
   datasource:
-    url: jdbc:mysql://localhost:3306/inventory_db
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/inventory_db
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    username: ${MYSQL_DB_USERNAME:root}
+    password: ${MYSQL_DB_PASSWORD:password}
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
@@ -20,8 +20,4 @@ axon:
         mode: subscribing
   axonserver:
     client-id: InventoryService
-    servers: ${AXON_HOST}
-  serializer:
-    general: default
-    events: jackson
-    messages: jackson
+    servers: ${AXON_HOST:localhost:8124}

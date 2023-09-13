@@ -1,0 +1,23 @@
+server:
+  port: 9093
+spring:
+  application:
+  name: ShipmentService
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:3306/shipment_db
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+
+axon:
+  axonserver:
+    client-id: ShipmentService
+    servers: ${AXON_HOST}
+
+pubsub:
+  project-id: ${GCP_PROJECT_ID}
+  topic-id: ${PUB_SUB_TOPIC_ID}

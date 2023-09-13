@@ -1,5 +1,7 @@
-FROM openjdk:11-jdk-slim
+FROM openjdk:19
+
 WORKDIR /opt
-COPY target/*.jar /opt/app.jar
-EXPOSE 8080
-ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+
+COPY /target/order-service-1.0.0.jar .
+
+CMD ["java","-jar", "./cart-service-1.0.0.jar"]

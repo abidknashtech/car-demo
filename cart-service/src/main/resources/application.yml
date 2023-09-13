@@ -4,7 +4,7 @@ spring:
   application:
   name: CartService
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mydb
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/cart_db
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${DB_USER}
     password: ${DB_PASSWORD}

@@ -1,7 +1,7 @@
 kind: ConfigMap 
 apiVersion: v1 
 metadata:
-  name: orderservice-configmap
+  name: payment-configmap
 data:
   # Configuration values can be set as key-value properties
   MYSQL_HOST: 35.231.178.113

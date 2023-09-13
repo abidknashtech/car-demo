@@ -1,7 +1,7 @@
 package com.nashtech.inventory;
 
 import com.nashtech.inventory.command.interceptors.CreateProductCommandInterceptor;
-import com.nashtech.inventory.core.errorhandling.ProductsServiceEventsErrorHandler;
+import com.nashtech.inventory.exception.ProductsServiceEventsErrorHandler;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;

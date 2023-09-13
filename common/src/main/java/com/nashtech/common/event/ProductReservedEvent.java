@@ -6,10 +6,12 @@ import lombok.Value;
 @Value
 @Builder
 public class ProductReservedEvent {
-    String productId;
-    Double price;
-    Integer quantity;
     String orderId;
     String userId;
+    String productId;
+    String title;
+    Double baseAmount;
+    Float tax;
+    Integer quantity;
 
 }

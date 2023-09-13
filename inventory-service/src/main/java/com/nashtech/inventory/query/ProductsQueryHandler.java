@@ -1,14 +1,13 @@
 package com.nashtech.inventory.query;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.nashtech.inventory.core.data.Product;
-import com.nashtech.inventory.core.data.ProductsRepository;
-import com.nashtech.inventory.query.rest.ProductRestModel;
+import com.nashtech.inventory.repository.Product;
+import com.nashtech.inventory.repository.ProductsRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -21,18 +20,13 @@ public class ProductsQueryHandler {
 	}
 
 	@QueryHandler
-	public List<ProductRestModel> findProducts(FindProductsQuery query) {
-
-		List<ProductRestModel> productsRest = new ArrayList<>();
-
-		List<Product> storedProducts =  productsRepository.findAll();
-
-		for(Product productEntity: storedProducts) {
-			ProductRestModel productRestModel = new ProductRestModel();
-			BeanUtils.copyProperties(productEntity, productRestModel);
-			productsRest.add(productRestModel);
+	public List<ProductsSummary> findProducts(FindProductsQuery query) {
+		List<ProductsSummary> productsRest = new ArrayList<>();
+		for(Product productEntity: productsRepository.findAll()) {
+			ProductsSummary productRequest = new ProductsSummary();
+			BeanUtils.copyProperties(productEntity, productRequest);
+			productsRest.add(productRequest);
 		}
-
 		return productsRest;
 
 	}

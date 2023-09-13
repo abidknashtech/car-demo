@@ -1,6 +1,6 @@
 import argparse
 
-import mysql.connector
+import gcpresources.connector
 
 parser = argparse.ArgumentParser()
 
@@ -21,7 +21,7 @@ dataBases = args.databases
 
 for dataBase in dataBases:
 
-    mydb = mysql.connector.connect(
+    mydb = gcpresources.connector.connect(
         host=args.host,
         user=args.user,
         password=args.password,

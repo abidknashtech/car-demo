@@ -64,7 +64,7 @@ gcloud sql databases create shipment_db \
 --project=boreal-gravity-396810
 ```
 
-### 5. create tables
+### 5. create tables if needed(table creatation is done by code so no need to create manually)
 change the host name with yours mysql db instance host(public ip) user and password
 install python 3.8 and 
 pip install mysql-connector-python
@@ -74,7 +74,7 @@ python create_tables.py --host 35.237.111.227 --user java_db_user --password Jav
 
 follow the link - https://cloud.google.com/sql/docs/mysql/create-instance 
 
-## Deploy mysql on GCP through terraform
+## Deploy gcp resources through terraform
 
 install terraform in your local
 

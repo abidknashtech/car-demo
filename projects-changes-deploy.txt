@@ -1,4 +1,3 @@
-common
 order-service
 inventory-service
 payment-service

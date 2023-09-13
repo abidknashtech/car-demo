@@ -78,57 +78,24 @@ resource "google_pubsub_topic" "shipment-notification" {
 }
 
 #-----------------------GKE Cluster for applications----------------------------
-resource "google_container_cluster" "order-service-gke" {
-  name     = "order-service-gke"
-  location = var.gcp_zone_1
-  initial_node_count = 1
-}
-
-resource "google_container_cluster" "inventory-service-gke" {
-  name     = "inventory-service-gke"
-  location = var.gcp_zone_1
-  initial_node_count = 1
-}
-
-resource "google_container_cluster" "payment-service-gke" {
-  name     = "payment-service-gke"
-  location = var.gcp_zone_1
-  initial_node_count = 1
-}
-
-resource "google_container_cluster" "shipment-service-gke" {
-  name     = "shipment-service-gke"
-  location = var.gcp_zone_1
-  initial_node_count = 1
-}
-
-resource "null_resource" "external-secret-order" {
-  provisioner "local-exec" {
-    command = "/bin/bash external-secret-gcsm.sh order-service-gke ${var.gcp_zone_1}"
+resource "google_container_cluster" "car-demo-gke" {
+  name     = "car-demo-gke"
+  location = var.gcp_region_1
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block  = ""
+    services_ipv4_cidr_block = ""
   }
-  depends_on = [google_container_cluster.order-service-gke]
+  enable_autopilot = true
+
 }
 
-resource "null_resource" "external-secret-inventory" {
+resource "null_resource" "external-secret-car-demo-gke" {
   provisioner "local-exec" {
-    command = "/bin/bash external-secret-gcsm.sh inventory-service-gke ${var.gcp_zone_1}"
+    command = "/bin/bash external-secret-gcsm.sh car-demo-gke ${var.gcp_region_1}"
   }
-  depends_on = [google_container_cluster.inventory-service-gke]
+  depends_on = [google_container_cluster.car-demo-gke]
 }
 
-resource "null_resource" "external-secret-payment" {
-  provisioner "local-exec" {
-    command = "/bin/bash external-secret-gcsm.sh payment-service-gke ${var.gcp_zone_1}"
-  }
-  depends_on = [google_container_cluster.payment-service-gke]
-}
-
-resource "null_resource" "external-secret-shipment" {
-  provisioner "local-exec" {
-    command = "/bin/bash external-secret-gcsm.sh shipment-service-gke ${var.gcp_zone_1}"
-  }
-  depends_on = [google_container_cluster.shipment-service-gke]
-}
 
 # use null resources to create my sql tables if needed
 

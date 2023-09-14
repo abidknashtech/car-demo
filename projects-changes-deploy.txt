@@ -1,1 +1,1 @@
-shipment-service
+admin-service

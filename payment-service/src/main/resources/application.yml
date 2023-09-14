@@ -2,12 +2,12 @@ server:
   port: 9092
 spring:
   application:
-  name: PaymentService
+    name: PaymentService
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/payment_db?createDatabaseIfNotExist=true
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/payment_db
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    username: ${MYSQL_DB_USERNAME:root}
+    password: ${MYSQL_DB_PASSWORD:password}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -16,4 +16,4 @@ spring:
 axon:
   axonserver:
     client-id: PaymentService
-    servers: ${AXON_HOST}
+    servers: ${AXON_HOST:localhost:8124}

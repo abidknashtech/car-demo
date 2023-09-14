@@ -22,3 +22,19 @@ spec:
             - name: http
               containerPort: 9093
               protocol: TCP
+          env:
+            - name: MYSQL_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: secret-to-be-created
+                  key: mysql-db-username
+                  optional: false
+            - name: MYSQL_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-to-be-created
+                  key: mysql-db-userpassword
+                  optional: false
+          envFrom:
+            - configMapRef:
+                name: shipment-configmap

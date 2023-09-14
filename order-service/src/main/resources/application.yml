@@ -2,12 +2,12 @@ server:
   port: 9090
 spring:
   application:
-  name: OrderService
+    name: OrderService
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/orders_db
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_DB_USER}
-    password: ${MY_DB_PASSWORD}
+    username: ${MYSQL_DB_USERNAME:root}
+    password: ${MYSQL_DB_PASSWORD:password}
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
@@ -20,9 +20,4 @@ axon:
         mode: subscribing
   axonserver:
     client-id: OrderService
-    servers: ${AXON_HOST}
-# Possible values for these keys are `default`, `xstream`, `java`, and `jackson`.
-  serializer:
-    general: default
-    events: jackson
-    messages: jackson
+    servers: ${AXON_HOST:localhost:8124}

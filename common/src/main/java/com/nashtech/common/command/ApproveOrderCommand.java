@@ -10,6 +10,8 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class ApproveOrderCommand {
     @TargetAggregateIdentifier
     String orderId;
+    String paymentId;
+    String shipmentId;
     OrderStatus orderStatus;
 
 }

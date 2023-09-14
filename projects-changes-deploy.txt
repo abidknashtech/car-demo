@@ -1,1 +1,1 @@
-order-service
+shipment-service

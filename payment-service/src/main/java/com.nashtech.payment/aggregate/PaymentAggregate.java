@@ -1,0 +1,111 @@
+package com.nashtech.payment.aggregate;
+
+import com.nashtech.common.command.ProcessPaymentCommand;
+import com.nashtech.common.event.PaymentApprovedEvent;
+import com.nashtech.common.event.PaymentCancelledEvent;
+import com.nashtech.common.model.PaymentDetails;
+import com.nashtech.common.model.User;
+import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.AggregateLifecycle;
+import org.axonframework.spring.stereotype.Aggregate;
+
+@Aggregate
+@Slf4j
+public class PaymentAggregate {
+
+    @AggregateIdentifier
+    private String paymentId;
+    private String orderId;
+    private String productId;
+    private Integer quantity;
+    private Double price;
+    private User user;
+    private String reasonToFailed;
+    private String reason;
+    private Double baseAmount;
+
+    public PaymentAggregate() {
+    }
+
+    @CommandHandler
+    public PaymentAggregate(ProcessPaymentCommand processPaymentCommand) {
+        log.info("ProcessPaymentCommand started");
+        User paymentUser = getUser();
+        PaymentDetails paymentDetails = getPaymentDetails();
+
+        if (!processPaymentCommand.getUserId().equals(paymentUser.getUserId())
+                && paymentDetails.getUserId().equals(paymentUser.getUserId())) {
+            AggregateLifecycle.apply(buildPaymentCancelEvent(processPaymentCommand,"User does not exist"));
+            return;
+        }
+
+        double subTotal = processPaymentCommand.getQuantity() * processPaymentCommand.getBaseAmount();
+        double total = subTotal + (processPaymentCommand.getQuantity() * processPaymentCommand.getTax());
+
+        if (paymentDetails.getBalanceAmount() <= total) {
+            AggregateLifecycle.apply(buildPaymentCancelEvent(processPaymentCommand,"Insufficient Amount"));
+            return;
+        }
+
+        PaymentApprovedEvent paymentApprovedEvent =
+                PaymentApprovedEvent.builder()
+                        .paymentId(processPaymentCommand.getPaymentId())
+                        .orderId(processPaymentCommand.getOrderId())
+                        .productId(processPaymentCommand.getProductId())
+                        .user(paymentUser)
+                        .quantity(processPaymentCommand.getQuantity())
+                        .subTotal(subTotal)
+                        .total(total)
+                        .tax(processPaymentCommand.getTax())
+                        .basePrice(processPaymentCommand.getBaseAmount())
+                        .build();
+        AggregateLifecycle.apply(paymentApprovedEvent);
+    }
+
+    @EventSourcingHandler
+    public void on(PaymentApprovedEvent paymentApprovedEvent) {
+        this.paymentId = paymentApprovedEvent.getPaymentId();
+        this.orderId = paymentApprovedEvent.getOrderId();
+        this.productId = paymentApprovedEvent.getProductId();
+        this.quantity = paymentApprovedEvent.getQuantity();
+        this.user = paymentApprovedEvent.getUser();
+    }
+
+    //Hard coded User details
+    private User getUser() {
+        return User.builder()
+                .userId("1652")
+                .firstName("Abid")
+                .lastName("Khan")
+                .address("Noida")
+                .mobileNumber("9087658765")
+                .emailId("abid.khan@nashtechglobal.com")
+                .build();
+    }
+
+    //Hard coded payment details
+    private PaymentDetails getPaymentDetails() {
+        return PaymentDetails.builder()
+                .userId("1652")
+                .bank("SBI")
+                .cardNumber("0900987654435443")
+                .validUntilYear(2028)
+                .validUntilMonth(6)
+                .cvv(334)
+                .balanceAmount(10000000d) //1Cr
+                .build();
+    }
+
+    private PaymentCancelledEvent buildPaymentCancelEvent(ProcessPaymentCommand processPaymentCommand, String reasonToFailed) {
+        return PaymentCancelledEvent.builder()
+                .paymentId(processPaymentCommand.getPaymentId())
+                .orderId(processPaymentCommand.getOrderId())
+                .userId(processPaymentCommand.getUserId())
+                .reasonToFailed(reasonToFailed)
+                .build();
+    }
+
+}

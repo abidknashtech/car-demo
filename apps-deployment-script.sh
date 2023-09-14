@@ -60,10 +60,15 @@ do
     build_and_deploy_service payment-service $GKE_CLUSTER paymentservice
     cd ..;;
 
-  # case 5 build and deploy order-service
+  # case 5 build and deploy shipment-service
   "shipment-service")
     build_and_deploy_service shipment-service $GKE_CLUSTER shipmentservice
     cd ..;;
+
+  # case 6 build and deploy cart-service
+  "cart-service")
+      build_and_deploy_service cart-service $GKE_CLUSTER cartservice
+      cd ..;;
 
   esac
 

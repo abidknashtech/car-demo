@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 public class OrderCreateRequest {
 
-    @NotBlank(message = "Order carId is a required field")
+    @NotBlank(message = "ProductId is a required field")
     private String productId;
 
     @Min(value = 1, message = "Quantity cannot be lower than 1")

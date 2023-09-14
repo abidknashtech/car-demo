@@ -42,7 +42,7 @@
         <axon-starter.version>4.8.1</axon-starter.version>
         <mysql-connector.version>8.0.33</mysql-connector.version>
         <project-reactor.version>3.5.9</project-reactor.version>
-        <common.version>1.0</common.version>
+        <common.version>1.0.1</common.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
     </properties>
 

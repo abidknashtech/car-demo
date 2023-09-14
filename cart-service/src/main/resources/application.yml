@@ -1,0 +1,14 @@
+server:
+  port: 9094
+spring:
+  application:
+  name: CartService
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/cart_db
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_DB_USERNAME:root}
+    password: ${MYSQL_DB_PASSWORD:password}
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update

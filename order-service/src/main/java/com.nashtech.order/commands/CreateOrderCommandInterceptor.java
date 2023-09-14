@@ -32,9 +32,8 @@ public class CreateOrderCommandInterceptor implements MessageDispatchInterceptor
                 CreateOrderCommand createOrderCommand = (CreateOrderCommand) command.getPayload();
                 Optional<OrderLookup> orderLookup = orderLookupRepository.findById(createOrderCommand.getOrderId());
                 if (orderLookup.isPresent()) {
-                    throw new IllegalStateException(
-                            String.format("Car with orderId %s or carId %s already exist",
-                                    createOrderCommand.getOrderId(), createOrderCommand.getProductId()));
+                    throw new IllegalStateException(String.format("Order already %s already exist",
+                            createOrderCommand.getOrderId()));
                 }
             }
             return command;

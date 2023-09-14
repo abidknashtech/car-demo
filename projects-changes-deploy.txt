@@ -1,4 +1,0 @@
-order-service
-inventory-service
-payment-service
-shipment-service

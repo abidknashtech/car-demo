@@ -4,7 +4,7 @@ spring:
   application:
     name: OrderService
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/order_db
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/orders_db
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_DB_USERNAME:root}
     password: ${MYSQL_DB_PASSWORD:password}

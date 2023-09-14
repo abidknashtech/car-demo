@@ -27,8 +27,11 @@ import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.time.Duration;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 
@@ -54,11 +57,18 @@ public class FirestoreDbService implements CloudDataService {
     @Value("${spring.cloud.gcp.project-id}")
     private String projectId;
 
-
+    /**
+     * The Firestore instance.
+     * used for publishing data to firestore.
+     */
     private Firestore firestore;
 
-    public FirestoreDbService(Firestore firestore) {
-        this.firestore = firestore;
+    /**
+     * The FirestoreDbService constructor.
+     * @param firestore1 firestore instance.
+     */
+    public FirestoreDbService(final Firestore firestore1) {
+        this.firestore = firestore1;
     }
 
     /**
@@ -208,13 +218,15 @@ public class FirestoreDbService implements CloudDataService {
      *
      */
     public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSse() {
-        Set<String> emittedBrands = Collections.synchronizedSet(new HashSet<>());
+        Set<String> emittedBrands = Collections
+                .synchronizedSet(new HashSet<>());
 
         return Flux.<ServerSentEvent<Map<String, String>>>create(emitter -> {
             firestore.collection("Car")
                     .addSnapshotListener((snapshots, e) -> {
                         if (e != null) {
-                            log.error("Error in Firestore snapshot listener", e);
+                            log.error("Error in Firestore snapshot listener",
+                                    e);
                             emitter.error(e);
                             return;
                         }
@@ -237,12 +249,14 @@ public class FirestoreDbService implements CloudDataService {
         }).concatWith(Flux.never());
     }
 
-    private Mono<Void> processAndEmitEvent(FluxSink<ServerSentEvent<Map<String, String>>> emitter, String brand) {
+    private Mono<Void> processAndEmitEvent(final FluxSink<ServerSentEvent<
+            Map<String, String>>> emitter, final String brand) {
         return Mono.fromRunnable(() -> {
             Map<String, String> eventData = new HashMap<>();
             eventData.put("brand", brand);
 
-            ServerSentEvent<Map<String, String>> event = ServerSentEvent.<Map<String, String>>builder()
+            ServerSentEvent<Map<String, String>> event = ServerSentEvent
+                    .<Map<String, String>>builder()
                     .data(eventData)
                     .build();
 

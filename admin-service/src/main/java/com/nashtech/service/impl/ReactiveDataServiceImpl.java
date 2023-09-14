@@ -92,6 +92,16 @@ public class ReactiveDataServiceImpl implements
         return cloudDataService.getAllBrands();
     }
 
+    /**
+     * Retrieves a Flux of car brands in a reactive manner.
+     * The Flux represents a stream of data that can be subscribed to for
+     * continuous updates.
+     * This method also prints the distinct brands to the console for
+     * demonstration purposes.
+     *
+     * @return A Flux of AllCarBrand representing all car brands.
+     */
+
     @Override
     public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSse() {
         return cloudDataService.getAllBrandsSse();

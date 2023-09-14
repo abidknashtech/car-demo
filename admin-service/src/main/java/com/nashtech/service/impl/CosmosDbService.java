@@ -2,7 +2,6 @@ package com.nashtech.service.impl;
 
 import com.azure.spring.data.cosmos.exception.CosmosAccessException;
 import com.nashtech.service.CloudDataService;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.kafka.KafkaException;
@@ -21,7 +20,6 @@ import org.springframework.context.annotation.Profile;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
 import java.util.Map;
 
 
@@ -122,6 +120,16 @@ public class CosmosDbService implements CloudDataService {
                     );
                 });
     }
+
+    /**
+     * Retrieves a Flux of car brands in a reactive manner.
+     * The Flux represents a stream of data that can be subscribed to for
+     * continuous updates.
+     * This method also prints the distinct brands to the console for
+     * demonstration purposes.
+     *
+     * @return null.
+     */
 
     @Override
     public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSse() {

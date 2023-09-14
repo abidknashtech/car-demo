@@ -2,11 +2,11 @@ google:
   application:
     credentials: ${GOOGLE_APPLICATION_CREDENTIALS}
   pubSub:
-    topic: vehicle
+    topic: ${PUB_SUB_TOPIC_ID}
 spring:
   cloud:
     gcp:
-      project-id: white-dynamo-394708
+      project-id: ${GCP_PROJECT_ID}
 
 apiUrl: /vehicle.json?key=45d8b3f0
 mockaroo:

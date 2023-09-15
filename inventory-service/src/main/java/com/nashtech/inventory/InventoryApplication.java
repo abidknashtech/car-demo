@@ -11,10 +11,10 @@ import org.springframework.context.ApplicationContext;
 
 
 @SpringBootApplication
-public class InventoryServiceApplication {
+public class InventoryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InventoryServiceApplication.class, args);
+		SpringApplication.run(InventoryApplication.class, args);
 	}
 	@Autowired
 	public void registerCreateProductCommandInterceptor(ApplicationContext context,

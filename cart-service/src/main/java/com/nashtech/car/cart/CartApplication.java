@@ -1,12 +1,11 @@
-package com.nashtech.payment;
+package com.nashtech.car.cart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 @SpringBootApplication
-public class PaymentServiceApplication {
+public class CartApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(PaymentServiceApplication.class, args);
+		SpringApplication.run(CartApplication.class, args);
 	}
 
 }

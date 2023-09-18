@@ -1,8 +1,0 @@
-kind: ConfigMap 
-apiVersion: v1 
-metadata:
-  name: inventory-configmap
-data:
-  # Configuration values can be set as key-value properties
-  MYSQL_HOST: 35.231.178.113
-  AXON_HOST: 34.23.126.183:8124

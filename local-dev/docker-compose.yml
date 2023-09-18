@@ -14,9 +14,11 @@ services:
       - axon-network
   mysql:
     image: mysql:8.1.0
+    command: --init-file /data/application/init.sql
     restart: always
     volumes:
       - mysql-db:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
     ports:
       - '3306:3306'
     environment:

@@ -11,10 +11,10 @@ import org.springframework.context.ApplicationContext;
 
 
 @SpringBootApplication
-public class OrderServiceApplication {
+public class OrderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
+        SpringApplication.run(OrderApplication.class, args);
     }
 
     @Autowired

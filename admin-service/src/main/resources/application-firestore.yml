@@ -1,6 +1,4 @@
 google:
-  application:
-    credentials: ${GOOGLE_APPLICATION_CREDENTIALS}
   pubSub:
     topic: ${PUB_SUB_TOPIC_ID}
 spring:

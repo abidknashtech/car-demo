@@ -70,6 +70,11 @@ do
     build_and_deploy_service admin-service $GKE_CLUSTER adminservice
     cd ..;;
 
+  # case 6 build and deploy cart-service
+  "cart-service")
+      build_and_deploy_service cart-service $GKE_CLUSTER cartservice
+      cd ..;;
+
   esac
 
 done

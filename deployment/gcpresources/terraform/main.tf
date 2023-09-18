@@ -96,6 +96,42 @@ resource "null_resource" "external-secret-car-demo-gke" {
   depends_on = [google_container_cluster.car-demo-gke]
 }
 
+#-----------------------GKE Cluster for axon-server----------------------------
+resource "google_container_cluster" "axon-server-gke" {
+  name     = "axon-server-gke"
+  location = var.gcp_region_1
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block  = ""
+    services_ipv4_cidr_block = ""
+  }
+  enable_autopilot = true
+
+}
+
+resource "null_resource" "axon-server-gke" {
+  provisioner "local-exec" {
+    command = "/bin/bash axon-server-deployment.sh axon-server-gke ${var.gcp_region_1}"
+  }
+  depends_on = [google_container_cluster.axon-server-gke]
+}
+
+#------------------------- secret manger----------------------
+resource "google_secret_manager_secret" "car-demo-secret" {
+
+  secret_id = "car-demo-secret1"
+
+  replication {
+    automatic = true
+  }
+
+  depends_on = [google_sql_user.my_sql_user]
+}
+
+resource "google_secret_manager_secret_version" "car-demo-secret-1" {
+
+  secret      = google_secret_manager_secret.car-demo-secret.id
+  secret_data = "{\"mysql-db-username\": \"${var.user_name}\", \"mysql-db-userpassword\": \"${var.user_password}\"}"
+}
 
 # use null resources to create my sql tables if needed
 

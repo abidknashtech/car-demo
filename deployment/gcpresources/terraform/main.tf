@@ -120,10 +120,19 @@ resource "null_resource" "axon-server-gke" {
   depends_on = [google_container_cluster.axon-server-gke]
 }
 
+#----------------------GCP firestore----------------------------
+
+resource "google_firestore_database" "database" {
+  project     = var.app_project
+  name        = "(default)"
+  location_id = var.gcp_region_1
+  type        = "FIRESTORE_NATIVE"
+}
+
 #------------------------- secret manger----------------------
 resource "google_secret_manager_secret" "car-demo-secret" {
 
-  secret_id = "car-demo-secret1"
+  secret_id = "car-demo-secret"
 
   replication {
     automatic = true
@@ -137,33 +146,3 @@ resource "google_secret_manager_secret_version" "car-demo-secret-1" {
   secret      = google_secret_manager_secret.car-demo-secret.id
   secret_data = "{\"mysql-db-username\": \"${var.user_name}\", \"mysql-db-userpassword\": \"${var.user_password}\"}"
 }
-
-# use null resources to create my sql tables if needed
-
-#resource "null_resource" "create_order_table" {
-#  provisioner "local-exec" {
-#    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.orders_db_name} '${var.create_order_table}'"
-#  }
-#  depends_on = [google_sql_database.order_db, google_sql_database_instance.my_sql, random_id.user_password, random_id.instance_id, google_sql_user.my_sql_user]
-#}
-#
-#resource "null_resource" "create_inventory_table" {
-#  provisioner "local-exec" {
-#    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.inventory_db_name} '${var.create_inventory_table}'"
-#  }
-#  depends_on = [google_sql_database.inventory_db, google_sql_database_instance.my_sql, random_id.user_password, random_id.instance_id, google_sql_user.my_sql_user]
-#}
-#
-#resource "null_resource" "create_payment_table" {
-#  provisioner "local-exec" {
-#    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.payment_db_name} '${var.create_payment_table}'"
-#  }
-#  depends_on = [google_sql_database.payment_db, google_sql_database_instance.my_sql, random_id.user_password, random_id.instance_id, google_sql_user.my_sql_user]
-#}
-#
-#resource "null_resource" "create_shipment_table" {
-#  provisioner "local-exec" {
-#    command = "python create_tables.py  ${google_sql_database_instance.my_sql.ip_address.0.ip_address} ${var.user_name} ${var.user_password} ${var.shipment_db_name} '${var.create_shipment_table}'"
-#  }
-#  depends_on = [google_sql_database.shipment_db, google_sql_database_instance.my_sql, random_id.user_password, random_id.instance_id, google_sql_user.my_sql_user]
-#}

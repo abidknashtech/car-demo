@@ -35,23 +35,3 @@ variable "app_environment" {
   type = string
   description = "Application environment"
 }
-
-variable "create_order_table" {
-  type = string
-  description = "sql ddl to create car_orders table in orders database"
-}
-
-variable "create_inventory_table" {
-  type = string
-  description = "sql ddl to create car_inventory table in inventory database"
-}
-
-variable "create_payment_table" {
-  type = string
-  description = "sql ddl to create car_payment table in payment database"
-}
-
-variable "create_shipment_table" {
-  type = string
-  description = "sql ddl to create car_shipment table in shipment database"
-}

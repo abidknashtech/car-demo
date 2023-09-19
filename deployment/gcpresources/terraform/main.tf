@@ -77,6 +77,11 @@ resource "google_pubsub_topic" "shipment-notification" {
   message_retention_duration = "604800s"
 }
 
+resource "google_pubsub_topic" "Vehicle" {
+  name = "Vehicle"
+  message_retention_duration = "604800s"
+}
+
 #-----------------------GKE Cluster for applications----------------------------
 resource "google_container_cluster" "car-demo-gke" {
   name     = "car-demo-gke"

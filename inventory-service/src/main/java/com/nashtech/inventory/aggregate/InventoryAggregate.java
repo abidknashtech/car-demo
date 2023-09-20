@@ -34,6 +34,9 @@ public class InventoryAggregate{
 
 	private String userId;
 	private String orderId;
+	Double subTotal;
+	Double total;
+	Float totalTax;
 
 	public InventoryAggregate() {
 
@@ -74,6 +77,10 @@ public class InventoryAggregate{
 			return;
 		}
 
+		double productSubTotal = reserveProductCommand.getQuantity() * basePrice;
+		float productTotalTax= reserveProductCommand.getQuantity() * tax;
+		double productTotal = productSubTotal + productTotalTax;
+
 		ProductReservedEvent productReservedEvent = ProductReservedEvent.builder()
 				.orderId(reserveProductCommand.getOrderId())
 				.productId(reserveProductCommand.getProductId())
@@ -82,6 +89,9 @@ public class InventoryAggregate{
 				.brand(brand)
 				.basePrice(basePrice)
 				.tax(tax)
+				.totalTax(productTotalTax)
+				.subTotal(productSubTotal)
+				.total(productTotal)
 				.model(model)
 				.mileage(mileage)
 				.color(color)
@@ -130,6 +140,9 @@ public class InventoryAggregate{
 		this.userId = productReservedEvent.getUserId();
 		this.orderId = productReservedEvent.getOrderId();
 		this.quantity -= productReservedEvent.getQuantity();
+		this.totalTax = productReservedEvent.getTotalTax();
+		this.subTotal = productReservedEvent.getSubTotal();
+		this.total = productReservedEvent.getTotal();
 	}
 
 }

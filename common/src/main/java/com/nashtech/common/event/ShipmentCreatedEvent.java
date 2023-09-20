@@ -15,6 +15,7 @@ public class ShipmentCreatedEvent {
     Double subTotal;
     Double total;
     Float tax;
+    Float totalTax;
     Double basePrice;
     Integer quantity;
 

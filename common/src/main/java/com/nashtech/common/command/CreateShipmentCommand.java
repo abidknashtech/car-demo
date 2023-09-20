@@ -17,6 +17,7 @@ public class CreateShipmentCommand {
     Double subTotal;
     Double total;
     Float tax;
+    Float totalTax;
     Double basePrice;
     Integer quantity;
 

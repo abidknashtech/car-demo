@@ -1,7 +1,7 @@
 package com.nashtech.payment.handler;
 
 import com.nashtech.common.event.PaymentApprovedEvent;
-import com.nashtech.payment.data.Payment;
+import com.nashtech.payment.data.PaymentEntity;
 import com.nashtech.payment.data.PaymentsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
@@ -19,14 +19,15 @@ public class PaymentsEventHandler {
     @EventHandler
     public void on(PaymentApprovedEvent paymentApprovedEvent){
         log.info("PaymentProcessedEvent is called for orderId:{} ", paymentApprovedEvent.getOrderId());
-        Payment payment = Payment.builder()
+        PaymentEntity payment = PaymentEntity.builder()
                 .paymentId(paymentApprovedEvent.getPaymentId())
                 .orderId(paymentApprovedEvent.getOrderId())
                 .productId(paymentApprovedEvent.getProductId())
-                .quantity(String.valueOf(paymentApprovedEvent.getQuantity()))
-                .baseAmount(paymentApprovedEvent.getBasePrice())
+                .quantity(paymentApprovedEvent.getQuantity())
+                .basePrice(paymentApprovedEvent.getBasePrice())
                 .subTotal(paymentApprovedEvent.getSubTotal())
                 .tax(paymentApprovedEvent.getTax())
+                .totalTax(paymentApprovedEvent.getTotalTax())
                 .total(paymentApprovedEvent.getTotal())
                 .build();
 

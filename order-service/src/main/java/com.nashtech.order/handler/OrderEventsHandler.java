@@ -5,8 +5,8 @@ import com.nashtech.order.events.OrderCancelledEvent;
 import com.nashtech.order.events.OrderCreatedEvent;
 import com.nashtech.order.repository.FailedOrderRepository;
 import com.nashtech.order.repository.OrderRepository;
-import com.nashtech.order.repository.entity.FailedOrder;
-import com.nashtech.order.repository.entity.Order;
+import com.nashtech.order.repository.entity.FailedOrderEntity;
+import com.nashtech.order.repository.entity.OrderEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
@@ -31,36 +31,36 @@ public class OrderEventsHandler {
 
     @EventHandler
     public void on(OrderCreatedEvent event) {
-        Order order = new Order(event.getOrderId(), event.getUserId(), event.getProductId(),
+        OrderEntity order = new OrderEntity(event.getOrderId(), event.getUserId(), event.getProductId(),
                 null, null, new Date(),event.getOrderStatus().toString());
         orderRepository.save(order);
 
-        FailedOrder failedOrder = new FailedOrder();
+        FailedOrderEntity failedOrder = new FailedOrderEntity();
         failedOrder.setOrderId(event.getOrderId());
         failedOrderRepository.save(failedOrder);
     }
 
     @EventHandler
     public void on(OrderApprovedEvent orderApprovedEvent) {
-        Order order = orderRepository.findByOrderId((orderApprovedEvent.getOrderId()));
+        OrderEntity order = orderRepository.findByOrderId((orderApprovedEvent.getOrderId()));
         order.setPaymentId(orderApprovedEvent.getPaymentId());
         order.setShipmentId(orderApprovedEvent.getShipmentId());
         order.setOrderStatus(orderApprovedEvent.getOrderStatus().toString());
         orderRepository.save(order);
 
-        FailedOrder failedOrder = new FailedOrder();
+        FailedOrderEntity failedOrder = new FailedOrderEntity();
         failedOrder.setOrderId(orderApprovedEvent.getOrderId());
         failedOrderRepository.delete(failedOrder);
     }
 
     @EventHandler
     public void on(OrderCancelledEvent event) {
-        Optional<FailedOrder> orderOptional = failedOrderRepository.findById((event.getOrderId()));
+        Optional<FailedOrderEntity> orderOptional = failedOrderRepository.findById((event.getOrderId()));
         if(orderOptional.isEmpty()) {
             log.error("Order failed  status did not persist {}",event.getOrderId());
             return;
         }
-        FailedOrder order = orderOptional.get();
+        FailedOrderEntity order = orderOptional.get();
         order.setProductId(event.getProductId());
         order.setPaymentId(event.getPaymentId());
         order.setShipmentId(event.getShipmentId());

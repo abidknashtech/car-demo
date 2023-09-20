@@ -21,11 +21,9 @@ public class PaymentAggregate {
     private String orderId;
     private String productId;
     private Integer quantity;
-    private Double price;
     private User user;
     private String reasonToFailed;
-    private String reason;
-    private Double baseAmount;
+    private Double basePrice;
 
     public PaymentAggregate() {
     }
@@ -42,25 +40,22 @@ public class PaymentAggregate {
             return;
         }
 
-        double subTotal = processPaymentCommand.getQuantity() * processPaymentCommand.getBaseAmount();
-        double total = subTotal + (processPaymentCommand.getQuantity() * processPaymentCommand.getTax());
-
-        if (paymentDetails.getBalanceAmount() <= total) {
+        if (paymentDetails.getBalanceAmount() <= processPaymentCommand.getTotal()) {
             AggregateLifecycle.apply(buildPaymentCancelEvent(processPaymentCommand,"Insufficient Amount"));
             return;
         }
 
-        PaymentApprovedEvent paymentApprovedEvent =
-                PaymentApprovedEvent.builder()
+        PaymentApprovedEvent paymentApprovedEvent = PaymentApprovedEvent.builder()
                         .paymentId(processPaymentCommand.getPaymentId())
                         .orderId(processPaymentCommand.getOrderId())
                         .productId(processPaymentCommand.getProductId())
                         .user(paymentUser)
                         .quantity(processPaymentCommand.getQuantity())
-                        .subTotal(subTotal)
-                        .total(total)
+                        .subTotal(processPaymentCommand.getSubTotal())
+                        .total(processPaymentCommand.getTotal())
                         .tax(processPaymentCommand.getTax())
-                        .basePrice(processPaymentCommand.getBaseAmount())
+                        .totalTax(processPaymentCommand.getTotalTax())
+                        .basePrice(processPaymentCommand.getBasePrice())
                         .build();
         AggregateLifecycle.apply(paymentApprovedEvent);
     }

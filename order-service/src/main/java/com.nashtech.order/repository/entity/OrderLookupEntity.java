@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class OrderLookup {
+public class OrderLookupEntity {
     @Id
     private String orderId;
     private Date timestamp;

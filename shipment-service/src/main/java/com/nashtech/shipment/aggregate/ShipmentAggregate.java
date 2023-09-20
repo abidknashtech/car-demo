@@ -25,6 +25,7 @@ public class ShipmentAggregate {
     private Double subTotal;
     private Double total;
     private Float tax;
+    private Float totalTax;
     private User user;
 
     public ShipmentAggregate() {
@@ -41,6 +42,7 @@ public class ShipmentAggregate {
                     .quantity(createShipmentCommand.getQuantity())
                     .basePrice(createShipmentCommand.getBasePrice())
                     .tax(createShipmentCommand.getTax())
+                    .totalTax(createShipmentCommand.getTotalTax())
                     .subTotal(createShipmentCommand.getSubTotal())
                     .total(createShipmentCommand.getTotal())
                     .user(createShipmentCommand.getUser())
@@ -66,6 +68,7 @@ public class ShipmentAggregate {
         this.subTotal = shipmentCreatedEvent.getSubTotal();
         this.total = shipmentCreatedEvent.getTotal();
         this.tax = shipmentCreatedEvent.getTax();
+        this.totalTax = shipmentCreatedEvent.getTotalTax();
         this.user = shipmentCreatedEvent.getUser();
     }
 

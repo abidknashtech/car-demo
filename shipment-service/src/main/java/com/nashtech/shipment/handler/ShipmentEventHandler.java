@@ -40,7 +40,8 @@ public class ShipmentEventHandler {
                 shipmentCreatedEvent.getBasePrice(),
                 shipmentCreatedEvent.getSubTotal(),
                 shipmentCreatedEvent.getTotal(),
-                shipmentCreatedEvent.getTax()
+                shipmentCreatedEvent.getTax(),
+                shipmentCreatedEvent.getTotalTax()
         );
         log.info("Saving Shipment details to database");
         shipmentRepository.save(shipmentEntity);

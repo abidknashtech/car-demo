@@ -10,10 +10,13 @@ public class ProcessPaymentCommand {
     @TargetAggregateIdentifier
     String paymentId;
     String orderId;
+    String productId;
+    String userId;
     Integer quantity;
     Float tax;
     Double basePrice;
-    String productId;
-    String userId;
+    Double subTotal;
+    Double total;
+    Float totalTax;
 
 }

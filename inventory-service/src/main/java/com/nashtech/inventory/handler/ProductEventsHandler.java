@@ -44,7 +44,8 @@ public class ProductEventsHandler {
         productsRepository.save(productEntity);
 
         ProductsSoldEntity soldProduct = new ProductsSoldEntity(productEntity.getProductId(), productReservedEvent.getOrderId(),
-                productReservedEvent.getUserId(), productReservedEvent.getQuantity());
+                productReservedEvent.getUserId(), productReservedEvent.getQuantity(),productReservedEvent.getSubTotal(),
+                productReservedEvent.getTotal(),productReservedEvent.getTax());
         productsSoldRepository.save(soldProduct);
     }
 
@@ -58,9 +59,6 @@ public class ProductEventsHandler {
                 productReservationCancelledEvent.getQuantity());
 
         productsRepository.save(currentlyStoredProductEntity);
-
-        log.info("Stable product {} quantity {}", productReservationCancelledEvent.getProductId(),
-				currentlyStoredProductEntity.getQuantity());
 
         ProductsSoldEntity currentlyStoredSoldProduct =
                 productsSoldRepository.findByProductIdAndOrderId(productReservationCancelledEvent.getProductId(),

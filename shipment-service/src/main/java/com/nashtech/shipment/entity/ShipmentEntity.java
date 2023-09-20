@@ -31,5 +31,6 @@ public class ShipmentEntity {
     private Double subTotal;
     private Double total;
     private Float tax;
+    private Float totalTax;
 
 }

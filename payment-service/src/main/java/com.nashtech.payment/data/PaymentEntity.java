@@ -13,17 +13,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "payments")
-public class Payment {
+@Table(name = "payment")
+public class PaymentEntity {
 
     @Id
     private String  paymentId;
     private String orderId;
     private String productId;
-    private String quantity;
-    private Double baseAmount;
+    private Integer quantity;
+    private Double basePrice;
     private Double subTotal;
     private Double total;
     private Float tax;
+    Float totalTax;
 
 }

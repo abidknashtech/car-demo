@@ -17,5 +17,8 @@ public class ProductsSoldEntity {
     private String orderId;
     private String userId;
     private Integer quantity;
+    private Double subTotal;
+    private Double total;
+    private Float totalTax;
 
 }

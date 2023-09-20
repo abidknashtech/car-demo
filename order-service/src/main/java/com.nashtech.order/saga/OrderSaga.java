@@ -76,7 +76,10 @@ public class OrderSaga {
                 .productId(productReservedEvent.getProductId())
                 .quantity(productReservedEvent.getQuantity())
                 .tax(productReservedEvent.getTax())
-                .baseAmount(productReservedEvent.getBaseAmount())
+                .basePrice(productReservedEvent.getBasePrice())
+                .totalTax(productReservedEvent.getTotalTax())
+                .total(productReservedEvent.getTotal())
+                .subTotal(productReservedEvent.getSubTotal())
                 .build();
 
 
@@ -135,6 +138,7 @@ public class OrderSaga {
                 .tax(paymentApprovedEvent.getTax())
                 .quantity(paymentApprovedEvent.getQuantity())
                 .basePrice(paymentApprovedEvent.getBasePrice())
+                .totalTax(paymentApprovedEvent.getTotalTax())
                 .build();
 
         commandGateway.send(createShipmentCommand, (commandMessage, commandResultMessage) -> {

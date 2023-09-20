@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "failed_orders")
-public class FailedOrder {
+public class FailedOrderEntity {
     @Id
     private String orderId;
     private String userId;

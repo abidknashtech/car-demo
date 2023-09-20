@@ -1,7 +1,7 @@
 package com.nashtech.order.commands;
 
 import com.nashtech.order.repository.OrderLookupRepository;
-import com.nashtech.order.repository.entity.OrderLookup;
+import com.nashtech.order.repository.entity.OrderLookupEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
@@ -30,7 +30,7 @@ public class CreateOrderCommandInterceptor implements MessageDispatchInterceptor
 
             if (CreateOrderCommand.class.equals(command.getPayloadType())) {
                 CreateOrderCommand createOrderCommand = (CreateOrderCommand) command.getPayload();
-                Optional<OrderLookup> orderLookup = orderLookupRepository.findById(createOrderCommand.getOrderId());
+                Optional<OrderLookupEntity> orderLookup = orderLookupRepository.findById(createOrderCommand.getOrderId());
                 if (orderLookup.isPresent()) {
                     throw new IllegalStateException(String.format("Order already %s already exist",
                             createOrderCommand.getOrderId()));

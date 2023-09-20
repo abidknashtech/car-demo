@@ -10,12 +10,11 @@ import com.nashtech.inventory.command.CreateProductCommand;
 import com.nashtech.inventory.events.ProductCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.common.StringUtils;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.springframework.beans.BeanUtils;
-
 
 
 @Aggregate
@@ -24,7 +23,11 @@ public class InventoryAggregate{
 
 	@AggregateIdentifier
 	private String productId;
-	private String title;
+	private String brand;
+	private String model;
+	Integer year;
+	String color;
+	Double mileage;
 	private Double basePrice;
 	private Float tax;
 	private Integer quantity;
@@ -39,13 +42,21 @@ public class InventoryAggregate{
 	@CommandHandler
 	public InventoryAggregate(CreateProductCommand createProductCommand) {
 	log.info("CreateProductCommand started with productId {}",createProductCommand.getProductId());
-		if(createProductCommand.getTitle() == null
-				|| createProductCommand.getTitle().isBlank()) {
-			throw new IllegalArgumentException("Title cannot be empty");
+		if(StringUtils.emptyOrNull(createProductCommand.getBrand())) {
+			throw new IllegalArgumentException("Brand cannot be empty");
 		}
 
-		ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent();
-		BeanUtils.copyProperties(createProductCommand, productCreatedEvent);
+		ProductCreatedEvent productCreatedEvent = ProductCreatedEvent.builder()
+				.productId(createProductCommand.getProductId())
+				.brand(createProductCommand.getBrand())
+				.model(createProductCommand.getModel())
+				.year(createProductCommand.getYear())
+				.color(createProductCommand.getColor())
+				.mileage(createProductCommand.getMileage())
+				.basePrice(createProductCommand.getBasePrice())
+				.quantity(createProductCommand.getQuantity())
+				.tax(createProductCommand.getTax())
+				.build();
 
 		AggregateLifecycle.apply(productCreatedEvent);
 	}
@@ -68,13 +79,16 @@ public class InventoryAggregate{
 				.productId(reserveProductCommand.getProductId())
 				.userId(reserveProductCommand.getUserId())
 				.quantity(reserveProductCommand.getQuantity())
-				.title(title)
-				.baseAmount(basePrice)
+				.brand(brand)
+				.basePrice(basePrice)
 				.tax(tax)
+				.model(model)
+				.mileage(mileage)
+				.color(color)
+				.year(year)
 				.build();
 
 		AggregateLifecycle.apply(productReservedEvent);
-
 	}
 
 	@CommandHandler
@@ -88,7 +102,6 @@ public class InventoryAggregate{
 				.build();
 
 		AggregateLifecycle.apply(productReservationCancelledEvent);
-
 	}
 
 
@@ -101,9 +114,13 @@ public class InventoryAggregate{
 	@EventSourcingHandler
 	public void on(ProductCreatedEvent productCreatedEvent) {
 		this.productId = productCreatedEvent.getProductId();
+		this.brand = productCreatedEvent.getBrand();
+		this.model = productCreatedEvent.getModel();
+		this.year = productCreatedEvent.getYear();
+		this.color = productCreatedEvent.getColor();
+		this.mileage = productCreatedEvent.getMileage();
 		this.basePrice = productCreatedEvent.getBasePrice();
 		this.tax = productCreatedEvent.getTax();
-		this.title = productCreatedEvent.getTitle();
 		this.quantity = productCreatedEvent.getQuantity();
 	}
 

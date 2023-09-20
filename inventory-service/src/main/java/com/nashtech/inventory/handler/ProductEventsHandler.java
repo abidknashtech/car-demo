@@ -4,9 +4,9 @@ package com.nashtech.inventory.handler;
 import com.nashtech.common.event.ProductReserveCancelledEvent;
 import com.nashtech.common.event.ProductReservedEvent;
 import com.nashtech.inventory.events.ProductCreatedEvent;
-import com.nashtech.inventory.repository.Product;
+import com.nashtech.inventory.repository.ProductEntity;
 import com.nashtech.inventory.repository.ProductsRepository;
-import com.nashtech.inventory.repository.ProductsSold;
+import com.nashtech.inventory.repository.ProductsSoldEntity;
 import com.nashtech.inventory.repository.ProductsSoldRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
@@ -31,21 +31,20 @@ public class ProductEventsHandler {
 
     @EventHandler
     public void on(ProductCreatedEvent event) {
-        Product productEntity = new Product();
+        ProductEntity productEntity = new ProductEntity();
         BeanUtils.copyProperties(event, productEntity);
         productsRepository.save(productEntity);
     }
 
     @EventHandler
     public void on(ProductReservedEvent productReservedEvent) {
-        log.info("ProductReservedEvent: Remaining product stock {}", productReservedEvent.getQuantity());
-        Product product = productsRepository.findByProductId(productReservedEvent.getProductId());
-        product.setQuantity(product.getQuantity() - productReservedEvent.getQuantity());
-        productsRepository.save(product);
+        log.info("ProductReservedEvent: Request quantity {}", productReservedEvent.getQuantity());
+        ProductEntity productEntity = productsRepository.findByProductId(productReservedEvent.getProductId());
+        productEntity.setQuantity(productEntity.getQuantity() - productReservedEvent.getQuantity());
+        productsRepository.save(productEntity);
 
-        ProductsSold soldProduct = new ProductsSold(product.getProductId(), productReservedEvent.getOrderId(),
-                productReservedEvent.getUserId(), productReservedEvent.getQuantity(),productReservedEvent.getTitle(),
-                productReservedEvent.getBaseAmount(),productReservedEvent.getTax());
+        ProductsSoldEntity soldProduct = new ProductsSoldEntity(productEntity.getProductId(), productReservedEvent.getOrderId(),
+                productReservedEvent.getUserId(), productReservedEvent.getQuantity());
         productsSoldRepository.save(soldProduct);
     }
 
@@ -54,16 +53,16 @@ public class ProductEventsHandler {
         log.info("ProductReservationCancelledEvent: Reversing product {} quantity {}",
                 productReservationCancelledEvent.getQuantity(), productReservationCancelledEvent.getProductId());
 
-        Product currentlyStoredProduct = productsRepository.findByProductId(productReservationCancelledEvent.getOrderId());
-        currentlyStoredProduct.setQuantity(currentlyStoredProduct.getQuantity() +
+        ProductEntity currentlyStoredProductEntity = productsRepository.findByProductId(productReservationCancelledEvent.getOrderId());
+        currentlyStoredProductEntity.setQuantity(currentlyStoredProductEntity.getQuantity() +
                 productReservationCancelledEvent.getQuantity());
 
-        productsRepository.save(currentlyStoredProduct);
+        productsRepository.save(currentlyStoredProductEntity);
 
         log.info("Stable product {} quantity {}", productReservationCancelledEvent.getProductId(),
-				currentlyStoredProduct.getQuantity());
+				currentlyStoredProductEntity.getQuantity());
 
-        ProductsSold currentlyStoredSoldProduct =
+        ProductsSoldEntity currentlyStoredSoldProduct =
                 productsSoldRepository.findByProductIdAndOrderId(productReservationCancelledEvent.getProductId(),
                         productReservationCancelledEvent.getOrderId());
         if (currentlyStoredSoldProduct != null) {

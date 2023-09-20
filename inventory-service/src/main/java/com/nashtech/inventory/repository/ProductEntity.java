@@ -10,12 +10,16 @@ import lombok.Data;
 @Entity
 @Table(name="products")
 @Data
-public class Product  {
+public class ProductEntity {
 	@Id
 	private String productId;
-	private String title;
+	private String brand;
+	private String model;
+	private Integer year;
+	private String color;
+	private Double mileage;
 	private Double basePrice;
-	private Float tax;
 	private Integer quantity;
+	private Float tax;
 
 }

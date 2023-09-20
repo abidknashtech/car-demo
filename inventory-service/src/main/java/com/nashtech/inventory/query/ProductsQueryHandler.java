@@ -1,6 +1,6 @@
 package com.nashtech.inventory.query;
 
-import com.nashtech.inventory.repository.Product;
+import com.nashtech.inventory.repository.ProductEntity;
 import com.nashtech.inventory.repository.ProductsRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.BeanUtils;
@@ -22,7 +22,7 @@ public class ProductsQueryHandler {
 	@QueryHandler
 	public List<ProductsSummary> findProducts(FindProductsQuery query) {
 		List<ProductsSummary> productsRest = new ArrayList<>();
-		for(Product productEntity: productsRepository.findAll()) {
+		for(ProductEntity productEntity: productsRepository.findAll()) {
 			ProductsSummary productRequest = new ProductsSummary();
 			BeanUtils.copyProperties(productEntity, productRequest);
 			productsRest.add(productRequest);

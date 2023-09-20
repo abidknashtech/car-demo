@@ -11,8 +11,6 @@ public class ReserveProductCommand {
     String productId;
     String orderId;
     String userId;
-    String title;
-    Double basePrice;
     Integer quantity;
-    Float tax;
+
 }

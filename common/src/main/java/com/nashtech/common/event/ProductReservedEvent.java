@@ -9,9 +9,13 @@ public class ProductReservedEvent {
     String orderId;
     String userId;
     String productId;
-    String title;
-    Double baseAmount;
     Float tax;
     Integer quantity;
+    String brand;
+    String model;
+    Integer year;
+    String color;
+    Double mileage;
+    Double basePrice;
 
 }

@@ -9,9 +9,13 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreateProductCommand {
 	@TargetAggregateIdentifier
 	String productId;
-	String title;
+	String brand;
+	String model;
+	Integer year;
+	String color;
+	Double mileage;
 	Double basePrice;
-	Float tax;
 	Integer quantity;
+	Float tax;
 
 }

@@ -1,14 +1,19 @@
 package com.nashtech.inventory.events;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Value;
 
-@Data
+@Value
+@Builder
 public class ProductCreatedEvent {
-
-	private String productId;
-	private String title;
-	private Double basePrice;
-	private Float tax;
-	private Integer quantity;
+	String productId;
+	String brand;
+	String model;
+	Integer year;
+	String color;
+	Double mileage;
+	Double basePrice;
+	Integer quantity;
+	Float tax;
 
 }

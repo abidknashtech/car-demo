@@ -11,14 +11,11 @@ import lombok.NoArgsConstructor;
 @Table(name="products_sold")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductsSold  {
+public class ProductsSoldEntity {
     @Id
     private String productId;
     private String orderId;
     private String userId;
     private Integer quantity;
-    private String title;
-    private Double baseAmount;
-    private Float tax;
 
 }

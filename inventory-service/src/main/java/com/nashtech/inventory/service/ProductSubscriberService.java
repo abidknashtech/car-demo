@@ -11,8 +11,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 @Slf4j
 public class ProductSubscriberService {
@@ -29,7 +27,7 @@ public class ProductSubscriberService {
     @ServiceActivator(inputChannel = "inputMessageChannel")
     public void messageReceiver(String payload,
                                 @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) BasicAcknowledgeablePubsubMessage message) {
-        log.info("Message arrived via an inbound channel adapter from sub-one! Payload: " + payload);
+        log.info("Message arrived via an inbound channel adapter from pubsub Payload:{} ", payload);
         ProductRequest productRequest;
         try {
             productRequest = objectMapper.readValue(payload, ProductRequest.class);
@@ -40,11 +38,16 @@ public class ProductSubscriberService {
         }
 
         CreateProductCommand createProductCommand = CreateProductCommand.builder()
-                .basePrice(productRequest.getPrice())
+                .productId(productRequest.getProductId())
+                .brand(productRequest.getBrand())
+                .model(productRequest.getModel())
+                .year(productRequest.getYear())
+                .color(productRequest.getColor())
+                .mileage(productRequest.getMileage())
+                .basePrice(productRequest.getBasePrice())
                 .quantity(productRequest.getQuantity())
-                .title(productRequest.getTitle())
                 .tax(productRequest.getTax())
-                .productId(UUID.randomUUID().toString()).build();
+                .build();
         commandGateway.send(createProductCommand);
     }
 

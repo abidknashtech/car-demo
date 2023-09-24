@@ -4,11 +4,9 @@ AKS_CLUSTER="ntdemocluster"
 SERVICE_NAME="admin-service"
 DEPLOYMENT_NAME="admin-service"
 RESOURCE_GROUP_NAME="az-nashtech-resource-group"
-ACR_NAME = "ntdemocontainerregistry"
-#.azurecr.io"
 
 sudo az aks install-cli
-sudo az acr login --name $ACR_NAME
+sudo az acr login --name ntdemocontainerregistry
 echo "---------build and deploy $SERVICE_NAME-----------"
 cd "$SERVICE_NAME" || exit
 mvn clean install

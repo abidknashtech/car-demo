@@ -6,7 +6,7 @@ DEPLOYMENT_NAME="admin-service"
 RESOURCE_GROUP_NAME="az-nashtech-resource-group"
 
 sudo az aks install-cli
-sudo az acr login --name ntdemocontainerregistry --password rsLWRGZx28OcmFaJPqhykv2RPS6oq4YNLsmlUIcanJ+ACRDRyyRH
+sudo az acr login --name ntdemocontainerregistry --username ntdemocontainerregistry --password rsLWRGZx28OcmFaJPqhykv2RPS6oq4YNLsmlUIcanJ+ACRDRyyRH
 echo "---------build and deploy $SERVICE_NAME-----------"
 cd "$SERVICE_NAME" || exit
 mvn clean install

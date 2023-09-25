@@ -9,8 +9,7 @@ public class CarUtil {
      * @return the updated mileage value in kilometers per mile
      */
     public static Double updateMileage(final Double mileage) {
-        Double mileageInKmps=mileage*1.6093440006147;
-        return mileageInKmps;
+        return mileage*1.6093440006147;
     }
 
     /**
@@ -20,7 +19,6 @@ public class CarUtil {
      * @return the updated price value in rupees
      */
     public static Double updatePrice(final Double price) {
-        Double priceInRupees=price*82.10;
-        return priceInRupees;
+        return price*82.10;
     }
 }

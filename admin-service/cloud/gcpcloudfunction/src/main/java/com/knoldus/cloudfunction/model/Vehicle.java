@@ -42,4 +42,13 @@ public class Vehicle {
      */
     private Double price;
 
+    /**
+     * The quantity of the car in stock.
+     */
+    private Integer quantity;
+
+    /**
+     * The tax on the car.
+     */
+    private Double tax;
 }

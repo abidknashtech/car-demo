@@ -29,6 +29,9 @@ echo  "---------------set docker image for kustomize-------------------"
 ./kustomize edit set image ntdemocontainerregistry.azurecr.io/IMAGE:TAG=ntdemocontainerregistry.azurecr.io/"$SERVICE_NAME":"$GITHUB_SHA"
 echo "---------------deploy through kubectl------------------"
 # deploy through kubectl
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ./kustomize build . | kubectl apply -f -
 kubectl rollout status deployment/"$DEPLOYMENT_NAME"
 kubectl get services -o wide

@@ -22,7 +22,6 @@ public class PaymentAggregate {
     private String productId;
     private Integer quantity;
     private User user;
-    private String reasonToFailed;
     private Double basePrice;
 
     public PaymentAggregate() {
@@ -69,6 +68,14 @@ public class PaymentAggregate {
         this.user = paymentApprovedEvent.getUser();
     }
 
+    @EventSourcingHandler
+    public void on(PaymentCancelledEvent paymentApprovedEvent) {
+        this.paymentId = paymentApprovedEvent.getPaymentId();
+        this.orderId = paymentApprovedEvent.getOrderId();
+        this.productId = paymentApprovedEvent.getProductId();
+        this.quantity = paymentApprovedEvent.getQuantity();
+    }
+
     //Hard coded User details
     private User getUser() {
         return User.builder()
@@ -99,6 +106,8 @@ public class PaymentAggregate {
                 .paymentId(processPaymentCommand.getPaymentId())
                 .orderId(processPaymentCommand.getOrderId())
                 .userId(processPaymentCommand.getUserId())
+                .productId(processPaymentCommand.getProductId())
+                .quantity(processPaymentCommand.getQuantity())
                 .reasonToFailed(reasonToFailed)
                 .build();
     }

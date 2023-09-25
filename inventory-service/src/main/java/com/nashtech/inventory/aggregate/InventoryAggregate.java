@@ -67,12 +67,14 @@ public class InventoryAggregate{
 	@CommandHandler
 	public void handle(ReserveProductCommand reserveProductCommand) {
 		log.info("ReserveProductCommand started with productId {}",reserveProductCommand.getProductId());
-		if(quantity < reserveProductCommand.getQuantity()) {
+		if(quantity<=0 ||  quantity < reserveProductCommand.getQuantity()) {
+			log.warn("Current stock is {} of the product {}", quantity, reserveProductCommand.getProductId());
 			ProductReserveFailedEvent productFailedEvent = ProductReserveFailedEvent.builder()
 					.productId(reserveProductCommand.getProductId())
 					.userId(reserveProductCommand.getUserId())
 					.orderId(reserveProductCommand.getOrderId())
-					.reasonToFailed("Insufficient number of items in stock").build();
+					.reasonToFailed("Insufficient number of items in stock for product "+reserveProductCommand.getProductId())
+					.build();
 			AggregateLifecycle.apply(productFailedEvent);
 			return;
 		}

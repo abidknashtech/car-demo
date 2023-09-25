@@ -73,8 +73,10 @@ public class OrderAggregate {
     public void handle(RejectOrderCommand rejectOrderCommand) {
         OrderCancelledEvent orderCancelledEvent = OrderCancelledEvent.builder()
                 .orderId(rejectOrderCommand.getOrderId())
+                .productId(rejectOrderCommand.getProductId())
                 .paymentId(rejectOrderCommand.getPaymentId())
                 .shipmentId(rejectOrderCommand.getShipmentId())
+                .userId(rejectOrderCommand.getUserId())
                 .reasonToFailed(rejectOrderCommand.getReasonToFailed())
                 .orderStatus(rejectOrderCommand.getOrderStatus())
                 .build();

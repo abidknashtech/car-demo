@@ -10,6 +10,5 @@ public class ProductReserveCancelledEvent {
     String orderId;
     String userId;
     Integer quantity;
-    String reasonToFailed;
 
 }

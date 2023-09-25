@@ -12,5 +12,4 @@ public class CompensateOrder {
     private String paymentId;
     private String shipmentId;
     private String reasonToFailed;
-    private String errorMessage;
 }

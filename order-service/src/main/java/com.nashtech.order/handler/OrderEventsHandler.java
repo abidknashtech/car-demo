@@ -60,13 +60,14 @@ public class OrderEventsHandler {
             log.error("Order failed  status did not persist {}",event.getOrderId());
             return;
         }
-        FailedOrderEntity order = orderOptional.get();
-        order.setProductId(event.getProductId());
-        order.setPaymentId(event.getPaymentId());
-        order.setShipmentId(event.getShipmentId());
-        order.setOrderStatus(event.getOrderStatus().toString());
-        order.setReasonToFailed(event.getReasonToFailed());
-        failedOrderRepository.save(order);
+        FailedOrderEntity failedOrder = orderOptional.get();
+        failedOrder.setProductId(event.getProductId());
+        failedOrder.setPaymentId(event.getPaymentId());
+        failedOrder.setShipmentId(event.getShipmentId());
+        failedOrder.setUserId(event.getUserId());
+        failedOrder.setOrderStatus(event.getOrderStatus().toString());
+        failedOrder.setReasonToFailed(event.getReasonToFailed());
+        failedOrderRepository.save(failedOrder);
     }
 
     @ExceptionHandler

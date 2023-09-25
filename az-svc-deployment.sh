@@ -32,7 +32,7 @@ echo "---------------deploy through kubectl------------------"
 echo "----Home dir-----"
 echo $HOME
 mkdir -p $HOME/.kube
-sudo cp -i /home/anshuman/.kube/config $HOME/.kube/config
+sudo cp -i /root/.kube/config $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ./kustomize build . | kubectl apply -f -
 kubectl rollout status deployment/"$DEPLOYMENT_NAME"

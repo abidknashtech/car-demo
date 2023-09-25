@@ -17,13 +17,17 @@ sudo docker push ntdemocontainerregistry.azurecr.io/"$SERVICE_NAME":"$GITHUB_SHA
 echo  "--------pushed docker image, deploy to aks cluster--------------------------"
 
 sudo az login --service-principal -u 4535b4bf-5f2a-4d46-9f61-f5889ba6592a -p Dan8Q~u3Wg~yK_Zw8MzqUgkXbYuKW-DoHGwnucwg --tenant 17742d94-229e-4be7-b2a9-75ba757f345b
+echo  "--------getting kube config--------------------------"
 sudo az aks get-credentials --resource-group "$RESOURCE_GROUP_NAME" --name "$AKS_CLUSTER"
 # setup kustomize
+echo  "--------setting up kustomize--------------------------"
 curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
 chmod u+x ./kustomize
 
 # set docker image for kustomize
+echo  "---------------set docker image for kustomize-------------------"
 ./kustomize edit set image ntdemocontainerregistry.azurecr.io/IMAGE:TAG=ntdemocontainerregistry.azurecr.io/"$SERVICE_NAME":"$GITHUB_SHA"
+echo "---------------deploy through kubectl------------------"
 # deploy through kubectl
 ./kustomize build . | kubectl apply -f -
 kubectl rollout status deployment/"$DEPLOYMENT_NAME"

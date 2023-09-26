@@ -11,6 +11,7 @@ public class OrderCancelledEvent {
     String productId;
     String paymentId;
     String shipmentId;
+    String userId;
     String reasonToFailed;
     OrderStatus orderStatus;
 }

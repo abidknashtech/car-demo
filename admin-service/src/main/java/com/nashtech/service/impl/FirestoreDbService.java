@@ -65,10 +65,10 @@ public class FirestoreDbService implements CloudDataService {
 
     /**
      * The FirestoreDbService constructor.
-     * @param firestore1 firestore instance.
+     * @param fireStoreInstance firestore instance.
      */
-    public FirestoreDbService(final Firestore firestore1) {
-        this.firestore = firestore1;
+    public FirestoreDbService(final Firestore fireStoreInstance) {
+        this.firestore = fireStoreInstance;
     }
 
     /**

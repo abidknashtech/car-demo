@@ -5,7 +5,7 @@ cosmosdb:
   container-name: az-car-collection
 
 eventhub:
-  name: eventhub
+  name: ntdemoeventhub
 
 apiUrl: /model_random.json?key=dcbc8750
 mockaroo:

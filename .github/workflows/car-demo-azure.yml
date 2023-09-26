@@ -1,11 +1,8 @@
-name: car-demo-common-service
+name: azure-car-demo-pipeline
 
 on:
   push:
     branches: [ main ]
-env:
-  AKS_CLUSTER: ntdemocluster
-  AKS_NAMESPACE: default
 
 jobs:
   setup-build-publish-deploy:

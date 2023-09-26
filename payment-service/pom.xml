@@ -41,7 +41,7 @@
 
 	<properties>
 		<java.version>19</java.version>
-		<common.version>1.0.1</common.version>
+		<common.version>1.0.2</common.version>
 	</properties>
 
 	<dependencies>

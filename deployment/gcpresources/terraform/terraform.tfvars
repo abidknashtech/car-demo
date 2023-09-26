@@ -1,7 +1,7 @@
 # Application Definition 
 app_name        = "car-demo"
 app_environment = "dev"
-app_project     = "boreal-gravity-396810"
+app_project     = "oval-crawler-398007"
 
 # GCP Settings
 gcp_region_1  = "us-east1"

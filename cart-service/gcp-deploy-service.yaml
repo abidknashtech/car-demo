@@ -70,7 +70,7 @@ spec:
           secretAccessKeySecretRef:
             name: gcpsm-secret
             key: secret-access-credentials
-      projectID: boreal-gravity-396810
+      projectID: oval-crawler-398007
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
@@ -108,5 +108,5 @@ metadata:
   name: cartservice-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 35.231.178.113
+  MYSQL_HOST: 34.75.219.35
   SERVICE_NAME: CartService

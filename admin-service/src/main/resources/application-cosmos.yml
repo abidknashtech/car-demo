@@ -1,7 +1,7 @@
 cosmosdb:
   key: ${COSMOS_KEY}
   uri: ${COSMOS_URI}
-  name: az-nashtech-db
+  name: ntdemodb
   container-name: az-car-collection
 
 eventhub:

@@ -43,7 +43,6 @@ do
   "common")
     echo "=========================Deploying common package==================="
     cd common || exit
-    echo "GCP PROJECT ID:> $PROJECT_ID"
     mvn -B clean deploy --file pom.xml
     cd ..;;
 

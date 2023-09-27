@@ -41,8 +41,8 @@ do
   case $project in
   # case 1 build and deploy package common
   "common")
+    echo "=========================Deploying common package==================="
     cd common || exit
-    echo $PROJECT_ID
     mvn -B clean deploy --file pom.xml
     cd ..;;
 

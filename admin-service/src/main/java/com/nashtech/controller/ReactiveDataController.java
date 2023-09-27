@@ -64,8 +64,27 @@ public class ReactiveDataController {
             description = "The data is obtained using the reactive service"
                     + " and duplicates are filtered out.")
     @GetMapping(value = "/cars/{brand}", produces =
-            MediaType.TEXT_EVENT_STREAM_VALUE)
+            MediaType.APPLICATION_JSON_VALUE)
     public Flux<Car> getCarsByBrand(
+            @PathVariable final String brand) {
+        return reactiveDataService.getCarsByBrand(brand);
+    }
+
+    /**
+     * Retrieves a stream of cars with the given brand.
+     * The data is obtained using the reactive service and duplicates
+     * are filtered out.
+     *
+     * @param brand The brand of cars to filter by.
+     * @return A Flux of Car representing cars with the
+     * specified brand.
+     */
+    @Operation(summary = "Retrieves cars filtered by brand.",
+            description = "The data is obtained using the reactive service"
+                    + " and duplicates are filtered out.")
+    @GetMapping(value = "/cars-sse/{brand}", produces =
+            MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Car> getCarsByBrandSse(
             @PathVariable final String brand) {
         return reactiveDataService.getCarsByBrand(brand);
     }

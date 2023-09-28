@@ -20,7 +20,8 @@ jobs:
         with:
           java-version: '19'
           distribution: 'temurin'
-          cache: maven
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }}
       - uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: '${{ secrets.GKE_KEY }}'
@@ -35,7 +36,6 @@ jobs:
           gcloud --quiet auth configure-docker
 
       - name: Build, Publish, and Deploy
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+
         run: |
           . apps-deployment-script.sh "us-east1"

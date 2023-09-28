@@ -34,5 +34,7 @@ jobs:
           gcloud --quiet auth configure-docker
 
       - name: Build, Publish, and Deploy
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           . apps-deployment-script.sh "us-east1"

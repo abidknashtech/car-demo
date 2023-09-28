@@ -9,6 +9,9 @@ env:
 jobs:
   setup-build-publish-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/labeler@v4
         with:

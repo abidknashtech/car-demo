@@ -13,10 +13,11 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/labeler@v4
-        with:
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v3
+      - name: Install jq tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install jq
       - name: Set up JDK 19
         uses: actions/setup-java@v3
         with:

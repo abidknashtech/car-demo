@@ -1,5 +1,5 @@
 cosmosdb:
-  key: ${COSMOS_KEY}
+  key: ${COSMOS-KEY}
   uri: ${COSMOS_URI}
   name: az-nashtech-db
   container-name: az-car-collection

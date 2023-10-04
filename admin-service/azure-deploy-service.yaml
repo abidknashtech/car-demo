@@ -22,10 +22,7 @@ spec:
               protocol: TCP
           env:
             - name: COSMOS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: ntdemokeyvault
-                  key: COSMOS-KEY
+              value: IfSwYCdJNGer4D50MjuL74MTP1dzbNcQyKJ62mqxzruLfiAniOkW3QXFxsMhcEkNjyQMMN6oT6QRACDblrDAFQ==
             - name: COSMOS_URI
               value: https://az-nashtech-db.documents.azure.com:443/
             - name: KAFKA_SERVER

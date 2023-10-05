@@ -1,6 +1,7 @@
 package com.nashtech.order.restapi;
 
 
+import com.nashtech.common.utils.OrderStatus;
 import com.nashtech.order.commands.CreateOrderCommand;
 import com.nashtech.order.query.FindOrderQuery;
 import com.nashtech.order.restapi.request.OrderCreateRequest;
@@ -40,12 +41,20 @@ public class OrdersCommandController {
                 .quantity(orderRequest.getQuantity()).orderId(orderId)
                 .build();
 
-        try (SubscriptionQueryResult<OrderSummary, OrderSummary> queryResult = queryGateway.subscriptionQuery(
+/*        try (SubscriptionQueryResult<OrderSummary, OrderSummary> queryResult = queryGateway.subscriptionQuery(
                 new FindOrderQuery(orderId), ResponseTypes.instanceOf(OrderSummary.class),
                 ResponseTypes.instanceOf(OrderSummary.class))) {
             commandGateway.send(createOrderCommand);
             return queryResult.updates().blockFirst();
-        }
+        }*/
+
+        commandGateway.send(createOrderCommand);
+        return OrderSummary.builder()
+                .orderId(orderId)
+                .message("Thank you for your order! We’ll let you know as soon as it ships. " +
+                        "You can track your order here,review us here, or shop again here.")
+                .orderStatus(OrderStatus.ORDER_PLACED.toString())
+                .build();
     }
 
 }

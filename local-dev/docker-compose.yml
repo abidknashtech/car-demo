@@ -32,3 +32,5 @@ volumes:
 
 networks:
   axon-network:
+
+# insert into products (product_id, base_price, brand, color, mileage, model, quantity,tax, timestamp,year) values('101',1000000,'Honda Car','Red',30,'JMI987',20,1.5,now(),2023);

@@ -2,14 +2,15 @@ package com.nashtech.inventory.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ErrorMessage {
-
-	private final Date timestamp;
-	private final String message;
+	private Date timestamp;
+	private String message;
 
 }

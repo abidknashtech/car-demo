@@ -43,7 +43,6 @@
 		<java.version>19</java.version>
 		<maven.compiler.source>19</maven.compiler.source>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
-		<common.version>1.0</common.version>
 		<dotenv.version>4.0.0</dotenv.version>
 	</properties>
 

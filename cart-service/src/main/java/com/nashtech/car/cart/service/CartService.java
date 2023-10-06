@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -76,8 +77,8 @@ public class CartService {
     }
 
     @Transactional
-    public CartItem getFromCart(String productId, String userId) {
-        CartItem cartItem = cartItemRepository.findByProductIdAndUserId(productId, userId);
+    public List<CartItem> getFromCart(String userId) {
+        List<CartItem> cartItem = cartItemRepository.findByUserId(userId);
         if (cartItem == null) {
             throw new IllegalStateException("Product not found from the cart");
         }

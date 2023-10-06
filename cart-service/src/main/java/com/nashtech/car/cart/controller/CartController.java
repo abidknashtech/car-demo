@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/cart")
 @Slf4j
@@ -35,8 +37,8 @@ public class CartController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<CartItem> getFromCart(@RequestParam String productId, @RequestParam String userId) {
-        return new ResponseEntity<>(cartService.getFromCart(productId,userId),HttpStatus.OK);
+    public ResponseEntity<List<CartItem>> getFromCart(@RequestParam String userId) {
+        return new ResponseEntity<>(cartService.getFromCart(userId),HttpStatus.OK);
     }
 
 }

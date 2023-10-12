@@ -16,7 +16,7 @@ echo  "--------docker build done, docker push---------------"
 sudo docker push ntdemocontainerregistry.azurecr.io/"$SERVICE_NAME":"$GITHUB_SHA"
 echo  "--------pushed docker image, deploy to aks cluster--------------------------"
 
-sudo az login --service-principal -u 6645b10c-62ea-4342-868d-6db24fb136bd -p YVr8Q~dUokG1ZgeliHqsJJ97GFqTfhncsLzJRcow --tenant 023d14ee-6534-4891-94be-7d7350125054
+sudo az login --service-principal -u 8eba7be9-c943-4eb4-9443-7be18d8ac72d -p Ie.8Q~tVh_EFBbVoePRk61NJ~wammEHgVyZKFbRP --tenant 023d14ee-6534-4891-94be-7d7350125054
 echo  "--------getting kube config--------------------------"
 sudo az aks get-credentials --resource-group "$RESOURCE_GROUP_NAME" --name "$AKS_CLUSTER"
 # setup kustomize

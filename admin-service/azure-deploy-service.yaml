@@ -22,7 +22,7 @@ spec:
               protocol: TCP
           env:
             - name: COSMOS_KEY
-              value: IfSwYCdJNGer4D50MjuL74MTP1dzbNcQyKJ62mqxzruLfiAniOkW3QXFxsMhcEkNjyQMMN6oT6QRACDblrDAFQ==
+              value: fRafGwI2i9OVY78MincqeS2vB3ORJ2UPIoAakjGX5YgmM5xz8Wg9f61HelDB6s0shsAk5KSL8OkRACDbUH8ocg==
             - name: COSMOS_URI
               value: https://az-nashtech-db.documents.azure.com:443/
             - name: KAFKA_SERVER
@@ -32,7 +32,7 @@ spec:
             - name: SASL_MECHANISM
               value: PLAIN
             - name: JASS_CONFIG
-              value: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ntdemoevtnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=gSWC/qtR+V3yNzInR79M7h98RbUa07iJg+AEhBtfcPk=";
+              value: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ntdemoevtnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=R2VBAzrTUtPto2W5d4fKhzZGH/AWPXupJ+AEhK2Me8E=";
             - name: KEY_SERIALIZER
               value: org.apache.kafka.common.serialization.StringSerializer
             - name: VALUE_SERIALIZER

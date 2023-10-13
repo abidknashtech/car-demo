@@ -8,15 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
-import java.util.Map;
 
 /**
  * Rest Controller class
@@ -71,25 +68,6 @@ public class ReactiveDataController {
     }
 
     /**
-     * Retrieves a stream of cars with the given brand.
-     * The data is obtained using the reactive service and duplicates
-     * are filtered out.
-     *
-     * @param brand The brand of cars to filter by.
-     * @return A Flux of Car representing cars with the
-     * specified brand.
-     */
-    @Operation(summary = "Retrieves cars filtered by brand.",
-            description = "The data is obtained using the reactive service"
-                    + " and duplicates are filtered out.")
-    @GetMapping(value = "/cars-sse/{brand}", produces =
-            MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<Car> getCarsByBrandSse(
-            @PathVariable final String brand) {
-        return reactiveDataService.getCarsByBrand(brand);
-    }
-
-    /**
      * Retrieves a stream of distinct car brands.
      * The data is obtained using the reactive service and duplicates are
      * filtered out.
@@ -104,27 +82,4 @@ public class ReactiveDataController {
     public Flux<CarBrand> getAllBrands() {
         return reactiveDataService.getAllBrands();
     }
-
-
-    /**
-     * Retrieves a stream of distinct car brands.
-     *
-     * The data is obtained using the reactive service and duplicates are
-     * filtered out.
-     *
-     * @return A Flux of CarBrand representing distinct car brands.
-     */
-    @Operation(summary = "Retrieves unique car brands.",
-            description = "The data is obtained using the reactive"
-                    + " service and duplicates are filtered out.")
-    @GetMapping(value = "/brands-sse",
-            produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSSE() {
-        return reactiveDataService.getAllBrandsSse()
-                .map(eventData -> ServerSentEvent.<Map<String, String>>builder()
-                        .data(eventData.data())
-                        .build());
-    }
-
-
 }

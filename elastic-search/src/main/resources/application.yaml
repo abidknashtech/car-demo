@@ -2,26 +2,23 @@ spring:
   profiles:
     active:
       - azure
-
-
-#spring:
-#  kafka:
-#    bootstrap-servers: event-hub-elastic.servicebus.windows.net:9093
-#    client-id: elastic-search
-#    properties:
-#      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://event-hub-elastic.servicebus.windows.net/;SharedAccessKeyName=sendandrecieve;SharedAccessKey=w8+oeEd7hWLHAVtB9PWfvYyfXoZ0bx1z4+AEhDsw0Gs=";
-#      sasl.mechanism: PLAIN
-#      security.protocol: SASL_SSL
-#    producer:
-#      value-serializer: com.elasticsearch.elasticsearch.util.CarEntitySerializer
-#    consumer:
-#      group-id: $Default
-#      properties:
-#        spring.json:
-#          use.type.headers: true
-#          value.default.type: com.elasticsearch.elasticsearch.entity.AzureCarEntity
-#topic:
-#  producer: car-event-hub
+  kafka:
+    bootstrap-servers: ntdemoevtnamespace.servicebus.windows.net:9093
+    client-id: elastic-search
+    properties:
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ntdemoevtnamespace.servicebus.windows.net/;SharedAccessKeyName=nashtech-elastic;SharedAccessKey=tOmMza3/36snbideCnUFuX0zm5wcPhiKZ+AEhJTd6vU=;EntityPath=ntdemoeventhub";
+      sasl.mechanism: PLAIN
+      security.protocol: SASL_SSL
+    producer:
+      value-serializer: com.elasticsearch.elasticsearch.util.CarEntitySerializer
+    consumer:
+      group-id: $Default
+      properties:
+        spring.json:
+          use.type.headers: true
+          value.default.type: com.elasticsearch.elasticsearch.entity.CarEntity
+topic:
+  producer: ntdemoeventhub
 
 azure:
   elastic:

@@ -1,6 +1,7 @@
 package com.elasticsearch.elasticsearch.controller;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
+import com.elasticsearch.elasticsearch.eventlistener.AzureKafkaProducer;
 import com.elasticsearch.elasticsearch.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,8 @@ import java.util.List;
 public class CarEntityController {
     @Autowired
     private CarService service;
-    /*@Autowired
-    private AzureKafkaProducer producer;*/
+    @Autowired
+    private AzureKafkaProducer producer;
 
     @GetMapping("/all")
     public ResponseEntity<List<CarEntity>> getAllCarEntity() {
@@ -32,7 +33,7 @@ public class CarEntityController {
 
     @PostMapping("/save")
     public CarEntity saveCarEntity(@RequestBody CarEntity carEntity) {
-       // producer.send(carEntity);
+        producer.send(carEntity);
         return service.saveCarEntity(carEntity);
     }
 }

@@ -1,4 +1,3 @@
-/*
 package com.elasticsearch.elasticsearch.eventlistener;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
@@ -23,4 +22,3 @@ public class AzureKafkaProducer {
         log.info("Published the message [{}] to the kafka queue: [{}]",message,topicName);
     }
 }
-*/

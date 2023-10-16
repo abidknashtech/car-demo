@@ -1,7 +1,7 @@
-/*
-package com.elasticsearch.elasticsearch.eventlistener;
+package com.elasticsearch.elasticsearch.eventlistener.impl;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
+import com.elasticsearch.elasticsearch.eventlistener.CloudConsumer;
 import com.elasticsearch.elasticsearch.service.CarService;
 import com.elasticsearch.elasticsearch.util.CarMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @Profile("azure")
-public class AzureConsumer {
+public class AzureConsumer implements CloudConsumer {
     @Autowired
     private CarService service;
 
@@ -25,4 +25,3 @@ public class AzureConsumer {
         log.info(carEntity.toString());
     }
 }
-*/

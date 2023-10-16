@@ -1,39 +1,56 @@
 package com.elasticsearch.elasticsearch.controller;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
-import com.elasticsearch.elasticsearch.eventlistener.AzureKafkaProducer;
 import com.elasticsearch.elasticsearch.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/apis/car")
 public class CarEntityController {
+
     @Autowired
     private CarService service;
-    @Autowired
-    private AzureKafkaProducer producer;
+
+//    @Autowired
+//    private AzureKafkaProducer producer;
 
     @GetMapping("/all")
     public ResponseEntity<List<CarEntity>> getAllCarEntity() {
-
         return new ResponseEntity<>(service.getAllCarEntity(), HttpStatus.OK);
     }
 
-    @GetMapping("/{carId}")
-    public ResponseEntity<CarEntity> getCarDetailsById(@PathVariable("carId") String carId) throws IOException {
+    @GetMapping("/byId/{carId}")
+    public ResponseEntity<CarEntity> getCarDetailsById(@PathVariable("carId") String carId) {
         CarEntity carEntityWithCarId = service.getCarEntityWithCarId(Integer.valueOf(carId));
         return new ResponseEntity<>(carEntityWithCarId, HttpStatus.OK);
     }
 
+    @GetMapping("/byMileage/{mileage}")
+    public ResponseEntity<CarEntity> getCarDetailsByMileage(@PathVariable("mileage") String mileage) {
+        CarEntity carEntityWithCarMileage = service.getCarEntityWithCarMileage(Double.valueOf(mileage));
+        return new ResponseEntity<>(carEntityWithCarMileage, HttpStatus.OK);
+    }
+
+    @GetMapping("/byBrand/{brand}")
+    public ResponseEntity<CarEntity> getCarDetailsByBrand(@PathVariable("brand") String brand) {
+        CarEntity carEntityWithCarBrand = service.getCarEntityWithBrandName(brand);
+        return new ResponseEntity<>(carEntityWithCarBrand, HttpStatus.OK);
+    }
+
+    @GetMapping("/byPrice/{price}")
+    public ResponseEntity<CarEntity> getCarDetailsByPrice(@PathVariable("price") String price) {
+        CarEntity carEntityWithCarPrice = service.getCarEntityWithCarPrice(Double.valueOf(price));
+        return new ResponseEntity<>(carEntityWithCarPrice, HttpStatus.OK);
+    }
+
     @PostMapping("/save")
     public CarEntity saveCarEntity(@RequestBody CarEntity carEntity) {
-        producer.send(carEntity);
+        //   producer.send(carEntity);
         return service.saveCarEntity(carEntity);
     }
 }

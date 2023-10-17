@@ -1,7 +1,7 @@
 package com.elasticsearch.elasticsearch.eventlistener.impl;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
-import com.elasticsearch.elasticsearch.eventlistener.GcpCloudConsumer;
+import com.elasticsearch.elasticsearch.eventlistener.CloudConsumer;
 import com.elasticsearch.elasticsearch.service.CarService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,13 +16,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-
 @Slf4j
 @Component
 @Profile("gcp")
-public class GcpConsumer extends GcpCloudConsumer {
+public class GcpConsumer implements CloudConsumer<BasicAcknowledgeablePubsubMessage> {
 
     @Value("${pubSub.subscriptionId}")
     private String subscription;
@@ -39,13 +36,23 @@ public class GcpConsumer extends GcpCloudConsumer {
         this.objectMapper = objectMapper;
     }
 
-    @Override
+
     public String subscription() {
         return this.subscription;
     }
 
+    public java.util.function.Consumer<BasicAcknowledgeablePubsubMessage> messageConsumer() {
+        return this::consumeEvent;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void subscribe() {
+        log.info("Subscribing {} to {} ", this.getClass().getSimpleName(), this.subscription());
+        pubSubTemplate.subscribe(this.subscription(), this.messageConsumer());
+    }
+
     @Override
-    protected void consume(BasicAcknowledgeablePubsubMessage basicAcknowledgeablePubsubMessage) {
+    public void consumeEvent(BasicAcknowledgeablePubsubMessage basicAcknowledgeablePubsubMessage) {
         PubsubMessage message = basicAcknowledgeablePubsubMessage.getPubsubMessage();
         log.info("Message received from {}", basicAcknowledgeablePubsubMessage.getProjectSubscriptionName());
         try {
@@ -55,12 +62,6 @@ public class GcpConsumer extends GcpCloudConsumer {
             log.error("Error Occurred while receiving pubsub message:::::", ex);
         }
         basicAcknowledgeablePubsubMessage.ack();
-    }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void subscribe() {
-        log.info("Subscribing {} to {} ", this.getClass().getSimpleName(), this.subscription());
-        pubSubTemplate.subscribe(this.subscription(), this.messageConsumer());
     }
 
     private void processMessage(BasicAcknowledgeablePubsubMessage message) {

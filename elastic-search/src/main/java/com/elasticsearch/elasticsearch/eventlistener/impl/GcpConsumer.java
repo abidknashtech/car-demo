@@ -2,6 +2,7 @@ package com.elasticsearch.elasticsearch.eventlistener.impl;
 
 import com.elasticsearch.elasticsearch.entity.CarEntity;
 import com.elasticsearch.elasticsearch.eventlistener.CloudConsumer;
+import com.elasticsearch.elasticsearch.repository.CarEntityRepository;
 import com.elasticsearch.elasticsearch.service.CarService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +27,9 @@ public class GcpConsumer implements CloudConsumer<BasicAcknowledgeablePubsubMess
 
     @Autowired
     private PubSubTemplate pubSubTemplate;
+
+    @Autowired
+    private CarEntityRepository carEntityRepository;
 
     @Autowired
     private CarService service;
@@ -72,7 +76,13 @@ public class GcpConsumer implements CloudConsumer<BasicAcknowledgeablePubsubMess
             gcHubMessageArray = objectMapper.readValue(eventMsgString, CarEntity[].class);
             CarEntity[] gcpElasticCarEntityList = gcHubMessageArray;
             for (CarEntity carEntity : gcpElasticCarEntityList) {
-                service.saveCarEntity(carEntity);
+                CarEntity existingCarEntity = carEntityRepository.findByCarId(carEntity.getCarId());
+                if (existingCarEntity == null) {
+                    service.saveCarEntity(carEntity);
+                    log.info("Car details saved successfully with car Id: {}", carEntity.getCarId());
+                } else {
+                    log.info("Car details cannot be saved because car with car Id: {} is already present", carEntity.getCarId());
+                }
             }
         } catch (IllegalArgumentException | JsonProcessingException e) {
             log.error("Json exception in parsing message: {}", eventMsgString, e);

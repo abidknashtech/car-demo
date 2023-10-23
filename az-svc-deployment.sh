@@ -6,7 +6,7 @@ DEPLOYMENT_NAME="adminservice"
 RESOURCE_GROUP_NAME="az-nashtech-resource-group"
 
 sudo az aks install-cli
-sudo az acr login --name ntdemocontainerregistry --username ntdemocontainerregistry --password cfCgHVF4pR4vo1Zrcpkj76bFMQeYgcCsKWVj5LqcZr+ACRAhHjyX
+sudo az acr login --name ntdemocontainerregistry --username ntdemocontainerregistry --password NshiXQFKNlAYyXJ/p7YxsSHwYqqEZwenHpJiQbpu9I+ACRDsvZur
 echo "---------build and deploy $SERVICE_NAME-----------"
 cd "$SERVICE_NAME" || exit
 mvn clean install
@@ -16,7 +16,7 @@ echo  "--------docker build done, docker push---------------"
 sudo docker push ntdemocontainerregistry.azurecr.io/"$SERVICE_NAME":"$GITHUB_SHA"
 echo  "--------pushed docker image, deploy to aks cluster--------------------------"
 
-sudo az login --service-principal -u 8eba7be9-c943-4eb4-9443-7be18d8ac72d -p Ie.8Q~tVh_EFBbVoePRk61NJ~wammEHgVyZKFbRP --tenant 023d14ee-6534-4891-94be-7d7350125054
+sudo az login --service-principal -u 72c49877-6440-4e98-995b-42e97b099f8d -p WnM8Q~kzKjb5XAvu.Yw4f7lqeQ4H5euqauzvvaJ4 --tenant 023d14ee-6534-4891-94be-7d7350125054
 echo  "--------getting kube config--------------------------"
 sudo az aks get-credentials --resource-group "$RESOURCE_GROUP_NAME" --name "$AKS_CLUSTER"
 # setup kustomize

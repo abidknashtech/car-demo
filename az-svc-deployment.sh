@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AKS_CLUSTER="ntdemocluster"
+AKS_CLUSTER="az-nashtech-cluster"
 SERVICE_NAME="admin-service"
 DEPLOYMENT_NAME="adminservice"
 RESOURCE_GROUP_NAME="az-nashtech-resource-group"

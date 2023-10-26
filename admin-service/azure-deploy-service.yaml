@@ -32,7 +32,7 @@ spec:
             - name: SASL_MECHANISM
               value: PLAIN
             - name: JASS_CONFIG
-              value: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ntdemoevtnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=kr/qfACiaY9oEQF+sERt1vJa5d1BBHxH0+AEhBFXTfQ=";
+              value: org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://ntdemoevtnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ujnlh0o3QswtDIJckFoXlOuX0z7h46Pe1+AEhMgWXQ8=";
             - name: KEY_SERIALIZER
               value: org.apache.kafka.common.serialization.StringSerializer
             - name: VALUE_SERIALIZER

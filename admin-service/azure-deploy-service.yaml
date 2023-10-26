@@ -26,7 +26,7 @@ spec:
             - name: COSMOS_URI
               value: https://az-nashtech-db.documents.azure.com:443/
             - name: KAFKA_SERVER
-              value: az-nashtech-eventhub.servicebus.windows.net:9093
+              value: ntdemoevtnamespace.servicebus.windows.net:9093
             - name: KAFKA_SECURITY_PROTOCOL
               value: SASL_SSL
             - name: SASL_MECHANISM

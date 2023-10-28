@@ -4,15 +4,17 @@ import com.elasticsearch.elasticsearch.entity.CarEntity;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CarEntityRepository extends ElasticsearchRepository<CarEntity, String> {
 
 
     CarEntity findByCarId(Integer carId);
 
-    CarEntity findByBrand(String brand);
+    List<CarEntity> findByBrand(String brand);
 
-    CarEntity findByMileage(Double mileage);
+    List<CarEntity> findByMileageGreaterThanEqual(Double mileage);
 
-    CarEntity findByPrice(Double price);
+    List<CarEntity> findByPriceGreaterThanEqual(Double price);
 }

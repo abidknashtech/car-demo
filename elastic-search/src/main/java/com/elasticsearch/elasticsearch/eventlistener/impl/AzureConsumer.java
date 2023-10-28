@@ -5,6 +5,7 @@ import com.elasticsearch.elasticsearch.eventlistener.CloudConsumer;
 import com.elasticsearch.elasticsearch.service.CarService;
 import com.elasticsearch.elasticsearch.util.CarMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -18,10 +19,15 @@ public class AzureConsumer implements CloudConsumer<String> {
     private CarService service;
 
     @KafkaListener(topics = "${topic.producer}")
+    public void consumeEvents(ConsumerRecord<String,String> event)  {
+
+        log.info("Received message from kafka queue: {}", event.value());
+        CarEntity carEntity = CarMapper.mapStringToEntity(event.value().toString());
+       service.saveCarEntity(carEntity);
+       log.info(carEntity.toString());
+    }
     public void consumeEvent(String event) {
-        log.info("Received message from kafka queue: {}", event);
-        CarEntity carEntity = CarMapper.mapStringToEntity(event);
-        service.saveCarEntity(carEntity);
-        log.info(carEntity.toString());
+        log.info("Received message from kafka queue: {}", event.toString());
+
     }
 }

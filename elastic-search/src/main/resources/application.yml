@@ -2,4 +2,9 @@ spring:
   profiles:
     active:
       - azure
+  main:
+    allow-bean-definition-overriding: true
+application:
+ description: Elastic Search
+ version: 1.0.0
 

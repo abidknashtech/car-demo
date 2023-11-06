@@ -28,9 +28,15 @@ public class CarEntity {
     @Field(type = FieldType.Text, name = "color")
     private String color;
 
-    @Field(type = FieldType.Double, name = "name")
+    @Field(type = FieldType.Double, name = "mileage")
     private Double mileage;
 
-    @Field(type = FieldType.Double, name = "name")
+    @Field(type = FieldType.Double, name = "price")
     private Double price;
+
+    @Field(type = FieldType.Integer, name = "quantity")
+    private Integer quantity;
+
+    @Field(type = FieldType.Double, name = "tax")
+    private Double tax;
 }

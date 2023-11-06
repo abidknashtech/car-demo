@@ -22,18 +22,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarEntity getCarEntityWithBrandName(String brand) {
+    public List<CarEntity> getCarEntityWithBrandName(String brand) {
         return repository.findByBrand(brand);
     }
 
     @Override
-    public CarEntity getCarEntityWithCarPrice(Double price) {
-        return repository.findByPrice(price);
+    public List<CarEntity> getCarEntityWithCarPrice(Double price) {
+        return repository.findByPriceGreaterThanEqual(price);
     }
 
     @Override
-    public CarEntity getCarEntityWithCarMileage(Double mileage) {
-        return repository.findByMileage(mileage);
+    public List<CarEntity> getCarEntityWithCarMileage(Double mileage) {
+        return repository.findByMileageGreaterThanEqual(mileage);
     }
 
     @Override

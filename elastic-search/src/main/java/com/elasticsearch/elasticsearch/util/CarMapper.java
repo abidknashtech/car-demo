@@ -27,6 +27,8 @@ public class CarMapper {
             carEntity.setColor((String) payloadMap.get("color"));
             carEntity.setMileage((Double) payloadMap.get("mileage"));
             carEntity.setPrice((Double) payloadMap.get("price"));
+            carEntity.setQuantity((Integer) payloadMap.get("quantity"));
+            carEntity.setTax((Double) payloadMap.get("tax"));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

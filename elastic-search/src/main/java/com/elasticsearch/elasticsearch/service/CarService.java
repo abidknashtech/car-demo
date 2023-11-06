@@ -8,11 +8,11 @@ public interface CarService {
 
     public CarEntity getCarEntityWithCarId(Integer carId);
 
-    public CarEntity getCarEntityWithBrandName(String brand);
+    public List<CarEntity> getCarEntityWithBrandName(String brand);
 
-    public CarEntity getCarEntityWithCarPrice(Double price);
+    public List<CarEntity> getCarEntityWithCarPrice(Double price);
 
-    public CarEntity getCarEntityWithCarMileage(Double mileage);
+    public List<CarEntity> getCarEntityWithCarMileage(Double mileage);
 
     public List<CarEntity> getAllCarEntity();
 

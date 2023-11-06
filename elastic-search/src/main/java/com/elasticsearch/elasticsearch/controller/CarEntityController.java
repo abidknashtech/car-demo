@@ -31,20 +31,20 @@ public class CarEntityController {
     }
 
     @GetMapping("/byMileage/{mileage}")
-    public ResponseEntity<CarEntity> getCarDetailsByMileage(@PathVariable("mileage") String mileage) {
-        CarEntity carEntityWithCarMileage = service.getCarEntityWithCarMileage(Double.valueOf(mileage));
+    public ResponseEntity<List<CarEntity>> getCarDetailsByMileage(@PathVariable("mileage") String mileage) {
+        List<CarEntity> carEntityWithCarMileage = service.getCarEntityWithCarMileage(Double.valueOf(mileage));
         return new ResponseEntity<>(carEntityWithCarMileage, HttpStatus.OK);
     }
 
     @GetMapping("/byBrand/{brand}")
-    public ResponseEntity<CarEntity> getCarDetailsByBrand(@PathVariable("brand") String brand) {
-        CarEntity carEntityWithCarBrand = service.getCarEntityWithBrandName(brand);
+    public ResponseEntity<List<CarEntity>> getCarDetailsByBrand(@PathVariable("brand") String brand) {
+        List<CarEntity> carEntityWithCarBrand = service.getCarEntityWithBrandName(brand);
         return new ResponseEntity<>(carEntityWithCarBrand, HttpStatus.OK);
     }
 
     @GetMapping("/byPrice/{price}")
-    public ResponseEntity<CarEntity> getCarDetailsByPrice(@PathVariable("price") String price) {
-        CarEntity carEntityWithCarPrice = service.getCarEntityWithCarPrice(Double.valueOf(price));
+    public ResponseEntity<List<CarEntity>> getCarDetailsByPrice(@PathVariable("price") String price) {
+        List<CarEntity> carEntityWithCarPrice = service.getCarEntityWithCarPrice(Double.valueOf(price));
         return new ResponseEntity<>(carEntityWithCarPrice, HttpStatus.OK);
     }
 }

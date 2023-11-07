@@ -1,4 +1,3 @@
-common
 admin-service
 cart-service
 inventory-service

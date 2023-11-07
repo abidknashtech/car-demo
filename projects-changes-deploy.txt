@@ -1,4 +1,3 @@
-cart-service
 inventory-service
 order-service
 payment-service

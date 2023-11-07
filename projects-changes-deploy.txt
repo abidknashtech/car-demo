@@ -1,1 +1,7 @@
 common
+admin-service
+cart-service
+inventory-service
+order-service
+payment-service
+shipment-service

@@ -13,7 +13,7 @@ build_and_deploy_service(){
    DEPLOYMENT_NAME=$3
    echo "---------build and deploy $SERVICE_NAME-----------"
    cd "$SERVICE_NAME" || exit
-   mvn clean install
+   mvn clean install  -s $GITHUB_WORKSPACE/settings.xml
    echo "---------packaging done, start docker build-----------"
    docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA" .
    echo  "--------docker build done, docker push---------------"

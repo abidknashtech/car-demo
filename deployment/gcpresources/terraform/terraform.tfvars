@@ -1,7 +1,7 @@
 # Application Definition 
 app_name        = "car-demo"
 app_environment = "dev"
-app_project     = "oval-crawler-398007"
+app_project     = "datamesh-2"
 
 # GCP Settings
 gcp_region_1  = "us-east1"

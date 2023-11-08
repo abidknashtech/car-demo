@@ -22,6 +22,8 @@ gcloud container clusters create $CLUSTER_NAME --num-nodes=2 --region=$CLUSTER_R
 # Get Cluster Credentials
 gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_REGION --project $PROJECT_ID
 
+gcloud alpha firestore databases create --location=us-east1 --type=firestore-native
+
 # Create a Pub/Sub topic
 gcloud pubsub topics create $TOPIC_NAME --project=$PROJECT_ID
 

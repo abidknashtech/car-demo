@@ -122,12 +122,12 @@ resource "null_resource" "axon-server-gke" {
 
 #----------------------GCP firestore----------------------------
 
-resource "google_firestore_database" "database" {
+/*resource "google_firestore_database" "database" {
   project     = var.app_project
   name        = "(default)"
   location_id = var.gcp_region_1
   type        = "FIRESTORE_NATIVE"
-}
+}*/
 
 #------------------------- secret manger----------------------
 resource "google_secret_manager_secret" "car-demo-secret" {

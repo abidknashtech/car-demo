@@ -69,7 +69,7 @@ spec:
           secretAccessKeySecretRef:
             name: gcpsm-secret
             key: secret-access-credentials
-      projectID: oval-crawler-398007
+      projectID: datamesh-2
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
@@ -110,5 +110,5 @@ data:
   MYSQL_HOST: 34.75.219.35
   AXON_HOST: 34.74.21.70:8124
   SERVICE_NAME: InventoryService
-  GCP_PROJECT_ID: oval-crawler-398007
+  GCP_PROJECT_ID: datamesh-2
   PRODUCT_SUBSCRIPTION: inventory_subscription

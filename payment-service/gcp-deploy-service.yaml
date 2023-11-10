@@ -69,7 +69,7 @@ spec:
           secretAccessKeySecretRef:
             name: gcpsm-secret
             key: secret-access-credentials
-      projectID: oval-crawler-398007
+      projectID: datamesh-2
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret

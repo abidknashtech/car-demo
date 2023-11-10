@@ -45,5 +45,5 @@ metadata:
   name: admin-configmap
 data:
   # Configuration values can be set as key-value properties
-  GCP_PROJECT_ID: oval-crawler-398007
+  GCP_PROJECT_ID: datamesh-2
   PUB_SUB_TOPIC_ID: Vehicle

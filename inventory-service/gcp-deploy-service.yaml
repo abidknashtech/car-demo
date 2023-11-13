@@ -35,6 +35,12 @@ spec:
                   name: secret-to-be-created
                   key: mysql-db-userpassword
                   optional: false
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              valueFrom:
+                secretKeyRef:
+                  name: secret-to-be-created
+                  key: gcp_json_key
+                  optional: false
           envFrom:
             - configMapRef:
                 name: inventory-configmap
@@ -93,6 +99,11 @@ spec:
         key: car-demo-secret
         version: latest
         property: mysql-db-userpassword
+    - secretKey: "gcp_json_key"
+      remoteRef:
+        key: car-demo-secret
+        version: latest
+        property: gcp_json_key
 
     - secretKey: "MY_SQL_SECRETS"
       remoteRef:

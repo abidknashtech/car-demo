@@ -66,7 +66,12 @@ variable user_name {
   default     = "dbadmin"
 }
 
-variable user_password {
+variable guser_password {
   description = "The password for the default user. If not set, a random one will be generated and available in the generated_user_password output variable."
   default     = "JavaDBs#password2023"
+}
+
+variable gcp_json_key {
+  description = "GCP Json key"
+  default     = "{}"
 }

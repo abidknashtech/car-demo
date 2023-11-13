@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: secret-to-be-created
-                  key: gcp_json_key
+                  key: gcp-json-key
                   optional: false
           envFrom:
             - configMapRef:
@@ -99,11 +99,11 @@ spec:
         key: car-demo-secret
         version: latest
         property: mysql-db-userpassword
-    - secretKey: "gcp_json_key"
+    - secretKey: "gcp-json-key"
       remoteRef:
         key: car-demo-secret
         version: latest
-        property: gcp_json_key
+        property: gcp-json-key
 
     - secretKey: "MY_SQL_SECRETS"
       remoteRef:

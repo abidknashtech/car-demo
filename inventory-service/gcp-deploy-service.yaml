@@ -102,12 +102,6 @@ spec:
         key: car-demo-secret
         version: latest
         property: mysql-db-userpassword
-    - secretKey: "gcp-json-key"
-      remoteRef:
-        key: car-demo-secret
-        version: latest
-        property: gcp-json-key
-
     - secretKey: "MY_SQL_SECRETS"
       remoteRef:
         key: car-demo-secret

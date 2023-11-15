@@ -14,6 +14,10 @@ spec:
       labels:
         app: inventoryservice
     spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: pubsub-key
       containers:
         - name: inventoryservice
           image: gcr.io/PROJECT_ID/IMAGE:TAG
@@ -23,12 +27,8 @@ spec:
               containerPort: 9091
               protocol: TCP
           volumeMounts:
-          - name: google-cloud-key
-            mountPath: /var/secrets/google
-      volumes:
-      - name: google-cloud-key
-        secret:
-          secretName: pubsub-key    
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
           env:
             - name: MYSQL_DB_USERNAME
               valueFrom:
@@ -102,6 +102,11 @@ spec:
         key: car-demo-secret
         version: latest
         property: mysql-db-userpassword
+    - secretKey: "gcp-json-key"
+      remoteRef:
+        key: car-demo-secret
+        version: latest
+        property: gcp-json-key
 
     - secretKey: "MY_SQL_SECRETS"
       remoteRef:

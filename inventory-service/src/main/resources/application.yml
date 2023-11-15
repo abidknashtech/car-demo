@@ -4,8 +4,6 @@ spring:
   cloud:
     gcp:
       project-id: ${GCP_PROJECT_ID}
-      credentials:
-        location: file:${GOOGLE_APPLICATION_CREDENTIALS}
   application:
     name: ${SERVICE_NAME}
   datasource:

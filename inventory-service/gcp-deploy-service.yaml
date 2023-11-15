@@ -14,6 +14,10 @@ spec:
       labels:
         app: inventoryservice
     spec:
+      volumes:
+        - name: google-cloud-key
+          secret:
+            secretName: gcp-json-key
       containers:
         - name: inventoryservice
           image: gcr.io/PROJECT_ID/IMAGE:TAG
@@ -22,6 +26,9 @@ spec:
             - name: http
               containerPort: 9091
               protocol: TCP
+          volumeMounts:
+            - name: google-cloud-key
+              mountPath: /var/secrets/google
           env:
             - name: MYSQL_DB_USERNAME
               valueFrom:
@@ -36,6 +43,7 @@ spec:
                   key: mysql-db-userpassword
                   optional: false
             - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
               valueFrom:
                 secretKeyRef:
                   name: secret-to-be-created

@@ -22,6 +22,13 @@ spec:
             - name: http
               containerPort: 9091
               protocol: TCP
+          volumeMounts:
+          - name: google-cloud-key
+            mountPath: /var/secrets/google
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: pubsub-key    
           env:
             - name: MYSQL_DB_USERNAME
               valueFrom:
@@ -36,11 +43,7 @@ spec:
                   key: mysql-db-userpassword
                   optional: false
             - name: GOOGLE_APPLICATION_CREDENTIALS
-              valueFrom:
-                secretKeyRef:
-                  name: google-application-credentials
-                  key: application-credentials.json
-                  optional: false
+              value: /var/secrets/google/key.json
           envFrom:
             - configMapRef:
                 name: inventory-configmap

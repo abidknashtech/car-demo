@@ -42,4 +42,4 @@ jobs:
           . apps-deployment-script.sh "us-east1"
         env:
          GITHUB_TOKEN: ${{ github.token }}
-         APPLICATION_CREDENTIALS: ${{ secrets.GKE_KEY }}
+         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_KEY }}

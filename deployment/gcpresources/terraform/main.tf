@@ -162,5 +162,5 @@ resource "google_secret_manager_secret" "car-demo-secret" {
 resource "google_secret_manager_secret_version" "car-demo-secret-1" {
 
   secret      = google_secret_manager_secret.car-demo-secret.id
-  secret_data = "{\"mysql-db-username\": \"${var.user_name}\", \"mysql-db-userpassword\": \"${var.user_password}\", \"gcp-json-key\": \"${file("key.json")}\"}"
+  secret_data = "{\"mysql-db-username\": \"${var.user_name}\", \"mysql-db-userpassword\": \"${var.user_password}\"}"
 }

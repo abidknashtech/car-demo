@@ -24,7 +24,7 @@ jobs:
           settings-path: ${{ github.workspace }}
       - uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GKE_KEY }}'
+          credentials_json: ${{ secrets.GKE_KEY }}
       - uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.GKE_PROJECT }}
@@ -40,3 +40,4 @@ jobs:
           . apps-deployment-script.sh "us-east1"
         env:
          GITHUB_TOKEN: ${{ github.token }}
+         APPLICATION_CREDENTIALS: ${{ secrets.GKE_KEY }}

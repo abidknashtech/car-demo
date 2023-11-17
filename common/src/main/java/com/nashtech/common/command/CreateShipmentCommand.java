@@ -14,6 +14,7 @@ public class CreateShipmentCommand {
     String orderId;
     User user;
     String productId;
+    String brand;
     Double subTotal;
     Double total;
     Float tax;

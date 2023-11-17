@@ -12,6 +12,7 @@ public class ShipmentCreatedEvent {
     String orderId;
     User user;
     String productId;
+    String brand;
     Double subTotal;
     Double total;
     Float tax;

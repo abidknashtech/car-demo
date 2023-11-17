@@ -13,6 +13,7 @@ public class ProcessPaymentCommand {
     String productId;
     String userId;
     Integer quantity;
+    String brand;
     Float tax;
     Double basePrice;
     Double subTotal;

@@ -50,6 +50,7 @@ public class PaymentAggregate {
                         .productId(processPaymentCommand.getProductId())
                         .user(paymentUser)
                         .quantity(processPaymentCommand.getQuantity())
+                        .brand(processPaymentCommand.getBrand())
                         .subTotal(processPaymentCommand.getSubTotal())
                         .total(processPaymentCommand.getTotal())
                         .tax(processPaymentCommand.getTax())

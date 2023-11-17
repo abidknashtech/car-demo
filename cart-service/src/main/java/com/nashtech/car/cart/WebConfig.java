@@ -1,5 +1,6 @@
 package com.nashtech.car.cart;
 
+/*
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,3 +18,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 }
+*/
+

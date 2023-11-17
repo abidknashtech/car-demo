@@ -60,7 +60,7 @@
 
 	<properties>
 		<java.version>19</java.version>
-		<common.version>2.0</common.version>
+		<common.version>2.1</common.version>
 		<validation-api.version>2.0.1.Final</validation-api.version>
 		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>

@@ -58,6 +58,11 @@ resource "google_sql_database" "shipment_db" {
   project   = var.app_project
   instance  = google_sql_database_instance.my_sql.name
 }
+resource "google_sql_database" "cart_db" {
+  name      = var.cart_db_name
+  project   = var.app_project
+  instance  = google_sql_database_instance.my_sql.name
+}
 
 # create user
 resource "random_id" "user_password" {

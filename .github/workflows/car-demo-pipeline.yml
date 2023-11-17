@@ -28,8 +28,6 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ env.GKE_PROJECT }}
-          service_account_key: ${{env.GKE_KEY}}
-          export_default_credentials: true
 
         # Configure Docker to use the gcloud command-line tool as a credential 
         # helper for authentication
@@ -42,4 +40,3 @@ jobs:
           . apps-deployment-script.sh "us-east1"
         env:
          GITHUB_TOKEN: ${{ github.token }}
-         GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GKE_KEY }}

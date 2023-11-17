@@ -14,6 +14,10 @@ spec:
       labels:
         app: inventoryservice
     spec:
+      volumes:
+        - name: google-cloud-keys
+          secret:
+            secretName: gac-key
       containers:
         - name: inventoryservice
           image: gcr.io/PROJECT_ID/IMAGE:TAG
@@ -22,7 +26,13 @@ spec:
             - name: http
               containerPort: 9091
               protocol: TCP
+          volumeMounts:
+            - name: google-cloud-keys
+              mountPath: /var/secrets/google
+              readOnly: true
           env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
             - name: MYSQL_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -106,8 +116,8 @@ metadata:
   name: inventory-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 35.237.167.102
-  AXON_HOST: 34.74.201.108:8124
+  MYSQL_HOST: 104.196.43.152
+  AXON_HOST: 35.190.149.67:8124
   SERVICE_NAME: InventoryService
   GCP_PROJECT_ID: datamesh-2
   PRODUCT_SUBSCRIPTION: inventory_subscription

@@ -117,8 +117,8 @@ metadata:
   name: shipment-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 35.237.193.217
-  AXON_HOST: 35.231.240.45:8124
+  MYSQL_HOST: 34.23.67.210
+  AXON_HOST: 34.138.203.107:8124
   GCP_PROJECT_ID: datamesh-2
   PUB_SUB_TOPIC_ID: shipment-notification
   SERVICE_NAME: ShipmentService

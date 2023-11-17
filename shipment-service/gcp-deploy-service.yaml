@@ -14,6 +14,10 @@ spec:
       labels:
         app: shipmentservice
     spec:
+      volumes:
+        - name: google-cloud-keys
+          secret:
+            secretName: gac-key
       containers:
         - name: shipmentservice
           image: gcr.io/PROJECT_ID/IMAGE:TAG
@@ -22,7 +26,12 @@ spec:
             - name: http
               containerPort: 9093
               protocol: TCP
+          volumeMounts:
+            - name: google-cloud-keys
+              mountPath: /var/secrets/google
           env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
             - name: MYSQL_DB_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -108,8 +117,8 @@ metadata:
   name: shipment-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 34.138.37.73
-  AXON_HOST: 34.139.102.42:8124
+  MYSQL_HOST: 35.237.193.217
+  AXON_HOST: 35.231.240.45:8124
   GCP_PROJECT_ID: datamesh-2
-  PUB_SUB_TOPIC_ID: PUB_SUB_TOPIC_ID
+  PUB_SUB_TOPIC_ID: shipment-notification
   SERVICE_NAME: ShipmentService

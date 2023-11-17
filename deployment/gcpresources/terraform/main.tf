@@ -77,14 +77,14 @@ resource "google_pubsub_topic" "shipment-notification" {
   message_retention_duration = "604800s"
 }
 
-resource "google_pubsub_topic" "Vehicle" {
-  name = "Vehicle"
+resource "google_pubsub_topic" "vehicle" {
+  name = "vehicle"
   message_retention_duration = "604800s"
 }
 
 resource "google_pubsub_subscription" "inventory_subscription" {
   name  = "inventory_subscription"
-  topic = google_pubsub_topic.Vehicle.name
+  topic = google_pubsub_topic.vehicle.name
 
   # 20 minutes
   message_retention_duration = "1200s"

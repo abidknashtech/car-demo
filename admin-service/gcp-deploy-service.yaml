@@ -46,4 +46,4 @@ metadata:
 data:
   # Configuration values can be set as key-value properties
   GCP_PROJECT_ID: datamesh-2
-  PUB_SUB_TOPIC_ID: Vehicle
+  PUB_SUB_TOPIC_ID: vehicle

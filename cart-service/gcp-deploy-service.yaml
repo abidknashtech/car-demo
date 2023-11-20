@@ -110,3 +110,4 @@ data:
   # Configuration values can be set as key-value properties
   MYSQL_HOST: 35.196.34.197
   SERVICE_NAME: CartService
+  INVENTORY_HOST: http://34.73.103.83:9091

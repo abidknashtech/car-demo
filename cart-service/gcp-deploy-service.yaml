@@ -108,5 +108,5 @@ metadata:
   name: cartservice-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 34.23.67.210
+  MYSQL_HOST: 35.196.34.197
   SERVICE_NAME: CartService

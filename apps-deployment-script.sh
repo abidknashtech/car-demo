@@ -13,7 +13,9 @@ build_and_deploy_service(){
    DEPLOYMENT_NAME=$3
    echo "---------build and deploy $SERVICE_NAME-----------"
    cd "$SERVICE_NAME" || exit
-   mvn clean install  -s $GITHUB_WORKSPACE/settings.xml
+   if [  $SERVICE_NAME != "car-ui" ]; then
+       mvn clean install  -s $GITHUB_WORKSPACE/settings.xml
+   fi
    echo "---------packaging done, start docker build-----------"
    docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA" .
    echo  "--------docker build done, docker push---------------"
@@ -77,6 +79,10 @@ do
       build_and_deploy_service cart-service $GKE_CLUSTER cartservice
       cd ..;;
 
+  # case 8 build and deploy car-ui app
+  "car-ui")
+      build_and_deploy_service car-ui $GKE_CLUSTER carui
+      cd ..;;
   esac
 
 done

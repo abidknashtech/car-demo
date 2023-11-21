@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: car-ui
+  name: carui
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: car-ui
+      app: carui
   template:
     metadata:
       labels:
-        app: car-ui
+        app: carui
     spec:
       containers:
-        - name: car-ui
+        - name: carui
           image: gcr.io/PROJECT_ID/IMAGE:TAG
           ports:
             - containerPort: 8080
@@ -22,10 +22,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: car-ui-app
+  name: carui
 spec:
   selector:
-    app: car-ui
+    app: carui
   ports:
     - protocol: TCP
       port: 80

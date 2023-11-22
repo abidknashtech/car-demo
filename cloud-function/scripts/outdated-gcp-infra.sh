@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# this script is outdated please ref terraform deployment/gcpresources/terraform/main.tf
 # Set your GCP project ID and other variables
 PROJECT_ID="gcp-demo-project-399609"
 CLUSTER_NAME="cluster-gcp-deployment"

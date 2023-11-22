@@ -2,6 +2,7 @@
 resource "random_id" "instance_id" {
  byte_length = 4
 }
+
 #----------------------------------------my-sql-----------------------------
 # create My SQL database instance
 resource "google_sql_database_instance" "my_sql" {
@@ -132,17 +133,9 @@ resource "google_container_cluster" "car-demo-gke" {
     services_ipv4_cidr_block = ""
   }
   enable_autopilot = true
-
 }
 
-resource "null_resource" "external-secret-car-demo-gke" {
-  provisioner "local-exec" {
-    command = "/bin/bash external-secret-gcsm.sh car-demo-gke ${var.gcp_region_1}"
-  }
-  depends_on = [google_container_cluster.car-demo-gke]
-}
-
-#-----------------------GKE Cluster for axon-server----------------------------
+#GKE Cluster for axon-server
 resource "google_container_cluster" "axon-server-gke" {
   name     = "axon-server-gke"
   location = var.gcp_region_1
@@ -151,7 +144,13 @@ resource "google_container_cluster" "axon-server-gke" {
     services_ipv4_cidr_block = ""
   }
   enable_autopilot = true
+}
 
+resource "null_resource" "external-secret-car-demo-gke" {
+  provisioner "local-exec" {
+    command = "/bin/bash external-secret-gcsm.sh car-demo-gke ${var.gcp_region_1}"
+  }
+  depends_on = [google_container_cluster.car-demo-gke]
 }
 
 resource "null_resource" "axon-server-gke" {
@@ -169,10 +168,64 @@ resource "google_project_service" "firestore" {
 
 resource "google_firestore_database" "database" {
   project     = var.app_project
-  name        = "(default)"
+  name        = "car-db"
   location_id = var.gcp_region_1
   type        = "FIRESTORE_NATIVE"
   depends_on = [google_project_service.firestore]
+}
+
+#------------------------- Cloud function----------------------
+resource "google_storage_bucket" "function_bucket" {
+  name                        = "${random_id.instance_id.hex}-gcf-source" # Every bucket name must be globally unique
+  location                    = var.gcp_region_1
+  uniform_bucket_level_access = true
+}
+
+data "archive_file" "source" {
+  type        = "zip"
+  output_path = "/tmp/function-source.zip"
+  source_dir  = "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
+}
+
+resource "google_storage_bucket_object" "zip" {
+  name   = "function-source.zip"
+  bucket = google_storage_bucket.function_bucket.name
+  source = data.archive_file.source.output_path # Add path to the zipped function source code
+  content_type = "application/zip"
+}
+
+resource "google_cloudfunctions2_function" "function-v2" {
+  name        = "car_cloud_function"
+  location    = var.gcp_region_1
+
+  event_trigger {
+    trigger_region = var.gcp_region_1
+    event_type     = "google.cloud.pubsub.topic.v1.messagePublished"
+     pubsub_topic   = google_pubsub_topic.vehicle.id
+    retry_policy   = "RETRY_POLICY_RETRY"
+  }
+
+  build_config {
+    runtime     = "java17"
+    entry_point = "com.knoldus.cloudfunction.PubSubDataHandler" # Set the entry point
+    source {
+      storage_source {
+        bucket = google_storage_bucket.function_bucket.name
+        object = google_storage_bucket_object.zip.name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count = 1
+    available_memory   = "256M"
+    timeout_seconds    = 60
+  }
+
+  depends_on            = [
+    google_storage_bucket.function_bucket,  # declared in `storage.tf`
+    google_storage_bucket_object.zip
+  ]
 }
 
 #------------------------- secret manger----------------------

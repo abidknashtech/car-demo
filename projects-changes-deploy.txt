@@ -1,7 +1,1 @@
-admin-service
-car-ui
-cart-service
-inventory-service
-order-service
-payment-service
-shipment-service
+

@@ -106,6 +106,24 @@ resource "google_pubsub_subscription" "inventory_subscription" {
   enable_message_ordering    = false
 }
 
+resource "google_pubsub_subscription" "vehicle_subscription" {
+  name  = "vehicle_subscription"
+  topic = google_pubsub_topic.vehicle.name
+
+  # 20 minutes
+  message_retention_duration = "1200s"
+  retain_acked_messages      = true
+
+  ack_deadline_seconds = 20
+  expiration_policy {
+    ttl = "300000.5s"
+  }
+  retry_policy {
+    minimum_backoff = "10s"
+  }
+  enable_message_ordering    = false
+}
+
 resource "google_pubsub_subscription" "shipment_subscription" {
   name  = "shipment_subscription"
   topic = google_pubsub_topic.shipment-notification.name
@@ -158,6 +176,23 @@ resource "null_resource" "axon-server-gke" {
     command = "/bin/bash axon-server-deployment.sh axon-server-gke ${var.gcp_region_1}"
   }
   depends_on = [google_container_cluster.axon-server-gke]
+}
+
+#GKE Cluster for elasticsearch
+resource "google_container_cluster" "elasticsearch-server-gke" {
+  name     = "elasticsearch-server-gke"
+  location = var.gcp_region_1
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block  = ""
+    services_ipv4_cidr_block = ""
+  }
+  enable_autopilot = true
+}
+resource "null_resource" "elasticsearch-server-gke" {
+  provisioner "local-exec" {
+    command = "/bin/bash gcp-elasticsearch-deployment.sh elasticsearch-server-gke ${var.gcp_region_1}"
+  }
+  depends_on = [google_container_cluster.elasticsearch-server-gke]
 }
 
 #----------------------GCP firestore----------------------------

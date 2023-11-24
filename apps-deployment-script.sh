@@ -83,6 +83,11 @@ do
   "car-ui")
       build_and_deploy_service car-ui $GKE_CLUSTER carui
       cd ..;;
+
+  # case 8 build and deploy car-ui app
+  "elastic-search")
+      build_and_deploy_service elastic-search $GKE_CLUSTER elasticsearch
+      cd ..;;
   esac
 
 done

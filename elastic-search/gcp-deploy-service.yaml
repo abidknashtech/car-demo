@@ -57,7 +57,7 @@ metadata:
   name: elasticsearch-configmap
 data:
   # Configuration values can be set as key-value properties
-  SERVICE_NAME: elasticsearch
+  SERVICE_NAME: ElasticsearchService
   GCP_PROJECT_ID: datamesh-2
   PUB_SUB_SUBSCRIPTION: vehicle-subscription
   ELASTICSEARCH_HOST: 35.201.207.148

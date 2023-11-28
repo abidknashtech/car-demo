@@ -1,0 +1,6 @@
+admin-service
+inventory-service
+order-service
+payment-service
+shipment-service
+elastic-search

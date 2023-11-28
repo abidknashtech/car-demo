@@ -151,6 +151,7 @@ resource "google_container_cluster" "car-demo-gke" {
     services_ipv4_cidr_block = ""
   }
   enable_autopilot = true
+  deletion_protection = false
 }
 
 #GKE Cluster for axon-server
@@ -162,6 +163,7 @@ resource "google_container_cluster" "axon-server-gke" {
     services_ipv4_cidr_block = ""
   }
   enable_autopilot = true
+  deletion_protection = false
 }
 
 resource "null_resource" "external-secret-car-demo-gke" {
@@ -187,6 +189,7 @@ resource "google_container_cluster" "elasticsearch-server-gke" {
     services_ipv4_cidr_block = ""
   }
   enable_autopilot = true
+  deletion_protection = false
 }
 resource "null_resource" "elasticsearch-server-gke" {
   provisioner "local-exec" {

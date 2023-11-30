@@ -229,7 +229,7 @@ resource "google_storage_bucket" "function_bucket" {
 data "archive_file" "source" {
   type        = "zip"
   output_path = "/tmp/function-source.zip"
-  source_dir  = "[ CLOUD-FUNCTION ABSOLUTE PATH ]"
+  source_dir  = "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
   // ex. "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
 }
 

@@ -7,7 +7,7 @@ import { CarBrand, CarDetails } from "../module/cars-details.model";
   providedIn: "root",
 })
 export class CarDetailsService {
-  private const ADMIN_GCP_HOST = `localhost`;
+  private const ADMIN_GCP_HOST = `35.243.195.1`;
 
   //GCP host
   private brandsUrlGCP = "http://${this.ADMIN_GCP_HOST}/v1/data/brands";

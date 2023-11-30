@@ -11,8 +11,8 @@ export class CartService {
 
   private cartItemCountSubject: BehaviorSubject<number>;
   cartItemCount$: Observable<number>;
-  private const CART_HOST = `localhost`;
-  private const ORDER_HOST = 'localhost';
+  private const CART_HOST = `34.23.248.115`;
+  private const ORDER_HOST = '35.196.63.112';
   private getCartItemUrl : string =  "http://${this.CART_HOST}:9094/cart/get";
   private removeFromCartUrl :string = "http://${this.CART_HOST}:9094/cart/remove";
   private addToCartUrl : string = "http://${this.CART_HOST}:9094/cart/add";

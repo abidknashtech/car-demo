@@ -153,7 +153,7 @@ resource "google_container_cluster" "car-demo-gke" {
   enable_autopilot = true
   deletion_protection = false
   node_config {
-    machine_type = "n2-standard-2"
+    machine_type = "e2-medium"
   }
 }
 
@@ -198,7 +198,7 @@ resource "google_container_cluster" "elasticsearch-server-gke" {
   enable_autopilot = true
   deletion_protection = false
   node_config {
-    machine_type = "e2-medium"
+    machine_type = "n2-standard-2"
   }
 }
 resource "null_resource" "elasticsearch-server-gke" {

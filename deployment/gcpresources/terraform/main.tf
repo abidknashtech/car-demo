@@ -152,9 +152,6 @@ resource "google_container_cluster" "car-demo-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
-  node_config {
-    machine_type = "e2-medium"
-  }
 }
 
 #GKE Cluster for axon-server
@@ -167,9 +164,6 @@ resource "google_container_cluster" "axon-server-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
-  node_config {
-    machine_type = "e2-medium"
-  }
 }
 
 resource "null_resource" "external-secret-car-demo-gke" {

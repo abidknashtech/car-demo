@@ -152,6 +152,9 @@ resource "google_container_cluster" "car-demo-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
+  node_config {
+    machine_type = "e2-medium"
+  }
 }
 
 #GKE Cluster for axon-server
@@ -164,6 +167,9 @@ resource "google_container_cluster" "axon-server-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
+  node_config {
+    machine_type = "e2-medium"
+  }
 }
 
 resource "null_resource" "external-secret-car-demo-gke" {
@@ -190,6 +196,9 @@ resource "google_container_cluster" "elasticsearch-server-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
+  node_config {
+    machine_type = "e2-medium"
+  }
 }
 resource "null_resource" "elasticsearch-server-gke" {
   provisioner "local-exec" {
@@ -199,17 +208,19 @@ resource "null_resource" "elasticsearch-server-gke" {
 }
 
 #----------------------GCP firestore----------------------------
+/*
 resource "google_project_service" "firestore" {
   project = var.app_project
   service = "firestore.googleapis.com"
 }
+*/
 
 resource "google_firestore_database" "database" {
   project     = var.app_project
-  name        = "car-db"
+  name        = "(default)"
   location_id = var.gcp_region_1
   type        = "FIRESTORE_NATIVE"
-  depends_on = [google_project_service.firestore]
+  //depends_on = [google_project_service.firestore]
 }
 
 #------------------------- Cloud function----------------------

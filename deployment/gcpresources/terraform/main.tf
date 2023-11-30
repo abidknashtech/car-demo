@@ -153,7 +153,7 @@ resource "google_container_cluster" "car-demo-gke" {
   enable_autopilot = true
   deletion_protection = false
   node_config {
-    machine_type = "e2-medium"
+    machine_type = "n2-standard-2"
   }
 }
 
@@ -187,6 +187,7 @@ resource "null_resource" "axon-server-gke" {
 }
 
 #GKE Cluster for elasticsearch
+/*
 resource "google_container_cluster" "elasticsearch-server-gke" {
   name     = "elasticsearch-server-gke"
   location = var.gcp_region_1
@@ -206,6 +207,7 @@ resource "null_resource" "elasticsearch-server-gke" {
   }
   depends_on = [google_container_cluster.elasticsearch-server-gke]
 }
+*/
 
 #----------------------GCP firestore----------------------------
 /*
@@ -233,7 +235,8 @@ resource "google_storage_bucket" "function_bucket" {
 data "archive_file" "source" {
   type        = "zip"
   output_path = "/tmp/function-source.zip"
-  source_dir  = "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
+  source_dir  = "[ CLOUD-FUNCTION ABSOLUTE PATH ]"
+  // ex. "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
 }
 
 resource "google_storage_bucket_object" "zip" {

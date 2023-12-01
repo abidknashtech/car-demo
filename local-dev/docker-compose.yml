@@ -14,7 +14,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-      mem_limit: 1
   axonserver:
     image: axoniq/axonserver
     hostname: axonserver

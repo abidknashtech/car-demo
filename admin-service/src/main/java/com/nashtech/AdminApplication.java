@@ -12,7 +12,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
         version = "1.0", description = "Reactive Cloud Application uses"
         + " Azure and GCP Cloud platforms to consume, transform, store and "
         + "fetch data and then display to front end using Reactive."))
-public class JavaCompetencyDemoApplication {
+public class AdminApplication {
 /**
  * This method is the entry point for the JavaCompetencyDemoApplication.
  * It calls the springApplication.run method to start the application.
@@ -21,7 +21,7 @@ public class JavaCompetencyDemoApplication {
  *                the application
  */
 public static void main(final String[] args) {
-SpringApplication.run(JavaCompetencyDemoApplication.class, args);
+SpringApplication.run(AdminApplication.class, args);
 }
 
 }

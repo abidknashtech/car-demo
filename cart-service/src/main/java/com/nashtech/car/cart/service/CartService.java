@@ -67,7 +67,7 @@ public class CartService {
             int updatedQuantity = cartItem.getQuantity() - quantity;
             if (updatedQuantity <= 0) {
                 cartItemRepository.delete(cartItem);
-                throw new IllegalStateException("Product removed from cart");
+               // throw new IllegalStateException("Product removed from cart");
             } else {
                 cartItem.setQuantity(updatedQuantity);
                 cartItem = cartItemRepository.save(cartItem);

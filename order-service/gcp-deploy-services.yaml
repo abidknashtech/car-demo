@@ -109,6 +109,6 @@ metadata:
   name: orderservice-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 34.23.209.66
-  AXON_HOST: 34.139.239.140:8124
+  MYSQL_HOST: 34.139.231.64
+  AXON_HOST: 104.196.6.237:8124
   SERVICE_NAME: OrderService

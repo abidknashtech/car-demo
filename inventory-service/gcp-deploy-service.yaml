@@ -116,8 +116,8 @@ metadata:
   name: inventory-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 34.139.231.64
-  AXON_HOST: 104.196.6.237:8124
+  MYSQL_HOST: 34.74.159.143
+  AXON_HOST: 34.148.136.245:8124
   SERVICE_NAME: InventoryService
   GCP_PROJECT_ID: datamesh-2
   PRODUCT_SUBSCRIPTION: inventory_subscription

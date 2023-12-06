@@ -152,9 +152,7 @@ resource "google_container_cluster" "car-demo-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
-  node_config {
-    machine_type = "e2-medium"
-  }
+
 }
 
 #GKE Cluster for axon-server
@@ -167,9 +165,7 @@ resource "google_container_cluster" "axon-server-gke" {
   }
   enable_autopilot = true
   deletion_protection = false
-  node_config {
-    machine_type = "e2-medium"
-  }
+
 }
 
 resource "null_resource" "external-secret-car-demo-gke" {
@@ -186,34 +182,6 @@ resource "null_resource" "axon-server-gke" {
   depends_on = [google_container_cluster.axon-server-gke]
 }
 
-#GKE Cluster for elasticsearch
-resource "google_container_cluster" "elasticsearch-server-gke" {
-  name     = "elasticsearch-server-gke"
-  location = var.gcp_region_1
-  ip_allocation_policy {
-    cluster_ipv4_cidr_block  = ""
-    services_ipv4_cidr_block = ""
-  }
-  enable_autopilot = true
-  deletion_protection = false
-  node_config {
-    machine_type = "e2-medium"
-  }
-}
-resource "null_resource" "elasticsearch-server-gke" {
-  provisioner "local-exec" {
-    command = "/bin/bash gcp-elasticsearch-deployment.sh elasticsearch-server-gke ${var.gcp_region_1}"
-  }
-  depends_on = [google_container_cluster.elasticsearch-server-gke]
-}
-
-#----------------------GCP firestore----------------------------
-/*
-resource "google_project_service" "firestore" {
-  project = var.app_project
-  service = "firestore.googleapis.com"
-}
-*/
 
 resource "google_firestore_database" "database" {
   project     = var.app_project
@@ -233,7 +201,7 @@ resource "google_storage_bucket" "function_bucket" {
 data "archive_file" "source" {
   type        = "zip"
   output_path = "/tmp/function-source.zip"
-  source_dir  = "/home/knoldus/IdeaProjects/car-demo/cloud-function/gcpcarfunction"
+  source_dir  = "/home/knoldus/Desktop/car-demo/cloud-function/gcpcarfunction"
 }
 
 resource "google_storage_bucket_object" "zip" {

@@ -48,13 +48,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
    * Constructor for the PubSubDataHandler class.
    * Initializes the Firestore instance.
    */
-  public PubSubDataHandler() {
-    try {
-      firestore = FirestoreOptions
-              .getDefaultInstance().getService();
-    } catch (ApiException e) {
-      logger.severe("Firestore initialization error: "
-              + e.getMessage());
+  public PubSubDataHandler() {try {firestore = FirestoreOptions.getDefaultInstance().getService();} catch (ApiException e) {logger.severe("Firestore initialization error: "+ e.getMessage());
     }
   }
 

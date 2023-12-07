@@ -8,9 +8,9 @@ import { CarBrand, CarDetails } from "../module/cars-details.model";
 })
 export class CarDetailsService {
   //GCP host
-  private brandsUrlGCP = "http://34.73.26.229/v1/data/brands";
-  private carModelsUrlGCP = "http://34.73.26.229/v1/data/cars/";
-  private addBulkDataGCP: string = "http://34.73.26.229/v1/data";
+  private brandsUrlGCP = "http://35.190.138.6/v1/data/brands";
+  private carModelsUrlGCP = "http://35.190.138.6/v1/data/cars/";
+  private addBulkDataGCP: string = "http://35.190.138.6/v1/data";
 
   //azure host
   private brandsUrlAzure = "http://localhost/v1/data/brands";

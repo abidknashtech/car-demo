@@ -14,4 +14,5 @@ export const ROUTES = {
 export const ICONS = {
   CLOUD_FUNCTIONS: "CF",
   OLD_UI: "OU",
+  MY_ORDERS: "MO"
 };

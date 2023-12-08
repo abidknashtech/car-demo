@@ -19,6 +19,8 @@ export class CartService {
   //order service api
   private placeOrderUrl :string  =  "http://35.229.127.170:9090/orders";
 
+  private baseSearchUrl : string = "http://localhost:8080/apis/car";
+
   constructor(private httpClient: HttpClient) {
     const initialCount = parseInt(localStorage.getItem('cartCount') || '0', 10);
     this.cartItemCountSubject = new BehaviorSubject<number>(initialCount);
@@ -65,6 +67,31 @@ export class CartService {
   addToCart(carId : string): Observable <any> {
     const url = this.addToCartUrl + `?productId=${carId}&quantity=1&userId=1652`;
     return this.httpClient.post<any>(url, null);
+  }
+
+  searchAllCars(){
+    const url = `${this.baseSearchUrl}/all`;
+    return this.httpClient.get <any>(url);
+  }
+
+  searchCarsById(carId: string) {
+    const url = `${this.baseSearchUrl}/byId/${carId}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByMileage(mileage: string) {
+    const url = `${this.baseSearchUrl}/byMileage/${mileage}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByBrand(brand: string) {
+    const url = `${this.baseSearchUrl}/byBrand/${brand}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByPrice(price: string) {
+    const url = `${this.baseSearchUrl}/byPrice/${price}`;
+    return this.httpClient.get<any>(url);
   }
 
 }

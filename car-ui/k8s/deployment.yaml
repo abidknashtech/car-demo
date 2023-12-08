@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: carui
+  name: java-competency-demo-ui
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: carui
+      app: java-competency-demo-ui
   template:
     metadata:
       labels:
-        app: carui
+        app: java-competency-demo-ui
     spec:
       containers:
-        - name: carui
-          image: gcr.io/PROJECT_ID/IMAGE:TAG
+        - name: java-competency-demo-ui
+          image: us-central1-docker.pkg.dev/project-id/gcp-demo-app/gcp-deployment
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
@@ -22,10 +22,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: carui
+  name: java-competency-demo-ui-service
 spec:
   selector:
-    app: carui
+    app: java-competency-demo-ui
   ports:
     - protocol: TCP
       port: 80

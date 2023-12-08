@@ -8,13 +8,12 @@
 </div>
 
 <div class="container" id="cars-list">
-  <div class="row">
     <div class="col"></div>
 
     <div *ngIf="showcarList" [ngClass]="{'carsPageNewUI': !isNewUI, 'carsPage': isNewUI ,'col-sm-7' : true}">
 
+        <h1 class="car-brand-title">{{ selectedCarBrand }} Car Models</h1>
       <!-- Car brands Name -->
-      <h1>{{ selectedCarBrand }} Car Models</h1>
       <div
         *ngFor="
           let car of carModelDetails
@@ -48,5 +47,4 @@
       </div>
     </div>
     <div class="col"></div>
-  </div>
 </div>

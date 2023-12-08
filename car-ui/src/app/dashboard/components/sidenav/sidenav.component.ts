@@ -33,7 +33,7 @@ export class SidenavComponent {
       label: "Old UI",
     },
     {
-      path: ROUTES.API_ERROR,
+      path: ROUTES.MY_ORDERS,
       icon: ICONS.MY_ORDERS,
       label: "My Orders",
     }

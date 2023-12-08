@@ -9,6 +9,7 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   DASHBOARD_GCP: "/dashboard/gcp",
   API_ERROR: "/dashboard/api-error",
+  MY_ORDERS: "/dashboard/orders"
 };
 
 export const ICONS = {

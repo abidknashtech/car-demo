@@ -22,6 +22,11 @@ const routes: Routes = [
           import("../home/home.module").then((m) => m.HomeModule),
       },
       {
+        path: "orders",
+        loadChildren: () =>
+            import("../modules/orders/orders.module").then((m) => m.OrdersModule)
+      },
+      {
         path: "api-error",
         component: ApiErrorComponent,
       },

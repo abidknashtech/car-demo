@@ -13,13 +13,16 @@ export class CartService {
   cartItemCount$: Observable<number>;
 
   //cart service api
-  private getCartItemUrl : string =  "http://35.231.198.197:9094/cart/get";
-  private removeFromCartUrl :string = "http://35.231.198.197:9094/cart/remove";
-  private addToCartUrl : string = "http://35.231.198.197:9094/cart/add";
+  private getCartItemUrl : string =  "http://localhost:9094/cart/get";
+  private removeFromCartUrl :string = "http://localhost:9094/cart/remove";
+  private addToCartUrl : string = "http://localhost:9094/cart/add";
   //order service api
-  private placeOrderUrl :string  =  "http://35.229.127.170:9090/orders";
+  private placeOrderUrl :string  =  "http://localhost:9090/orders";
 
   private baseSearchUrl : string = "http://localhost:8080/apis/car";
+
+  private getOrdersUrl = "http://localhost:9090/orders";
+
 
   constructor(private httpClient: HttpClient) {
     const initialCount = parseInt(localStorage.getItem('cartCount') || '0', 10);
@@ -92,6 +95,11 @@ export class CartService {
   searchCarsByPrice(price: string) {
     const url = `${this.baseSearchUrl}/byPrice/${price}`;
     return this.httpClient.get<any>(url);
+  }
+
+  getAllOrders(){
+    const url = `${this.getOrdersUrl}/1652`;
+    return this.httpClient.get <any>(url);
   }
 
 }

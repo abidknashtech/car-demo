@@ -3,15 +3,15 @@
         <div class="d-flex flex-wrap justify-content-between mx-5">
             <div class="view-settings-button">
                 <app-table-headers-dropdown
-                        [tableHeaders]="carColumnDef"
+                        [tableHeaders]="ordersColumnDef"
                         [allTableHeaders]="allTableHeaders"
                         (updatedHeaders)="setHeadersForCarsData($event)"
                 >
                 </app-table-headers-dropdown>
             </div>
         </div>
-        <ng-container *ngIf="carData && carData.length > 0; else showLoading">
-            <app-tabular-view [tableRows]="carData" [tableHeaders]="carColumnDef">
+        <ng-container *ngIf="orderData && orderData.length > 0; else showLoading">
+            <app-tabular-view [tableRows]="orderData" [tableHeaders]="ordersColumnDef">
             </app-tabular-view>
         </ng-container>
         <ng-template #showLoading>
@@ -21,7 +21,6 @@
                 </div>
             </div>
         </ng-template>
-        <!--    </div>-->
     </mat-card>
 </section>
 <div *ngIf="!isCarsDataVisible" class = "centered-content">

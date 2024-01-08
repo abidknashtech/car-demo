@@ -5,6 +5,7 @@ import {CommonService} from "../../../shared/services/common.service";
 import {CarDetailsService} from "../../../shared/services/car-details.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CartService} from "../../../shared/services/cart.service";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class MyOrdersComponent {
       private carsDataService: CarDetailsService,
       private cartService : CartService,
       public dialog: MatDialog,
+      private datePipe : DatePipe,
   ) {
   }
 
@@ -72,6 +74,7 @@ export class MyOrdersComponent {
                 headerName: "Time Stamp",
                 colId: "timestamp",
                 minWidth: 170,
+                valueFormatter: (params) => this.formatTimestamp(params.value),
                 filter: "agTextColumnFilter",
                 suppressMenu: true,
                 unSortIcon: true,
@@ -93,6 +96,12 @@ export class MyOrdersComponent {
           }
           this.isLoading = false;
         });
+  }
+
+  formatTimestamp(timestamp: any): string {
+    if (!timestamp) return '';
+    const formattedTimestamp = this.datePipe.transform(timestamp, 'medium');
+    return formattedTimestamp ?? '';
   }
 
 }

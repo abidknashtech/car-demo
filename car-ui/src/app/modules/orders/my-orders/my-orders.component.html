@@ -1,7 +1,10 @@
 <section *ngIf="isCarsDataVisible" class="shrink-tabs mb-5">
     <mat-card class="d-flex mt-3 py-4">
-        <div class="d-flex flex-wrap justify-content-between mx-5">
-            <div class="view-settings-button">
+        <div class="d-flex flex-wrap justify-content-between mx-5 align-items-center">
+            <div>
+                <h2>My Orders</h2>
+            </div>
+                <div class="view-settings-button">
                 <app-table-headers-dropdown
                         [tableHeaders]="ordersColumnDef"
                         [allTableHeaders]="allTableHeaders"

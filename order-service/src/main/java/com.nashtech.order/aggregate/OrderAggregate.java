@@ -14,13 +14,17 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.util.HashMap;
+
 @Aggregate
 @Slf4j
 public class OrderAggregate {
 
     @AggregateIdentifier
     private String orderId;
-    private String productId;
+
+    private HashMap<String,Integer> orderLines;
+   // private String productId;
     private String userId;
     private String paymentId;
     private String shipmentId;
@@ -35,8 +39,9 @@ public class OrderAggregate {
     public OrderAggregate(CreateOrderCommand createOrderCommand) {
         OrderCreatedEvent orderCreatedEvent = OrderCreatedEvent.builder()
                 .orderId(createOrderCommand.getOrderId())
-                .productId(createOrderCommand.getProductId())
-                .quantity(createOrderCommand.getQuantity())
+                //.orderLines(createOrderCommand.get())
+               // .quantity(createOrderCommand.getQuantity())
+                .orderLines(createOrderCommand.getOrderLines())
                 .userId(createOrderCommand.getUserId())
                 .orderStatus(OrderStatus.ORDER_PARTIALLY_APPROVED)
                 .build();
@@ -46,7 +51,8 @@ public class OrderAggregate {
     @EventSourcingHandler
     public void on(OrderCreatedEvent orderCreatedEvent) {
         this.orderId = orderCreatedEvent.getOrderId();
-        this.productId = orderCreatedEvent.getProductId();
+       // this.productId = orderCreatedEvent.getProductId();
+        this.orderLines = orderCreatedEvent.getOrderLines();
         this.userId = orderCreatedEvent.getUserId();
         this.orderStatus = orderCreatedEvent.getOrderStatus();
     }
@@ -85,7 +91,7 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCancelledEvent event) {
-        this.productId = event.getProductId();
+       // this.productId = event.getProductId();
         this.paymentId = event.getPaymentId();
         this.shipmentId = event.getShipmentId();
         this.reasonToRejectedOrder = event.getReasonToFailed();

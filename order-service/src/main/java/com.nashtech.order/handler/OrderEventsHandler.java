@@ -1,5 +1,6 @@
 package com.nashtech.order.handler;
 
+import com.nashtech.common.utils.JsonUtility;
 import com.nashtech.order.events.OrderApprovedEvent;
 import com.nashtech.order.events.OrderCancelledEvent;
 import com.nashtech.order.events.OrderCreatedEvent;
@@ -31,7 +32,7 @@ public class OrderEventsHandler {
 
     @EventHandler
     public void on(OrderCreatedEvent event) {
-        OrderEntity order = new OrderEntity(event.getOrderId(), event.getUserId(), event.getProductId(),
+        OrderEntity order = new OrderEntity(event.getOrderId(), event.getUserId(), JsonUtility.mapToString(event.getOrderLines()),
                 null, null, new Date(),event.getOrderStatus().toString());
         orderRepository.save(order);
 

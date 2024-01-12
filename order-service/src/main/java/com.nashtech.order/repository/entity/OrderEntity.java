@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 @Data
@@ -17,7 +18,7 @@ public class OrderEntity {
     @Id
     private String orderId;
     private String userId;
-    private String productId;
+    private String productIds;
     private String paymentId;
     private String shipmentId;
     private Date timestamp = new Date();

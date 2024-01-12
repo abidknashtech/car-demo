@@ -42,8 +42,11 @@ public class OrdersCommandController {
         String orderId = UUID.randomUUID().toString();
         log.info("Order {} created request ", orderId);
         CreateOrderCommand createOrderCommand = CreateOrderCommand.builder()
-                .productId(orderRequest.getProductId()).userId(orderRequest.getUserId())
-                .quantity(orderRequest.getQuantity()).orderId(orderId)
+                //.productId(orderRequest.getProductId())
+                .userId(orderRequest.getUserId())
+                //.quantity(orderRequest.getQuantity())
+                .orderLines(orderRequest.getOrderLines())
+                .orderId(orderId)
                 .build();
 
 /*        try (SubscriptionQueryResult<OrderSummary, OrderSummary> queryResult = queryGateway.subscriptionQuery(

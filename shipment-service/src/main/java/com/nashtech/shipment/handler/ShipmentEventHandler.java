@@ -48,7 +48,7 @@ public class ShipmentEventHandler {
         shipmentRepository.save(shipmentEntity);
 
         log.info("Sending Shipment details to pub sub topic");
-        pubSubPublisherService.messagePublisher(shipmentEntity);
+        //pubSubPublisherService.messagePublisher(shipmentEntity);
     }
 
 }

@@ -7,6 +7,9 @@ import com.nashtech.common.event.ProductReserveCancelledEvent;
 import com.nashtech.common.event.ProductReserveFailedEvent;
 import com.nashtech.common.event.ProductReservedEvent;
 import com.nashtech.inventory.command.CreateProductCommand;
+import com.nashtech.inventory.command.LineItemsCommand;
+import com.nashtech.inventory.events.LineItemAddedEvent;
+import com.nashtech.inventory.events.LineItemsFailedEvent;
 import com.nashtech.inventory.events.ProductCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -15,6 +18,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
+
+import java.util.HashMap;
 
 
 @Aggregate
@@ -64,7 +69,46 @@ public class InventoryAggregate{
 		AggregateLifecycle.apply(productCreatedEvent);
 	}
 
+
 	@CommandHandler
+	public void handle(LineItemsCommand lineItemsCommand) {
+		log.info("Current stock is {} of the product {}", quantity, lineItemsCommand.getProductId());
+		String productAvailability = "Available";
+		boolean isAvailable = true;
+		HashMap<Boolean,String> availability = new HashMap<>();
+
+		if(quantity<=0 ||  quantity < lineItemsCommand.getQuantity()) {
+			log.warn("Insufficient number of items in stock for product "+lineItemsCommand.getProductId());
+			productAvailability = "Not Available";
+			isAvailable = false;
+		}
+		availability.put(isAvailable,productAvailability);
+
+		double productSubTotal = lineItemsCommand.getQuantity() * basePrice;
+		float productTotalTax= lineItemsCommand.getQuantity() * tax;
+		double productTotal = productSubTotal + productTotalTax;
+
+		LineItemAddedEvent lineItemAddedEvent = LineItemAddedEvent.builder()
+				.orderId(lineItemsCommand.getOrderId())
+				.productId(lineItemsCommand.getProductId())
+				.userId(lineItemsCommand.getUserId())
+				.quantity(lineItemsCommand.getQuantity())
+				.brand(brand)
+				.basePrice(basePrice)
+				.tax(tax)
+				.totalTax(productTotalTax)
+				.subTotal(productSubTotal)
+				.total(productTotal)
+				.model(model)
+				.mileage(mileage)
+				.color(color)
+				.year(year)
+				.inStock(availability)
+				.build();
+		AggregateLifecycle.apply(lineItemAddedEvent);
+	}
+
+/*	@CommandHandler
 	public void handle(ReserveProductCommand reserveProductCommand) {
 		log.info("ReserveProductCommand started with productId {}",reserveProductCommand.getProductId());
 		if(quantity<=0 ||  quantity < reserveProductCommand.getQuantity()) {
@@ -101,7 +145,7 @@ public class InventoryAggregate{
 				.build();
 
 		AggregateLifecycle.apply(productReservedEvent);
-	}
+	}*/
 
 	@CommandHandler
 	public void handle(CancelProductReserveCommand cancelProductReservationCommand) {
@@ -138,13 +182,13 @@ public class InventoryAggregate{
 
 
 	@EventSourcingHandler
-	public void on(ProductReservedEvent productReservedEvent) {
-		this.userId = productReservedEvent.getUserId();
-		this.orderId = productReservedEvent.getOrderId();
-		this.quantity -= productReservedEvent.getQuantity();
-		this.totalTax = productReservedEvent.getTotalTax();
-		this.subTotal = productReservedEvent.getSubTotal();
-		this.total = productReservedEvent.getTotal();
+	public void on(LineItemAddedEvent lineItemAddedEvent) {
+		this.userId = lineItemAddedEvent.getUserId();
+		this.orderId = lineItemAddedEvent.getOrderId();
+		this.quantity -= lineItemAddedEvent.getQuantity();
+		this.totalTax = lineItemAddedEvent.getTotalTax();
+		this.subTotal = lineItemAddedEvent.getSubTotal();
+		this.total = lineItemAddedEvent.getTotal();
 	}
 
 }

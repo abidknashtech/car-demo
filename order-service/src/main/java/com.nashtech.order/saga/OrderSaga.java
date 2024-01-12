@@ -2,6 +2,7 @@ package com.nashtech.order.saga;
 
 import com.nashtech.common.command.*;
 import com.nashtech.common.event.*;
+import com.nashtech.common.model.LineItem;
 import com.nashtech.common.utils.OderFailure;
 import com.nashtech.common.utils.OrderStatus;
 import com.nashtech.order.commands.ApproveOrderCommand;
@@ -23,7 +24,9 @@ import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Saga
@@ -45,9 +48,8 @@ public class OrderSaga {
         log.info("Order Saga started for Order Id : {}", orderCreatedEvent.getOrderId());
 
         ReserveProductCommand reserveProductCommand = ReserveProductCommand.builder()
-                .productId(orderCreatedEvent.getProductId())
+                .orderLines(orderCreatedEvent.getOrderLines())
                 .orderId(orderCreatedEvent.getOrderId())
-                .quantity(orderCreatedEvent.getQuantity())
                 .userId(orderCreatedEvent.getUserId())
                 .build();
 
@@ -56,7 +58,7 @@ public class OrderSaga {
                 // Start a compensating transaction
                 CompensateOrder compensateOrder = new CompensateOrder();
                 compensateOrder.setOrderId(reserveProductCommand.getOrderId());
-                compensateOrder.setProductId(orderCreatedEvent.getProductId());
+                compensateOrder.setProductId(orderCreatedEvent.getOrderLines().keySet());
                 compensateOrder.setUserId(orderCreatedEvent.getUserId());
                 compensateOrder.setReasonToFailed(simplifyErrorMessage(commandResultMessage,
                         OderFailure.INVENTORY_SERVICE_NOT_AVAILABLE));
@@ -67,21 +69,16 @@ public class OrderSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(ProductReservedEvent productReservedEvent) {
-        log.info(String.format("ProductReservedEvent started for productId: %s and orderId: %s ",
-                productReservedEvent.getProductId(), productReservedEvent.getOrderId()));
+        Set<String> productIds = productReservedEvent.getOrderLines().values().stream().map(LineItem::getProductId)
+                .collect(Collectors.toSet());
+        log.info(String.format("ProductReservedEvent started for productId: %s and orderId: %s ", productIds),
+                productReservedEvent.getOrderId());
 
         ProcessPaymentCommand processPaymentCommand = ProcessPaymentCommand.builder()
                 .paymentId(UUID.randomUUID().toString()) // payment Id generation
                 .orderId(productReservedEvent.getOrderId())
                 .userId(productReservedEvent.getUserId())
-                .productId(productReservedEvent.getProductId())
-                .brand(productReservedEvent.getBrand())
-                .quantity(productReservedEvent.getQuantity())
-                .tax(productReservedEvent.getTax())
-                .basePrice(productReservedEvent.getBasePrice())
-                .totalTax(productReservedEvent.getTotalTax())
-                .total(productReservedEvent.getTotal())
-                .subTotal(productReservedEvent.getSubTotal())
+                .orderLines(productReservedEvent.getOrderLines())
                 .build();
 
 
@@ -90,17 +87,17 @@ public class OrderSaga {
                 // Start a compensating transaction
                 CompensateOrder compensateOrder = new CompensateOrder();
                 compensateOrder.setOrderId(productReservedEvent.getOrderId());
-                compensateOrder.setProductId(productReservedEvent.getProductId());
+                compensateOrder.setProductId(productIds);
                 compensateOrder.setUserId(productReservedEvent.getUserId());
                 compensateOrder.setPaymentId(processPaymentCommand.getPaymentId());
                 compensateOrder.setReasonToFailed(simplifyErrorMessage(commandResultMessage,
                         OderFailure.PAYMENT_SERVICE_NOT_AVAILABLE));
 
                 CancelProductReserveCommand cancelProductReserveCommand = CancelProductReserveCommand.builder()
-                        .productId(productReservedEvent.getProductId())
+                        //.productId(productReservedEvent.getProductId())
                         .userId(productReservedEvent.getUserId())
                         .orderId(productReservedEvent.getOrderId())
-                        .quantity(productReservedEvent.getQuantity())
+                        //.quantity(productReservedEvent.getQuantity())
                         .build();
                 commandGateway.send(cancelProductReserveCommand);
 
@@ -115,7 +112,7 @@ public class OrderSaga {
         log.info("ProductReserveFailedEvent started for orderId : {}", productReserveFailedEvent.getOrderId());
         CompensateOrder compensateOrder = new CompensateOrder();
         compensateOrder.setOrderId(productReserveFailedEvent.getOrderId());
-        compensateOrder.setProductId(productReserveFailedEvent.getProductId());
+        //compensateOrder.setProductId(productReserveFailedEvent.getProductId());
         compensateOrder.setUserId(productReserveFailedEvent.getUserId());
         compensateOrder.setReasonToFailed(productReserveFailedEvent.getReasonToFailed());
         orderRejectedCommand(compensateOrder);
@@ -146,8 +143,8 @@ public class OrderSaga {
                 String errorMessage = commandResultMessage.exceptionResult().getMessage();
                 log.error("PaymentProcessedEvent unable to process shipment due to {}", errorMessage);
                 CompensateOrder compensateOrder = new CompensateOrder();
-                compensateOrder.setOrderId(paymentApprovedEvent.getOrderId());
-                compensateOrder.setProductId(paymentApprovedEvent.getProductId());
+                //compensateOrder.setOrderId(paymentApprovedEvent.getOrderId());
+                //compensateOrder.setProductId(paymentApprovedEvent.getProductId());
                 compensateOrder.setUserId(paymentApprovedEvent.getUser().getUserId());
                 compensateOrder.setPaymentId(paymentApprovedEvent.getPaymentId());
                 compensateOrder.setShipmentId(createShipmentCommand.getShipmentId());
@@ -174,7 +171,7 @@ public class OrderSaga {
 
         CompensateOrder compensateOrder = new CompensateOrder();
         compensateOrder.setOrderId(paymentCancelledEvent.getOrderId());
-        compensateOrder.setProductId(paymentCancelledEvent.getProductId());
+       // compensateOrder.setProductId(paymentCancelledEvent.getProductId());
         compensateOrder.setPaymentId(paymentCancelledEvent.getPaymentId());
         compensateOrder.setUserId(paymentCancelledEvent.getUserId());
         compensateOrder.setReasonToFailed(paymentCancelledEvent.getReasonToFailed());
@@ -220,7 +217,7 @@ public class OrderSaga {
 
         CompensateOrder compensateOrder = new CompensateOrder();
         compensateOrder.setOrderId(shipmentCancelledEvent.getOrderId());
-        compensateOrder.setProductId(shipmentCancelledEvent.getProductId());
+        //compensateOrder.setProductId(shipmentCancelledEvent.getProductId());
         compensateOrder.setPaymentId(shipmentCancelledEvent.getPaymentId());
         compensateOrder.setShipmentId(shipmentCancelledEvent.getShipmentId());
         compensateOrder.setUserId(shipmentCancelledEvent.getUserId());
@@ -262,7 +259,7 @@ public class OrderSaga {
                 .paymentId(compensateOrder.getPaymentId())
                 .shipmentId(compensateOrder.getShipmentId())
                 .orderStatus(OrderStatus.ORDER_NOT_APPROVED)
-                .productId(compensateOrder.getProductId())
+               // .productId(compensateOrder.getProductId())
                 .build();
         commandGateway.send(rejectOrderCommand);
     }

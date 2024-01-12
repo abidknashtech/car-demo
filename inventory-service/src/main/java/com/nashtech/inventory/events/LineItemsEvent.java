@@ -1,16 +1,14 @@
-package com.nashtech.common.command;
+package com.nashtech.inventory.events;
 
 import lombok.Builder;
 import lombok.Value;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-import java.util.HashMap;
-
 @Value
 @Builder
-public class ReserveProductCommand {
-    @TargetAggregateIdentifier
+public class LineItemsEvent {
+    String productId;
     String orderId;
     String userId;
-    HashMap<String,Integer> orderLines;
+    Integer quantity;
 }

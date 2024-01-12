@@ -1,24 +1,15 @@
 package com.nashtech.common.event;
 
+import com.nashtech.common.model.LineItem;
 import lombok.Builder;
 import lombok.Value;
+
+import java.util.Map;
 
 @Value
 @Builder
 public class ProductReservedEvent {
     String orderId;
     String userId;
-    String productId;
-    Integer quantity;
-    String brand;
-    String model;
-    Integer year;
-    String color;
-    Double mileage;
-    Double basePrice;
-    Double subTotal;
-    Double total;
-    Float totalTax;
-    Float tax;
-
+    Map<String, LineItem> orderLines;
 }

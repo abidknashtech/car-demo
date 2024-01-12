@@ -8,6 +8,8 @@ import com.nashtech.common.event.ProductReserveFailedEvent;
 import com.nashtech.common.event.ProductReservedEvent;
 import com.nashtech.inventory.command.CreateProductCommand;
 import com.nashtech.inventory.events.ProductCreatedEvent;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.common.StringUtils;
@@ -15,7 +17,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
-
 
 @Aggregate
 @Slf4j

@@ -1,6 +1,7 @@
 # Car Demo
 
 ## To deploy the GCP infrastructure required, follow the steps in deployment readme: 
+[[GCP_Ci-Cd_Pipeline_README.md]](deployment/gcpresources/GCP_Ci-Cd_Pipeline_README.md)
 [readme.md](deployment%2Fgcpresources%2Freadme.md)deployment/gcpresources/readme.md
 
  Admin service use a cloud function result, so deploy the cloud function by following the step:

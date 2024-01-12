@@ -18,7 +18,7 @@ The pipeline utilizes certain secrets to securely authenticate and authorize acc
 
 ### Triggering the Pipeline
 
-The CI/CD pipeline ([car-demo-pipeline.yml](.github/workflows/car-demo-pipeline.yml)) is triggered automatically when code changes are merged into the main branch. This ensures that the latest changes are validated and deployed in a systematic manner.
+The CI/CD pipeline ([car-demo-pipeline.yml](../../.github/workflows/car-demo-pipeline.yml)) is triggered automatically when code changes are merged into the main branch. This ensures that the latest changes are validated and deployed in a systematic manner.
 
 ### Pipeline Execution
 

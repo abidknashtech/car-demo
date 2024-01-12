@@ -1,100 +1,40 @@
-**Table of Contents**
+# Elastic search service
 
-1.[Introduction](#introduction)
+This service listens to events from cloud events from Azure Eventhub/Gcp Pubsub. The event is then saved to the Elasticsearch server. An endpoint is exposed which will fetch the data from Elasticsearch and return back the appropriate response.
 
-2.[Prerequisites](#prerequisites)
+## Prerequisites
 
-3.[Local Setup](#localsetup)
-    
-4.[Deploy Elastic Search](#deploy-elastic-search)
+We need to configure the event source to listen and the target persistent store.
 
+- Azure config
+    - spring.kafka
+        - bootstrap-servers: <Azure EventHub>
+        - properties.sasl.jaas.config: <Azure EventHub Connection string>
+    - topic
+        - producer: <Eventhub topic name>
+- GCP config
+    - pubsub
+        - topic: <Topic name>
+        - subscriptionId
+        - projected
+        - credentials
+    - elastic
+        - hostname
+        - port
 
-**Introduction**
+## Local setup
 
+- Setup elastic docker images
+```bash
+docker compose up -d
+```
+- Run the application
+```bash
+mvn springboot:run --Dspring-boot.run.profiles=azure
+```
 
-In this application we have integrated two cloud service i.e Azure Eventhub and Gcp PubSub.
-In this application we are listening events from Azure Eventhub and Gcp as per the profile and saving 
-it into Elasticsearch.We have also exposed endpoint which will fetch the data from elasticsearch and give the 
-response accordingly.
+## Contributing
 
-**Prerequisites**
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
- Azure Setup:
-1. Azure Account.
-2. EventHub Primary ConnectionString
-
-GCP Setup:
-1. Gcp Account
-2.  PubSub Credentials like  topic,subscriptionId,projectId,credentials
-
-For Elasticsearch:
-1. Hostname
-2. Port
-
-**Local Setup**
-
-1. Provide the Credentials for Azure or Gcp
-
- **Azure**
-    ![img.png](img.png)
-
-**GCP**
-![img_1.png](img_1.png)
-
-
-2. Use Docker command to up the elasticsearch.
-
-
-        docker-compose up
-
-
-3. Set the Profile either azure or gcp
-   
-        java -jar -Dspring.profiles.active=azure ElasticSearchApplication.jar
-4. Start the Application 
-
-**Deploy Elasticsearch on Azure**
-
-#Login to Azure in Local
-
-
-az login
-
-#Create Resource Group
-
-
-az group create --name $resourceGroupName --location $resourceLocation
-
-#Create an AKS Cluster with default setting
-
-
-az aks create --resource-group $resourceGroupName --name $clusterName
-
-#Get the Kubernetes Configuration to run further commands
-
-
-az aks get-credentials --resource-group $resourceGroupName --name $clusterName
-
-#Run this command to install CRDS
-
-
-kubectl create -f https://download.elastic.co/downloads/eck/2.9.0/crds.yaml
-
-#Download the required repo for elastic
-
-
-kubectl apply -f https://download.elastic.co/downloads/eck/2.9.0/operator.yaml
-
-#Apply the deployment File
-
-
-kubectl apply -f elastic-deployment.yaml
-
-#Once Pod is up take the Cluster Ip and add it into the elastic-svc.yaml file
-
-
-kubectl apply -f elastic-svc.yaml
-
-
-
-
+Please make sure to update tests as appropriate.

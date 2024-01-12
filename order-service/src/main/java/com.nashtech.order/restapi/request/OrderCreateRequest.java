@@ -1,13 +1,17 @@
 package com.nashtech.order.restapi.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderCreateRequest {
 
     @NotBlank(message = "ProductId is a required field")

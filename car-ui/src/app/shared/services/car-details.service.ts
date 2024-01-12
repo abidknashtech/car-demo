@@ -7,17 +7,15 @@ import { CarBrand, CarDetails } from "../module/cars-details.model";
   providedIn: "root",
 })
 export class CarDetailsService {
-  private const ADMIN_GCP_HOST = `localhost`;
-
   //GCP host
-  private brandsUrlGCP = "http://${this.ADMIN_GCP_HOST}/v1/data/brands";
-  private carModelsUrlGCP = "http://${this.ADMIN_GCP_HOST}/v1/data/cars/";
-  private addBulkDataGCP: string = "http://${this.ADMIN_GCP_HOST}/v1/data";
+  private brandsUrlGCP = "http://35.190.138.6/v1/data/brands";
+  private carModelsUrlGCP = "http://35.190.138.6/v1/data/cars/";
+  private addBulkDataGCP: string = "http://35.190.138.6/v1/data";
 
   //azure host
-  private brandsUrlAzure = "http://40.88.227.104/v1/data/brands";
-  private carModelsUrlAzure = "http://40.88.227.104/v1/data/cars/";
-  private addBulkDataAzure: string = "http://40.88.227.104/v1/data";
+  private brandsUrlAzure = "http://localhost/v1/data/brands";
+  private carModelsUrlAzure = "http://localhost/v1/data/cars/";
+  private addBulkDataAzure: string = "http://localhost/v1/data";
 
   //private brandsUrlGCPSSE = "http://35.193.88.251/v1/data/brands-sse";
   //private eventSource!: EventSource;

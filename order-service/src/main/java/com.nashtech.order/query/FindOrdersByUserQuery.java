@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class FindOrderQuery {
-    String orderId;
+public class FindOrdersByUserQuery {
+    String userId;
 }

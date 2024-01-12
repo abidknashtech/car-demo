@@ -11,12 +11,13 @@ export class CartService {
 
   private cartItemCountSubject: BehaviorSubject<number>;
   cartItemCount$: Observable<number>;
-  private const CART_HOST = `localhost`;
-  private const ORDER_HOST = 'localhost';
-  private getCartItemUrl : string =  "http://${this.CART_HOST}:9094/cart/get";
-  private removeFromCartUrl :string = "http://${this.CART_HOST}:9094/cart/remove";
-  private addToCartUrl : string = "http://${this.CART_HOST}:9094/cart/add";
-  private placeOrderUrl :string  =  "http://${this.ORDER_HOST}:9090/orders";
+
+  //cart service api
+  private getCartItemUrl : string =  "http://35.231.198.197:9094/cart/get";
+  private removeFromCartUrl :string = "http://35.231.198.197:9094/cart/remove";
+  private addToCartUrl : string = "http://35.231.198.197:9094/cart/add";
+  //order service api
+  private placeOrderUrl :string  =  "http://35.229.127.170:9090/orders";
 
   constructor(private httpClient: HttpClient) {
     const initialCount = parseInt(localStorage.getItem('cartCount') || '0', 10);

@@ -106,6 +106,6 @@ metadata:
   name: payment-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 35.237.239.230
-  AXON_HOST: 34.139.45.85:8124
+  MYSQL_HOST: 34.148.245.29
+  AXON_HOST: 34.74.31.122:8124
   SERVICE_NAME: PaymentService

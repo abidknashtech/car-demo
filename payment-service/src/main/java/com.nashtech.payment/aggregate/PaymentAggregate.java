@@ -98,7 +98,7 @@ public class PaymentAggregate {
                 .validUntilYear(2028)
                 .validUntilMonth(6)
                 .cvv(334)
-                .balanceAmount(10000000d) //1Cr
+                .balanceAmount(1000000000d) //1arab
                 .build();
     }
 

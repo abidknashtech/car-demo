@@ -55,7 +55,7 @@ export class CarsdataCardComponent implements OnInit{
   @Input() carColor: string = "";
 
   ngOnInit() {
-    if (this.router.url.includes("dashboard")) {
+    if (this.router.url.includes("dashboard")||this.router.url.includes("search")) {
       this.isNewUI = false;
     }
   }

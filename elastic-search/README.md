@@ -1,20 +1,16 @@
 **Table of Contents**
 
-    1.Introduction
+1.[Introduction](#introduction)
 
-    2.Prerequisites
+2.[Prerequisites](#prerequisites)
 
-    3.Local Setup
+3.[Local Setup](#localsetup)
     
-    4.Deploy Elastic Search on Azure
+4.[Deploy Elastic Search](#deploy-elastic-search)
 
 
 **Introduction**
 
-Elasticsearch excels in full-text search, supporting complex queries, 
-relevance scoring, and linguistic searches.
-It is capable of handling large volumes of unstructured data,
-making it ideal for applications with extensive text-based content.
 
 In this application we have integrated two cloud service i.e Azure Eventhub and Gcp PubSub.
 In this application we are listening events from Azure Eventhub and Gcp as per the profile and saving 
@@ -23,11 +19,11 @@ response accordingly.
 
 **Prerequisites**
 
-For running in Azure:
+ Azure Setup:
 1. Azure Account.
 2. EventHub Primary ConnectionString
 
-For running in GCP:
+GCP Setup:
 1. Gcp Account
 2.  PubSub Credentials like  topic,subscriptionId,projectId,credentials
 
@@ -38,8 +34,23 @@ For Elasticsearch:
 **Local Setup**
 
 1. Provide the Credentials for Azure or Gcp
-2. Use Docker command (docker-compose up) to up the elasticsearch.
+
+ **Azure**
+    ![img.png](img.png)
+
+**GCP**
+![img_1.png](img_1.png)
+
+
+2. Use Docker command to up the elasticsearch.
+
+
+        docker-compose up
+
+
 3. Set the Profile either azure or gcp
+   
+        java -jar -Dspring.profiles.active=azure ElasticSearchApplication.jar
 4. Start the Application 
 
 **Deploy Elasticsearch on Azure**

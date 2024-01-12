@@ -27,7 +27,6 @@ public class PaymentsEventHandlerTest {
     public void testPaymentApprovedEventHandling() {
         // Given
         PaymentApprovedEvent paymentApprovedEvent = PaymentApprovedEvent.builder().build();
-        // Set necessary fields on paymentApprovedEvent
 
         // When
         paymentsEventHandler.on(paymentApprovedEvent);

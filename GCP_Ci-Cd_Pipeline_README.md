@@ -4,6 +4,16 @@
 
 This repository the Continuous Integration and Deployment (CI/CD) pipeline for our project on Google Cloud Platform (GCP). The CI/CD pipeline automates the process of testing, building, and deploying our application whenever changes are made to the main branch.
 
+## Secrets
+
+The pipeline utilizes certain secrets to securely authenticate and authorize access during the workflow. Make sure to configure the following secrets in your GitHub repository:
+
+- `GKE_PROJECT`: Google Cloud Project ID for GKE deployment.
+- `GKE_KEY`: JSON key file for authenticating with the GCP service account.
+- `REGION`: The region in which the GKE cluster is deployed.
+- `GKE_CLUSTER`: The name of the GKE cluster.
+- `GITHUB_TOKEN`: GitHub token for authentication during the workflow.
+
 ## Workflow
 
 ### Triggering the Pipeline

@@ -39,7 +39,7 @@ The CI/CD pipeline ([car-demo-pipeline.yml](.github/workflows/car-demo-pipeline.
     - The CI/CD pipeline checks that the build is successful before proceeding to deployment.
     - A green build indicates a successful compilation and testing process. 
     - Example:
-  ![](/home/knoldus/Pictures/Screenshot from 2024-01-12 12-45-33.png)
+  ![](sample-build-status.png)
 
 - **Deployment Status:**
     - The deployment phase is executed only if the build is successful.

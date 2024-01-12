@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository the Continuous Integration and Deployment (CI/CD) pipeline for our project on Google Cloud Platform (GCP). The CI/CD pipeline automates the process of testing, building, and deploying our application whenever changes are made to the main branch.
+This repository houses the Continuous Integration and Deployment (CI/CD) pipeline for our project hosted on the Google Cloud Platform (GCP). The CI/CD pipeline streamlines the tasks of testing, constructing, and deploying our application automatically whenever modifications are applied to the primary branch.
 
 ## Secrets
 
@@ -49,7 +49,7 @@ The CI/CD pipeline ([car-demo-pipeline.yml](.github/workflows/car-demo-pipeline.
     - The CI/CD pipeline checks that the build is successful before proceeding to deployment.
     - A green build indicates a successful compilation and testing process. 
     - Example:
-  ![](sample-build-status.png)
+  ![](documentation/sample-build-status.png)
 
 - **Deployment Status:**
     - The deployment phase is executed only if the build is successful.

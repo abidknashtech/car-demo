@@ -12,6 +12,8 @@ We need to configure the event source to listen and the target persistent store.
         - properties.sasl.jaas.config: <Azure EventHub Connection string>
     - topic
         - producer: <Eventhub topic name>
+![img](https://github.com/NashTech-Labs/car-demo/assets/102946997/01e44029-a98e-4eb8-ace1-804dde79c174)
+
 - GCP config
     - pubsub
         - topic: <Topic name>
@@ -21,6 +23,7 @@ We need to configure the event source to listen and the target persistent store.
     - elastic
         - hostname
         - port
+![img_1](https://github.com/NashTech-Labs/car-demo/assets/102946997/12c42a15-5710-4a07-a2df-ef93e5e2d1ea)
 
 ## Local setup
 

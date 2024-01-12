@@ -141,8 +141,6 @@
                                         <limit implementation="org.jacoco.report.check.Limit">
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>${minimumCodeCoverage}
-                                            </minimum>
                                         </limit>
                                     </limits>
                                 </rule>

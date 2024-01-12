@@ -13,26 +13,19 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
 
 class ProductSubscriberServiceTest {
-
     @Mock
     private CommandGateway commandGateway;
-
     @Mock
     private ObjectMapper objectMapper;
-
     @Mock
     private BasicAcknowledgeablePubsubMessage message;
-
     @InjectMocks
     private ProductSubscriberService productSubscriberService;
-
     @BeforeEach
     void setUp() {
         // Initialize mocks
         MockitoAnnotations.openMocks(this);
     }
-
-
     @Test
     void messageReceiver_SuccessfulParsing() throws JsonProcessingException {
         // Arrange
@@ -47,7 +40,6 @@ class ProductSubscriberServiceTest {
         // Assert
         verify(message).ack();
 
-        // You can add more assertions based on your specific requirements
         verify(commandGateway).send(any(CreateProductCommand.class));
     }
 
@@ -64,7 +56,6 @@ class ProductSubscriberServiceTest {
         // Assert
         verify(message, never()).ack();
 
-        // You can add more assertions based on your specific requirements
         verify(commandGateway, never()).send(any(CreateProductCommand.class));
     }
 }

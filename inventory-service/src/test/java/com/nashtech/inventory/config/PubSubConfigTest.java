@@ -1,5 +1,6 @@
 package com.nashtech.inventory.config;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -36,7 +37,7 @@ class PubSubConfigTest {
     @Test
     void testInputMessageChannel() {
         // Arrange, Act and Assert
-        assertTrue(pubSubConfig.inputMessageChannel() instanceof PublishSubscribeChannel);
+        assertInstanceOf(PublishSubscribeChannel.class, pubSubConfig.inputMessageChannel());
     }
 
     /**

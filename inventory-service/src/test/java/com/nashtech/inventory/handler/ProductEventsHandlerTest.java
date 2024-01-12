@@ -171,20 +171,4 @@ class ProductEventsHandlerTest {
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }
 
-    /**
-     * Method under test: {@link ProductEventsHandler#handle(Exception)}
-     */
-    @Test
-    @Disabled("TODO: Complete this test")
-    void testHandle() throws Exception {
-        // TODO: Complete this test.
-        //   Reason: R013 No inputs found that don't throw a trivial exception.
-        //   Diffblue Cover tried to run the arrange/act section, but the method under
-        //   test threw
-        //   java.lang.Exception: foo
-        //   See https://diff.blue/R013 to resolve this issue.
-
-        // Arrange and Act
-        productEventsHandler.handle(new Exception("foo"));
-    }
 }

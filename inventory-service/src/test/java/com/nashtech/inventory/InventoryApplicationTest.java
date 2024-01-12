@@ -64,8 +64,5 @@ class InventoryApplicationTest {
 
         // Act
         inventoryApplication.registerCreateProductCommandInterceptor(context, commandBus);
-
-        // Assert
-        // No exceptions are thrown
     }
 }

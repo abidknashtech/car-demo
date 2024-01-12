@@ -42,12 +42,12 @@ For Elasticsearch:
 3. Set the Profile either azure or gcp
 4. Start the Application 
 
-**Deploy Elasticsearch on Azure or GCP**
+**Deploy Elasticsearch on Azure**
 
-#Login to Azure or GCP in Local
+#Login to Azure in Local
 
 
-
+az login
 
 #Create Resource Group
 

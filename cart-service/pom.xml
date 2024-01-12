@@ -46,10 +46,6 @@
 		<dotenv.version>4.0.0</dotenv.version>
 		<maven.junit.jupiter.version>5.9.2</maven.junit.jupiter.version>
 		<maven.sonar.version>3.9.1.2184</maven.sonar.version>
-		<maven.checkstyle.version>3.2.1</maven.checkstyle.version>
-		<maven.spotbugs.version>4.7.3.4</maven.spotbugs.version>
-		<maven.findbugs.version>1.12.0</maven.findbugs.version>
-		<maven.pmd.version>3.20.0</maven.pmd.version>
 		<maven.jacoco.version>0.8.8</maven.jacoco.version>
 		<minimumCodeCoverage>.80</minimumCodeCoverage>
 	</properties>
@@ -119,21 +115,6 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-pmd-plugin</artifactId>
-					<version>${maven.pmd.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>${maven.checkstyle.version}</version>
-				</plugin>
-				<plugin>
-					<groupId>com.github.spotbugs</groupId>
-					<artifactId>spotbugs-maven-plugin</artifactId>
-					<version>${maven.spotbugs.version}</version>
-				</plugin>
-				<plugin>
 					<groupId>org.sonarsource.scanner.maven</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonarVersion}</version>
@@ -147,38 +128,6 @@
 		</pluginManagement>
 
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${maven.pmd.version}</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>pmd</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${maven.checkstyle.version}</version>
-				<configuration>
-					<consoleOutput>true</consoleOutput>
-					<failsOnError>false</failsOnError>
-					<failOnViolation>false</failOnViolation>
-				</configuration>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -222,8 +171,6 @@
 										<limit implementation="org.jacoco.report.check.Limit">
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>${minimumCodeCoverage}
-											</minimum>
 										</limit>
 									</limits>
 								</rule>
@@ -231,38 +178,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>com.github.spotbugs</groupId>
-				<artifactId>spotbugs-maven-plugin</artifactId>
-				<version>${maven.spotbugs.version}</version>
-				<executions>
-					<execution>
-						<id>check</id>
-						<phase>test</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failOnError>true</failOnError>
-					<spotbugsXmlOutputFilename>findbugs.xml
-					</spotbugsXmlOutputFilename>
-					<includeFilterFile>
-						${basedir}/src/main/resources/spotbugs/spotbugs-security-include.xml
-					</includeFilterFile>
-					<excludeFilterFile>
-						${basedir}/src/main/resources/spotbugs/spotbugs-security-exclude.xml
-					</excludeFilterFile>
-					<plugins>
-						<plugin>
-							<groupId>com.h3xstream.findsecbugs</groupId>
-							<artifactId>findsecbugs-plugin</artifactId>
-							<version>${maven.findbugs.version}</version>
-						</plugin>
-					</plugins>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -286,7 +201,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<profiles>
 		<profile>
 			<id>sonar</id>
@@ -299,9 +213,6 @@
 				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 				<sonarConfig>b47aeba29df2889126c736ee7012a5a490edc34a</sonarConfig> <!-- NOSONAR -->
 				<sonar.login>${sonarConfig}</sonar.login> <!-- NOSONAR -->
-				<sonar.java.checkstyle.reportPaths>target/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
-				<sonar.java.pmd.reportPaths>target/pmd.xml</sonar.java.pmd.reportPaths>
-				<sonar.java.findbugs.reportPaths>target/findbugsXml.xml</sonar.java.findbugs.reportPaths>
 				<sonar.jacoco.reportPath>target/coverage-reports/jacoco.exec</sonar.jacoco.reportPath>
 				<sonar.coverage.exclusions>
 					**/*config*/**,

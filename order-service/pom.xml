@@ -42,8 +42,11 @@
     <properties>
         <java.version>19</java.version>
         <project-reactor.version>3.5.9</project-reactor.version>
-        <common.version>2.1</common.version>
+        <common.version>2.2</common.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.sonar.version>3.9.1.2184</maven.sonar.version>
+        <maven.jacoco.version>0.8.8</maven.jacoco.version>
     </properties>
 
     <dependencies>
@@ -79,7 +82,75 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonarVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${maven.jacoco.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${maven.jacoco.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*config*/**</exclude>
+                        <exclude>**/*common*/**</exclude>
+                        <exclude>**/*constant*/**</exclude>
+                        <exclude>**/*model*/**</exclude>
+                        <exclude>**/*Application*</exclude>
+                        <exclude>**/*entity*/**</exclude>
+                        <exclude>**/resources/**</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <phase>test-compile</phase>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                    <element>PACKAGE</element>
+                                    <limits>
+                                        <limit implementation="org.jacoco.report.check.Limit">
+                                            <counter>LINE</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${minimumCodeCoverage}
+                                            </minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -94,5 +165,44 @@
             </plugin>
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!--	Sonar Config		-->
+                <sonar.organization>nashtech</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonarConfig>b47aeba29df2889126c736ee7012a5a490edc34a</sonarConfig> <!-- NOSONAR -->
+                <sonar.login>${sonarConfig}</sonar.login> <!-- NOSONAR -->
+                <sonar.jacoco.reportPath>target/coverage-reports/jacoco.exec</sonar.jacoco.reportPath>
+                <sonar.coverage.exclusions>
+                    **/*config*/**,
+                    **/*common*/**,
+                    **/*constant*/**,
+                    **/*model*/**,
+                    **/*Application.*
+                </sonar.coverage.exclusions>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${maven.sonar.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

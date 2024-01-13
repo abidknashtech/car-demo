@@ -12,6 +12,64 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">java-competency-demo-ui documentation</a>
@@ -502,21 +560,21 @@ This property is passed as an input to the component and displayed in the templa
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">src/app/home/cars-list/carsdata-card/carsdata-card.component.ts:57</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/home/cars-list/carsdata-card/carsdata-card.component.ts:57</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -621,7 +679,7 @@ export class CarsdataCardComponent implements OnInit{
   @Input() carColor: string &#x3D; &quot;&quot;;
 
   ngOnInit() {
-    if (this.router.url.includes(&quot;dashboard&quot;)) {
+    if (this.router.url.includes(&quot;dashboard&quot;)||this.router.url.includes(&quot;search&quot;)) {
       this.isNewUI &#x3D; false;
     }
   }
@@ -663,6 +721,13 @@ export class CarsdataCardComponent implements OnInit{
                 <pre class="line-numbers"><code class="language-scss">
 .example-card i {
   color: #d73b1e;
+}
+
+.example-card {
+  flex-grow: 1;
+  margin-left: -30px;
+  height: 200px;
+  width: 800px;
 }
 
 .card-title{
@@ -710,7 +775,7 @@ export class CarsdataCardComponent implements OnInit{
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="carsdata-card-container">  <mat-card class="example-card my-5">    <mat-card-header>      <mat-card-title class="card-title">{{ carCompanyName }} {{ carModel }}</mat-card-title>      <mat-card-subtitle class="card-title">{{ carPrice }}</mat-card-subtitle>    </mat-card-header>    <br />    <mat-card-content>      <div class="info d-flex justify-content-between">        <h3><i class="fa-solid fa-gauge" [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'"></i></h3>        <h3><i  class="fa-solid fa-location-dot" [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'"></i></h3>        <h3><i class="fa-solid fa-calendar-days" [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'"></i></h3>        <h3><i class="fa-solid fa-droplet" [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'"></i></h3>      </div>      <div class="info d-flex justify-content-between">        <h3>{{ carMileage }}</h3>        <h3>{{ carLocation }}</h3>        <h3>{{ manufacturingYear }}</h3>        <h3>{{ carColor }}</h3>      </div>    </mat-card-content>  </mat-card></div></div>'
-    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
+    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CarsdataCardComponent'};
 </script>

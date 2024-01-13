@@ -12,6 +12,64 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">java-competency-demo-ui documentation</a>
@@ -201,7 +259,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:40</a></div>
                             </td>
                         </tr>
 
@@ -275,65 +333,63 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:62</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:67</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Checks if the given route is active.</p>
+                        <div class="io-description"><p>Checks if the given route is active.</p>
 </div>
 
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>url</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>url</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
 
-                                    <td>
-                                        No
-                                    </td>
+                                            <td>
+                                                    No
+                                            </td>
 
 
-                                    <td>
-                                        <ul>
+                                            <td>
+                                                    <ul>
 <li>The URL to check against the current route.</li>
 </ul>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        <ul>
+                        </div>
+                            <div class="io-description">
+                                <ul>
 <li>True if the route is active, otherwise false.</li>
 </ul>
 
-                    </div>
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -356,23 +412,23 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:46</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:51</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Initializes the component and subscribes to route change events.</p>
+                        <div class="io-description"><p>Initializes the component and subscribes to route change events.</p>
 </div>
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -395,23 +451,23 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="104"
-                            class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:104</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/dashboard/components/sidenav/sidenav.component.ts:109</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Toggles the side menu&#39;s open/close state and adjusts the content margin accordingly.</p>
+                        <div class="io-description"><p>Toggles the side menu&#39;s open/close state and adjusts the content margin accordingly.</p>
 </div>
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -557,6 +613,11 @@
       icon: ICONS.OLD_UI,
       label: &quot;Old UI&quot;,
     },
+    {
+      path: ROUTES.MY_ORDERS,
+      icon: ICONS.MY_ORDERS,
+      label: &quot;My Orders&quot;,
+    }
   ]</code>
                     </td>
                 </tr>
@@ -652,6 +713,11 @@ export class SidenavComponent {
       icon: ICONS.OLD_UI,
       label: &quot;Old UI&quot;,
     },
+    {
+      path: ROUTES.MY_ORDERS,
+      icon: ICONS.MY_ORDERS,
+      label: &quot;My Orders&quot;,
+    }
   ];
 
   /**
@@ -880,7 +946,7 @@ export class SidenavComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-sidenav-container id="sidenavContainer" fullscreen>  <mat-sidenav    mode="side"    #sidenav    id="sidenav"    [class.menu-open]="isMenuOpen"    [class.menu-close]="!isMenuOpen"    opened  >    <mat-nav-list>      <a        *ngFor="let menuItem of menuItems"        [routerLink]="menuItem.path"        mat-list-item        [class.active]="checkRouteActive(menuItem.path)"        class="nav-item d-flex flex-row"      >        <div class="nav-icon" [ngClass]="{ \'d-none\': isMenuOpen }">          {{ menuItem.icon }}        </div>        <span class="nav-title ps-2" [ngClass]="{ \'d-none\': !isMenuOpen }">{{          menuItem.label        }}</span>      </a>    </mat-nav-list>    <div class="footer">      <mat-icon (click)="onToolbarMenuToggle()" id="toolbarMenu">{{        arrowIcon      }}</mat-icon>    </div>  </mat-sidenav>  <mat-sidenav-content [ngStyle]="{ \'margin-left.px\': contentMargin }">    <div class="ps-5 pe-3 mt-3 container">      <ng-content></ng-content>    </div>  </mat-sidenav-content></mat-sidenav-container></div>'
-    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
+    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidenavComponent'};
 </script>

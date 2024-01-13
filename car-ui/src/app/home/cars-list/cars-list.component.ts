@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { CarDetails } from "../../shared/module/cars-details.model";
 import { CarDetailsService } from "../../shared/services/car-details.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 /**
  * Represents the Cars List component that displays a list of cars.
  */
@@ -11,14 +11,12 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ["./cars-list.component.scss"],
 })
 export class CarsListComponent implements OnInit, OnDestroy {
+  // Input property to receive the brand name from the parent component
   @Input("brandName") brandName = "";
 
-  isNewUI: boolean = true;
+  isNewUI: boolean = true; // Flag to determine if the new UI is used
 
-  /**
-   * Determines if the car list should be shown.
-   */
-  showcarList: boolean = false;
+  showcarList: boolean = false; // Flag to determine if the car list should be shown
 
   /** Available options for the number of items per page. */
   //tableSizes: any = [5, 10, 15, 20];
@@ -53,19 +51,23 @@ export class CarsListComponent implements OnInit, OnDestroy {
   constructor(
     private carsDataService: CarDetailsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   /**
    * Lifecycle hook: Initializes the component.
    */
   ngOnInit(): void {
+    // Check if the route contains "dashboard" and update isNewUI accordingly
     if (this.router.url.includes("dashboard")) {
       this.isNewUI = false;
     }
+    // Set selectedCloud based on the route snapshot
     this.selectedCloud = this.route.snapshot.url[0].path;
+    // If selectedCarBrand is not set, use the brandName from the input
     if (this.selectedCarBrand.length == 0)
       this.selectedCarBrand = this.brandName;
+    // Fetch car models based on selectedCloud and selectedCarBrand
     this.getCarModels(this.selectedCloud, this.selectedCarBrand);
   }
 

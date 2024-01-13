@@ -12,6 +12,64 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">java-competency-demo-ui documentation</a>
@@ -314,21 +372,21 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:22</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="22"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:22</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -351,21 +409,21 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:17</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:17</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -388,53 +446,51 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:28</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:28</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>event</td>
-                                    <td>
-                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-                                    </td>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
 
-                                    <td>
-                                        No
-                                    </td>
+                                            <td>
+                                                    No
+                                            </td>
 
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -457,53 +513,51 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:38</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:38</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>columnId</td>
-                                    <td>
-                                            <code>string | undefined</code>
-                                    </td>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columnId</td>
+                                            <td>
+                                                        <code>string | undefined</code>
+                                            </td>
 
-                                    <td>
-                                        No
-                                    </td>
+                                            <td>
+                                                    No
+                                            </td>
 
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -526,21 +580,21 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:34</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:34</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -802,7 +856,7 @@ newSelectedTableHeaders.includes(header.colId || &#x27;&#x27;)
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div>  <div class="d-flex flex-wrap justify-content-end mx-5">    <button mat-icon-button (click)="toggleSettingsDropdown()">      <mat-icon >settings</mat-icon>    </button>  </div>  <div *ngIf="showSettingsDropdown" class="custom-dropdown">    <div *ngFor="let header of allTableHeaders">      <label class="settings-checkbox">        <mat-checkbox                [ngModel]="newSelectedTableHeaders.includes(header.colId)"                (ngModelChange)="toggleColumnSelection(header.colId)"                [disabled]="newSelectedTableHeaders.length <= 2 &&newSelectedTableHeaders.includes(header.colId || \'\')"        >          {{ header.headerName }}        </mat-checkbox>      </label>    </div></div><!--<mat-form-field data-testid="mabl-table-headers-dropdown" appearance="fill">  <mat-select    multiple    #matSelect    (selectionChange)="onColumnSelectionChange($event)"    [(value)]="newSelectedTableHeaders"  >    <mat-option      *ngFor="let header of allTableHeaders"      [value]="header.colId"      [disabled]="        newSelectedTableHeaders.length <= 2 &&        newSelectedTableHeaders.includes(header.colId || \'\')      "    >      {{ header.headerName }}    </mat-option>  </mat-select>--><!--</mat-form-field>--></div>'
-    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
+    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TableHeadersDropdownComponent'};
 </script>

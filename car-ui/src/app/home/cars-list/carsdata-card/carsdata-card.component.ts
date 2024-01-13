@@ -1,16 +1,17 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Router} from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-carsdata-card",
   templateUrl: "./carsdata-card.component.html",
   styleUrls: ["./carsdata-card.component.scss"],
 })
-export class CarsdataCardComponent implements OnInit{
-
+export class CarsdataCardComponent implements OnInit {
+  // Flag to determine the UI style
   isNewUI: boolean = true;
-  constructor(private router: Router) {}
 
+  // Dependency injection of Router service in the constructor
+  constructor(public router: Router) {}
 
   /**
    * Holds the name of the car's manufacturing company.
@@ -54,8 +55,14 @@ export class CarsdataCardComponent implements OnInit{
    */
   @Input() carColor: string = "";
 
+  // Lifecycle hook - ngOnInit
   ngOnInit() {
-    if (this.router.url.includes("dashboard")||this.router.url.includes("search")) {
+    // Check if the current route includes "dashboard" or "search"
+    // If true, set isNewUI to false
+    if (
+      this.router.url.includes("dashboard") ||
+      this.router.url.includes("search")
+    ) {
       this.isNewUI = false;
     }
   }

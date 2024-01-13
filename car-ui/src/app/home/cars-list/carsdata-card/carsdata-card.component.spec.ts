@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { CarsdataCardComponent } from "./carsdata-card.component";
 import { MatCardModule } from "@angular/material/card";
-import { Component } from "@angular/core"; // Import the MatCardModule
 
 describe("CarsdataCardComponent", () => {
   let component: CarsdataCardComponent;
@@ -28,8 +27,8 @@ describe("CarsdataCardComponent", () => {
     component.carCompanyName = "Ford";
     component.carModel = "Mustang";
     component.carPrice = "35000";
-    component.carMileage = "25";
-    component.manufacturingYear = "2023";
+    component.carMileage = 25;
+    component.manufacturingYear = 2023;
     component.carLocation = "Chicago";
     component.carColor = "Black";
 
@@ -48,8 +47,8 @@ describe("CarsdataCardComponent", () => {
     component.carCompanyName = "Chevrolet";
     component.carModel = "Camero";
     component.carPrice = "30000";
-    component.carMileage = "28";
-    component.manufacturingYear = "2022";
+    component.carMileage = 28;
+    component.manufacturingYear = 2022;
     component.carLocation = "Miami";
     component.carColor = "Silver";
 
@@ -63,5 +62,27 @@ describe("CarsdataCardComponent", () => {
     expect(ComponentElement.textContent).toContain("2022");
     expect(ComponentElement.textContent).toContain("Miami");
     expect(ComponentElement.textContent).toContain("Silver");
+  });
+
+  it("should change color based on isNewUI value", () => {
+    // Set isNewUI to false
+    component.isNewUI = false;
+    fixture.detectChanges();
+
+    // Check if the color is set to 'rgb(7, 101, 153)' for the icons
+    let iconElements: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll(".fa-solid");
+    iconElements.forEach((icon) => {
+      expect(icon.style.color).toBe('rgb(7, 101, 153)');
+    });
+
+    // Set isNewUI to true
+    component.isNewUI = true;
+    fixture.detectChanges();
+
+    // Check if the color is set to 'rgb(215, 59, 30)' for the icons
+    iconElements = fixture.nativeElement.querySelectorAll(".fa-solid");
+    iconElements.forEach((icon) => {
+      expect(icon.style.color).toBe('rgb(215, 59, 30)');
+    });
   });
 });

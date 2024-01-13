@@ -12,6 +12,64 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">java-competency-demo-ui documentation</a>
@@ -326,53 +384,51 @@ Creates an instance of CarBrandsComponent.</p>
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:60</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:60</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>selectedCloud</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selectedCloud</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
 
-                                    <td>
-                                        No
-                                    </td>
+                                            <td>
+                                                    No
+                                            </td>
 
 
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -395,21 +451,21 @@ Creates an instance of CarBrandsComponent.</p>
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="82"
-                            class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:82</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:82</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -432,23 +488,23 @@ Creates an instance of CarBrandsComponent.</p>
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="44"
-                            class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:44</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:44</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Lifecycle hook. Called when the component is initialized.</p>
+                        <div class="io-description"><p>Lifecycle hook. Called when the component is initialized.</p>
 </div>
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -471,62 +527,60 @@ Creates an instance of CarBrandsComponent.</p>
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="56"
-                            class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:56</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:56</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Sends the selected car brand name to the CarsListComponent.</p>
+                        <div class="io-description"><p>Sends the selected car brand name to the CarsListComponent.</p>
 </div>
 
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>name</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
 
-                                    <td>
-                                        No
-                                    </td>
+                                            <td>
+                                                    No
+                                            </td>
 
 
-                                    <td>
-                                        <ul>
+                                            <td>
+                                                    <ul>
 <li>The name of the selected car brand.</li>
 </ul>
 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -862,7 +916,7 @@ button{
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="col" [style.display]="brandLoader ? \'none\' : \'block\'">  <div class="d-flex align-items-center justify-content-center min-vh-95 shift">    <mat-spinner color="warn"></mat-spinner>  </div></div><div [ngClass]="{\'contentNewUI\': !isNewUI, \'content\': isNewUI, \'container\' : true}">  <div fxLayout="row wrap" fxLayoutGap="16px grid">    <div      fxFlex="25%"      fxFlex.xs="100%"      fxFlex.sm="33%"      *ngFor="let carBrand of carBrands"    >      <mat-card class="mat-elevation-z4">        <mat-card-header>          <button   [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'" routerLink="./carList/{{carBrand.brand}}"  (click)="onBrandClick(carBrand.brand)">            <p>{{ carBrand["brand"] }}</p>          </button>        </mat-card-header>      </mat-card>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
+    var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CarBrandsComponent'};
 </script>

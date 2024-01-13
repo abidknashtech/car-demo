@@ -1,21 +1,69 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { SearchComponent } from "./search.component";
+import { HttpClientModule } from "@angular/common/http";
+import { CartService } from "../../../shared/services/cart.service";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MaterialModule } from "../../../shared/module/material.module";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
-import { SearchComponent } from './search.component';
-
-describe('SearchComponent', () => {
+describe("SearchComponent", () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchComponent]
+      declarations: [SearchComponent],
+      imports: [HttpClientModule, RouterTestingModule, MaterialModule],
+      providers: [CartService],
+      schemas: [NO_ERRORS_SCHEMA],
     });
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("should initialize with default values", () => {
+    // Assert that the component has default values after initialization
+    expect(component.items).toEqual(["All", "Brand", "Price", "Mileage", "Id"]);
+    expect(component.filteredItems).toEqual([
+      "Brand",
+      "Price",
+      "Mileage",
+      "Id",
+    ]);
+    expect(component.searchTerm).toEqual("");
+    expect(component.selectedCategory).toEqual("All");
+  });
+
+  it("should update selectedCategory and filter items on menuItemClicked", () => {
+    // Arrange
+    const selectedItem = "Brand";
+
+    // Act
+    component.menuItemClicked(selectedItem);
+
+    // Assert
+    expect(component.selectedCategory).toEqual(selectedItem);
+    expect(component.filteredItems).toEqual(["All", "Price", "Mileage", "Id"]);
+  });
+
+  it("should navigate to search result page on searchButtonClicked", () => {
+    // Arrange
+    spyOn(component.router, 'navigate');
+
+    // Act
+    component.searchButtonClicked();
+
+    // Assert
+    expect(component.router.navigate).toHaveBeenCalledWith(['/search-result'], {
+      queryParams: {
+        category: component.selectedCategory,
+        term: component.searchTerm,
+      },
+    });
   });
 });

@@ -4,8 +4,7 @@
   </div>
 </div>
 
-
-<div [ngClass]="{'contentNewUI': !isNewUI, 'content': isNewUI, 'container' : true}">
+<div [ngClass]="{ contentNewUI: !isNewUI, content: isNewUI, container: true }">
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
     <div
       fxFlex="25%"
@@ -15,7 +14,11 @@
     >
       <mat-card class="mat-elevation-z4">
         <mat-card-header>
-          <button   [style.color]="!isNewUI ? '#076599' : '#d73b1e'" routerLink="./carList/{{carBrand.brand}}"  (click)="onBrandClick(carBrand.brand)">
+          <button
+            [style.color]="!isNewUI ? '#076599' : '#d73b1e'"
+            routerLink="./carList/{{ carBrand.brand }}"
+            (click)="onBrandClick(carBrand.brand)"
+          >
             <p>{{ carBrand["brand"] }}</p>
           </button>
         </mat-card-header>
@@ -23,5 +26,3 @@
     </div>
   </div>
 </div>
-
-

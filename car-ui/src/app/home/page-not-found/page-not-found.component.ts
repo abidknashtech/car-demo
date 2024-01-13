@@ -7,8 +7,10 @@ import { Router } from "@angular/router";
   styleUrls: ["./page-not-found.component.scss"],
 })
 export class PageNotFoundComponent {
+  // Injecting Router service in the constructor
   constructor(private router: Router) {}
 
+  // Method to navigate to the dashboard route
   goToDashboard() {
     this.router.navigate(["/dashboard"]);
   }

@@ -12,6 +12,64 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avaoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+
+               if ($darkModeToggles.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
         <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">java-competency-demo-ui documentation</a>
@@ -66,143 +124,155 @@
 <title>cluster_HomeModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-70 8,-268 1436,-268 1436,-70 8,-70"/>
 </g>
-<g id="clust9" class="cluster">
-<title>cluster_HomeModule_imports</title>
-<polygon fill="none" stroke="black" points="1003,-78 1003,-130 1428,-130 1428,-78 1003,-78"/>
+<g id="clust2" class="cluster">
+<title>cluster_HomeModule_declarations</title>
+<polygon fill="none" stroke="black" points="449,-78 449,-130 1428,-130 1428,-78 449,-78"/>
 </g>
 <g id="clust10" class="cluster">
 <title>cluster_HomeModule_exports</title>
-<polygon fill="none" stroke="black" points="695,-208 695,-260 831,-260 831,-208 695,-208"/>
+<polygon fill="none" stroke="black" points="551,-208 551,-260 866,-260 866,-208 551,-208"/>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_HomeModule_declarations</title>
-<polygon fill="none" stroke="black" points="16,-78 16,-130 995,-130 995,-78 16,-78"/>
+<g id="clust9" class="cluster">
+<title>cluster_HomeModule_imports</title>
+<polygon fill="none" stroke="black" points="16,-78 16,-130 441,-130 441,-78 16,-78"/>
 </g>
 <!-- CarBrandsComponent -->
 <g id="node1" class="node">
 <title>CarBrandsComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="986.7,-122 845.3,-122 845.3,-86 986.7,-86 986.7,-122"/>
-<text text-anchor="middle" x="916" y="-99.8" font-family="Times,serif" font-size="14.00">CarBrandsComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1419.7,-122 1278.3,-122 1278.3,-86 1419.7,-86 1419.7,-122"/>
+<text text-anchor="middle" x="1349" y="-99.8" font-family="Times,serif" font-size="14.00">CarBrandsComponent</text>
 </g>
 <!-- HomeModule -->
 <g id="node7" class="node">
 <title>HomeModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="809.76,-187 806.76,-191 785.76,-191 782.76,-187 716.24,-187 716.24,-151 809.76,-151 809.76,-187"/>
-<text text-anchor="middle" x="763" y="-164.8" font-family="Times,serif" font-size="14.00">HomeModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="744.76,-187 741.76,-191 720.76,-191 717.76,-187 651.24,-187 651.24,-151 744.76,-151 744.76,-187"/>
+<text text-anchor="middle" x="698" y="-164.8" font-family="Times,serif" font-size="14.00">HomeModule</text>
 </g>
 <!-- CarBrandsComponent&#45;&gt;HomeModule -->
 <g id="edge1" class="edge">
 <title>CarBrandsComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M916,-122.01C916,-138.05 916,-159 916,-159 916,-159 820.15,-159 820.15,-159"/>
-<polygon fill="black" stroke="black" points="820.15,-155.5 810.15,-159 820.15,-162.5 820.15,-155.5"/>
+<path fill="none" stroke="black" d="M1349,-122.01C1349,-144.49 1349,-180 1349,-180 1349,-180 754.82,-180 754.82,-180"/>
+<polygon fill="black" stroke="black" points="754.82,-176.5 744.82,-180 754.82,-183.5 754.82,-176.5"/>
 </g>
 <!-- CarsListComponent -->
 <g id="node2" class="node">
 <title>CarsListComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="827.27,-122 698.73,-122 698.73,-86 827.27,-86 827.27,-122"/>
-<text text-anchor="middle" x="763" y="-99.8" font-family="Times,serif" font-size="14.00">CarsListComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1260.27,-122 1131.73,-122 1131.73,-86 1260.27,-86 1260.27,-122"/>
+<text text-anchor="middle" x="1196" y="-99.8" font-family="Times,serif" font-size="14.00">CarsListComponent</text>
 </g>
 <!-- CarsListComponent&#45;&gt;HomeModule -->
 <g id="edge2" class="edge">
 <title>CarsListComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M763,-122.11C763,-122.11 763,-140.99 763,-140.99"/>
-<polygon fill="black" stroke="black" points="759.5,-140.99 763,-150.99 766.5,-140.99 759.5,-140.99"/>
+<path fill="none" stroke="black" d="M1196,-122.13C1196,-142.57 1196,-173 1196,-173 1196,-173 754.85,-173 754.85,-173"/>
+<polygon fill="black" stroke="black" points="754.85,-169.5 744.85,-173 754.85,-176.5 754.85,-169.5"/>
 </g>
 <!-- CarsdataCardComponent -->
 <g id="node3" class="node">
 <title>CarsdataCardComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="680.52,-122 523.48,-122 523.48,-86 680.52,-86 680.52,-122"/>
-<text text-anchor="middle" x="602" y="-99.8" font-family="Times,serif" font-size="14.00">CarsdataCardComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="1113.52,-122 956.48,-122 956.48,-86 1113.52,-86 1113.52,-122"/>
+<text text-anchor="middle" x="1035" y="-99.8" font-family="Times,serif" font-size="14.00">CarsdataCardComponent</text>
 </g>
 <!-- CarsdataCardComponent&#45;&gt;HomeModule -->
 <g id="edge3" class="edge">
 <title>CarsdataCardComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M602,-122.01C602,-138.05 602,-159 602,-159 602,-159 706,-159 706,-159"/>
-<polygon fill="black" stroke="black" points="706,-162.5 716,-159 706,-155.5 706,-162.5"/>
+<path fill="none" stroke="black" d="M1035,-122.27C1035,-140.56 1035,-166 1035,-166 1035,-166 754.86,-166 754.86,-166"/>
+<polygon fill="black" stroke="black" points="754.86,-162.5 744.86,-166 754.86,-169.5 754.86,-162.5"/>
 </g>
 <!-- DataNotFoundComponent -->
 <g id="node4" class="node">
 <title>DataNotFoundComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="505.04,-122 340.96,-122 340.96,-86 505.04,-86 505.04,-122"/>
-<text text-anchor="middle" x="423" y="-99.8" font-family="Times,serif" font-size="14.00">DataNotFoundComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="938.04,-122 773.96,-122 773.96,-86 938.04,-86 938.04,-122"/>
+<text text-anchor="middle" x="856" y="-99.8" font-family="Times,serif" font-size="14.00">DataNotFoundComponent</text>
 </g>
 <!-- DataNotFoundComponent&#45;&gt;HomeModule -->
 <g id="edge4" class="edge">
 <title>DataNotFoundComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M423,-122.27C423,-140.56 423,-166 423,-166 423,-166 706.08,-166 706.08,-166"/>
-<polygon fill="black" stroke="black" points="706.08,-169.5 716.08,-166 706.08,-162.5 706.08,-169.5"/>
+<path fill="none" stroke="black" d="M815.62,-122.01C815.62,-138.05 815.62,-159 815.62,-159 815.62,-159 754.82,-159 754.82,-159"/>
+<polygon fill="black" stroke="black" points="754.82,-155.5 744.82,-159 754.82,-162.5 754.82,-155.5"/>
 </g>
 <!-- HomeComponent -->
 <g id="node5" class="node">
 <title>HomeComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="322.55,-122 207.45,-122 207.45,-86 322.55,-86 322.55,-122"/>
-<text text-anchor="middle" x="265" y="-99.8" font-family="Times,serif" font-size="14.00">HomeComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="755.55,-122 640.45,-122 640.45,-86 755.55,-86 755.55,-122"/>
+<text text-anchor="middle" x="698" y="-99.8" font-family="Times,serif" font-size="14.00">HomeComponent</text>
 </g>
 <!-- HomeComponent&#45;&gt;HomeModule -->
 <g id="edge5" class="edge">
 <title>HomeComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M265,-122.13C265,-142.57 265,-173 265,-173 265,-173 706.15,-173 706.15,-173"/>
-<polygon fill="black" stroke="black" points="706.15,-176.5 716.15,-173 706.15,-169.5 706.15,-176.5"/>
+<path fill="none" stroke="black" d="M698,-122.11C698,-122.11 698,-140.99 698,-140.99"/>
+<polygon fill="black" stroke="black" points="694.5,-140.99 698,-150.99 701.5,-140.99 694.5,-140.99"/>
 </g>
 <!-- PageNotFoundComponent -->
 <g id="node6" class="node">
 <title>PageNotFoundComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="189.82,-122 24.18,-122 24.18,-86 189.82,-86 189.82,-122"/>
-<text text-anchor="middle" x="107" y="-99.8" font-family="Times,serif" font-size="14.00">PageNotFoundComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="622.82,-122 457.18,-122 457.18,-86 622.82,-86 622.82,-122"/>
+<text text-anchor="middle" x="540" y="-99.8" font-family="Times,serif" font-size="14.00">PageNotFoundComponent</text>
 </g>
 <!-- PageNotFoundComponent&#45;&gt;HomeModule -->
 <g id="edge6" class="edge">
 <title>PageNotFoundComponent&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M107,-122.01C107,-144.49 107,-180 107,-180 107,-180 706.09,-180 706.09,-180"/>
-<polygon fill="black" stroke="black" points="706.09,-183.5 716.09,-180 706.09,-176.5 706.09,-183.5"/>
+<path fill="none" stroke="black" d="M591.07,-122.01C591.07,-138.05 591.07,-159 591.07,-159 591.07,-159 641.1,-159 641.1,-159"/>
+<polygon fill="black" stroke="black" points="641.1,-162.5 651.1,-159 641.1,-155.5 641.1,-162.5"/>
+</g>
+<!-- CarsdataCardComponent  -->
+<g id="node11" class="node">
+<title>CarsdataCardComponent </title>
+<polygon fill="#fb8072" stroke="black" points="857.52,-252 696.48,-252 696.48,-216 857.52,-216 857.52,-252"/>
+<text text-anchor="middle" x="777" y="-229.8" font-family="Times,serif" font-size="14.00">CarsdataCardComponent </text>
+</g>
+<!-- HomeModule&#45;&gt;CarsdataCardComponent  -->
+<g id="edge10" class="edge">
+<title>HomeModule&#45;&gt;CarsdataCardComponent </title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M720.69,-187.11C720.69,-187.11 720.69,-205.99 720.69,-205.99"/>
+<polygon fill="black" stroke="black" points="717.19,-205.99 720.69,-215.99 724.19,-205.99 717.19,-205.99"/>
 </g>
 <!-- HomeComponent  -->
-<g id="node11" class="node">
+<g id="node12" class="node">
 <title>HomeComponent </title>
-<polygon fill="#fb8072" stroke="black" points="822.54,-252 703.46,-252 703.46,-216 822.54,-216 822.54,-252"/>
-<text text-anchor="middle" x="763" y="-229.8" font-family="Times,serif" font-size="14.00">HomeComponent </text>
+<polygon fill="#fb8072" stroke="black" points="678.54,-252 559.46,-252 559.46,-216 678.54,-216 678.54,-252"/>
+<text text-anchor="middle" x="619" y="-229.8" font-family="Times,serif" font-size="14.00">HomeComponent </text>
 </g>
 <!-- HomeModule&#45;&gt;HomeComponent  -->
-<g id="edge10" class="edge">
+<g id="edge11" class="edge">
 <title>HomeModule&#45;&gt;HomeComponent </title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M763,-187.11C763,-187.11 763,-205.99 763,-205.99"/>
-<polygon fill="black" stroke="black" points="759.5,-205.99 763,-215.99 766.5,-205.99 759.5,-205.99"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M664.82,-187.11C664.82,-187.11 664.82,-205.99 664.82,-205.99"/>
+<polygon fill="black" stroke="black" points="661.32,-205.99 664.82,-215.99 668.32,-205.99 661.32,-205.99"/>
 </g>
 <!-- HomeRoutingModule -->
 <g id="node8" class="node">
 <title>HomeRoutingModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1420.38,-122 1417.38,-126 1396.38,-126 1393.38,-122 1281.62,-122 1281.62,-86 1420.38,-86 1420.38,-122"/>
-<text text-anchor="middle" x="1351" y="-99.8" font-family="Times,serif" font-size="14.00">HomeRoutingModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="433.38,-122 430.38,-126 409.38,-126 406.38,-122 294.62,-122 294.62,-86 433.38,-86 433.38,-122"/>
+<text text-anchor="middle" x="364" y="-99.8" font-family="Times,serif" font-size="14.00">HomeRoutingModule</text>
 </g>
 <!-- HomeRoutingModule&#45;&gt;HomeModule -->
 <g id="edge7" class="edge">
 <title>HomeRoutingModule&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M1351,-122.01C1351,-144.49 1351,-180 1351,-180 1351,-180 820.12,-180 820.12,-180"/>
-<polygon fill="black" stroke="black" points="820.12,-176.5 810.12,-180 820.12,-183.5 820.12,-176.5"/>
+<path fill="none" stroke="black" d="M364,-122.27C364,-140.56 364,-166 364,-166 364,-166 641.21,-166 641.21,-166"/>
+<polygon fill="black" stroke="black" points="641.21,-169.5 651.21,-166 641.21,-162.5 641.21,-169.5"/>
 </g>
 <!-- MaterialModule -->
 <g id="node9" class="node">
 <title>MaterialModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="1263.47,-122 1260.47,-126 1239.47,-126 1236.47,-122 1156.53,-122 1156.53,-86 1263.47,-86 1263.47,-122"/>
-<text text-anchor="middle" x="1210" y="-99.8" font-family="Times,serif" font-size="14.00">MaterialModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="276.47,-122 273.47,-126 252.47,-126 249.47,-122 169.53,-122 169.53,-86 276.47,-86 276.47,-122"/>
+<text text-anchor="middle" x="223" y="-99.8" font-family="Times,serif" font-size="14.00">MaterialModule</text>
 </g>
 <!-- MaterialModule&#45;&gt;HomeModule -->
 <g id="edge8" class="edge">
 <title>MaterialModule&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M1210,-122.13C1210,-142.57 1210,-173 1210,-173 1210,-173 819.99,-173 819.99,-173"/>
-<polygon fill="black" stroke="black" points="819.99,-169.5 809.99,-173 819.99,-176.5 819.99,-169.5"/>
+<path fill="none" stroke="black" d="M223,-122.13C223,-142.57 223,-173 223,-173 223,-173 641.16,-173 641.16,-173"/>
+<polygon fill="black" stroke="black" points="641.16,-176.5 651.16,-173 641.16,-169.5 641.16,-176.5"/>
 </g>
 <!-- NgOptimizedImage -->
 <g id="node10" class="node">
 <title>NgOptimizedImage</title>
-<polygon fill="#8dd3c7" stroke="black" points="1138.69,-122 1135.69,-126 1114.69,-126 1111.69,-122 1011.31,-122 1011.31,-86 1138.69,-86 1138.69,-122"/>
-<text text-anchor="middle" x="1075" y="-99.8" font-family="Times,serif" font-size="14.00">NgOptimizedImage</text>
+<polygon fill="#8dd3c7" stroke="black" points="151.69,-122 148.69,-126 127.69,-126 124.69,-122 24.31,-122 24.31,-86 151.69,-86 151.69,-122"/>
+<text text-anchor="middle" x="88" y="-99.8" font-family="Times,serif" font-size="14.00">NgOptimizedImage</text>
 </g>
 <!-- NgOptimizedImage&#45;&gt;HomeModule -->
 <g id="edge9" class="edge">
 <title>NgOptimizedImage&#45;&gt;HomeModule</title>
-<path fill="none" stroke="black" d="M1075,-122.27C1075,-140.56 1075,-166 1075,-166 1075,-166 820.05,-166 820.05,-166"/>
-<polygon fill="black" stroke="black" points="820.05,-162.5 810.05,-166 820.05,-169.5 820.05,-162.5"/>
+<path fill="none" stroke="black" d="M88,-122.01C88,-144.49 88,-180 88,-180 88,-180 641.15,-180 641.15,-180"/>
+<polygon fill="black" stroke="black" points="641.15,-183.5 651.15,-180 641.15,-176.5 641.15,-183.5"/>
 </g>
 </g>
 </svg>
@@ -295,6 +365,9 @@
                                 class="icon ion-ios-information-circle-outline"></a></h3>
                     <ul class="list-group">
                         <li class="list-group-item">
+                            <a href="../components/CarsdataCardComponent.html">CarsdataCardComponent</a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="../components/HomeComponent.html">HomeComponent</a>
                         </li>
                     </ul>
@@ -334,7 +407,7 @@ import { NgxPaginationModule } from &quot;ngx-pagination&quot;;
     NgOptimizedImage,
     NgxPaginationModule,
   ],
-  exports: [HomeComponent],
+  exports: [HomeComponent, CarsdataCardComponent],
 })
 export class HomeModule {}
 </code></pre>

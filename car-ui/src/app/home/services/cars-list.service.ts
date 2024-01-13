@@ -7,11 +7,11 @@ import { BehaviorSubject } from "rxjs";
   providedIn: "root",
 })
 export class CarsListService {
+  // BehaviorSubject to hold the brands' names
   private brandsName = new BehaviorSubject<string>("");
 
   /**
    * Creates an instance of CarsListService.
-   * @param {HttpClient} http - The HttpClient service to make HTTP requests.
    */
   constructor() {}
 

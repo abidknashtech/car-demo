@@ -1,71 +1,77 @@
-// import { ComponentFixture, TestBed } from "@angular/core/testing";
-// import { CarsListComponent } from "./cars-list.component";
-// import { CarsListService } from "../services/cars-list.service";
-// import { of } from "rxjs";
-//
-// describe("CarsListComponent", () => {
-//   let component: CarsListComponent;
-//   let fixture: ComponentFixture<CarsListComponent>;
-//   let carsDataServiceMock: Partial<CarsListService>;
-//
-//   beforeEach(() => {
-//     carsDataServiceMock = {
-//       getBrandsName: of("Test Brand"),
-//       getCarModels: (brandName: string) =>
-//         of([{ model: "Car Model 1" }, { model: "Car Model 2" }]),
-//     };
-//
-//     TestBed.configureTestingModule({
-//       declarations: [CarsListComponent],
-//       providers: [{ provide: CarsListService, useValue: carsDataServiceMock }],
-//     }).compileComponents();
-//   });
-//
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(CarsListComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-//
-//   it("should create", () => {
-//     expect(component).toBeTruthy();
-//   });
-//
-//   it("should initialize component properties", () => {
-//     expect(component.brandName).toEqual("");
-//     expect(component.showcarList).toBeFalse();
-//     expect(component.selectedCarBrand).toEqual("");
-//     expect(component.page).toEqual(1);
-//     expect(component.count).toEqual(0);
-//     expect(component.tableSize).toEqual(10);
-//     expect(component.cars).toBeUndefined();
-//     //expect(component.dataSubscription).toBeUndefined();
-//   });
-//
-//   it("should subscribe to getBrandsName and call getCarModels on ngOnInit", () => {
-//     component.ngOnInit();
-//
-//     expect(component.selectedCarBrand).toEqual("Test Brand");
-//     expect(component.showcarList).toBeTrue();
-//     expect(component.cars).toEqual([
-//       { model: "Car Model 1" },
-//       { model: "Car Model 2" },
-//     ]);
-//   });
-//
-//   it("should call getCarModels on onTableDataChange", () => {
-//     const getCarModelsSpy = spyOn(component, "getCarModels");
-//
-//     const eventData = { itemsPerPage: 10, page: 2 };
-//     component.onTableDataChange(eventData);
-//
-//     expect(getCarModelsSpy).toHaveBeenCalledWith(component.selectedCarBrand);
-//   });
-//
-//   it("should unsubscribe from dataSubscription on ngOnDestroy", () => {
-//     const unsubscribeSpy = spyOn(component.dataSubscription, "unsubscribe");
-//     component.ngOnDestroy();
-//
-//     expect(unsubscribeSpy).toHaveBeenCalled();
-//   });
-// });
+// Import necessary testing modules and classes
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ActivatedRoute, Router } from "@angular/router";
+import { of } from "rxjs";
+
+// Import the component to be tested
+import { CarsListComponent } from "./cars-list.component";
+
+// Import any additional services or modules used in the component
+import { CarDetailsService } from "../../shared/services/car-details.service";
+import { CarDetails } from "../../shared/module/cars-details.model";
+
+describe("CarsListComponent", () => {
+  let component: CarsListComponent;
+  let fixture: ComponentFixture<CarsListComponent>;
+  let carDetailsService: jasmine.SpyObj<CarDetailsService>;
+  let route: ActivatedRoute;
+  let router: Router;
+
+  // Set up a spy for CarDetailsService and configure TestBed
+  beforeEach(() => {
+    const carDetailsServiceSpy = jasmine.createSpyObj("CarDetailsService", [
+      "getCarModels",
+    ]);
+    // Create a mock Router with a dummy url property
+    const mockRouter = {
+      url: "/dashboard", // Set a dummy value for testing
+    };
+    TestBed.configureTestingModule({
+      declarations: [CarsListComponent],
+      providers: [
+        { provide: CarDetailsService, useValue: carDetailsServiceSpy },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { url: [{ path: "samplePath" }] } },
+        },
+        { provide: Router, useValue: mockRouter },
+      ],
+    });
+
+    fixture = TestBed.createComponent(CarsListComponent);
+    component = fixture.componentInstance;
+    carDetailsService = TestBed.inject(
+      CarDetailsService,
+    ) as jasmine.SpyObj<CarDetailsService>;
+    route = TestBed.inject(ActivatedRoute);
+    router = TestBed.inject(Router);
+  });
+
+  it("should create", () => {
+    expect(component).toBeTruthy();
+  });
+
+  it("should initialize with default values", () => {
+    expect(component.brandName).toEqual("");
+    expect(component.isNewUI).toEqual(true);
+    expect(component.showcarList).toEqual(false);
+    // Add more expectations for other default values
+  });
+
+  it("should fetch car models on ngOnInit", () => {
+    const carDetails: CarDetails[] = [];
+    carDetailsService.getCarModels.and.returnValue(of(carDetails));
+
+    component.ngOnInit();
+
+    expect(component.isNewUI).toEqual(false);
+    expect(component.selectedCloud).toEqual("samplePath");
+    expect(component.selectedCarBrand).toEqual("");
+    expect(carDetailsService.getCarModels).toHaveBeenCalledWith(
+      "samplePath",
+      "",
+    );
+    expect(component.carModelDetails).toEqual(carDetails);
+    expect(component.showcarList).toEqual(true);
+  });
+});

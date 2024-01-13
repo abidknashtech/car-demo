@@ -7,6 +7,7 @@ import { CarsDataComponent } from "../../../modules/cloud-options/cars-data/cars
   styleUrls: ["./data-not-found.component.scss"],
 })
 export class DataNotFoundComponent extends CarsDataComponent {
+  // Override the method from the base class for testing purposes
   generateData() {
     this.addBulkData();
   }

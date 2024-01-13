@@ -27,51 +27,31 @@ describe("CarsListService", () => {
     expect(service).toBeTruthy();
   });
 
-  // it("should call the correct API to fetch data with the given page number", () => {
-  //   const pageNumber = 1;
-  //   const mockResponse = [{ id: 1, name: "Car A" }];
-  //
-  //   service.getData(pageNumber).subscribe((data) => {
-  //     expect(data).toEqual(mockResponse);
-  //   });
-  //
-  //   const req = httpMock.expectOne(
-  //     `${service["apiUrl"]}&page_number=${pageNumber}`,
-  //   );
-  //   expect(req.request.method).toBe("GET");
-  //   req.flush(mockResponse);
-  // });
+  // Test case to check if setBrandsName method sets the brands' names correctly
+  it("should set the brands' names", () => {
+    const testBrandsName = "Test Brands";
+    // Calling the setBrandsName method
+    service.setBrandsName(testBrandsName);
+    // Expecting the brandsName BehaviorSubject to have the correct value
+    service['brandsName'].subscribe((brandsName) => {
+      expect(brandsName).toBe(testBrandsName);
+    });
+  });
 
-  // it("should set and get brands' names correctly", () => {
-  //   const testBrandsName = "Brand1";
-  //
-  //   service.setBrandsName(testBrandsName);
-  //   service.getBrandsName.subscribe((brandsName) => {
-  //     expect(brandsName).toBe(testBrandsName);
-  //   });
-  // });
+  // Test case to check if setBrandsName method updates the brands' names correctly
+  it("should update the brands' names", () => {
+    const initialBrandsName = "Initial Brands";
+    const updatedBrandsName = "Updated Brands";
 
-  // it("should fetch the brand names from the mock API", () => {
-  //   const mockBrandNames: CarsDetails[] = [
-  //     {
-  //       brand_id: 1,
-  //       brand_name: "Brand1",
-  //       model: "Model1",
-  //       year: 2022,
-  //       color: "Blue",
-  //       mileage: 5000,
-  //       price: "$25000",
-  //       location: "Location1",
-  //     },
-  //     // Add more mock brand data as needed
-  //   ];
-  //
-  //   service.getBrandName().subscribe((data) => {
-  //     expect(data).toEqual(mockBrandNames);
-  //   });
-  //
-  //   const req = httpMock.expectOne(service["apiUrlBrand"]);
-  //   expect(req.request.method).toBe("GET");
-  //   req.flush(mockBrandNames);
-  // });
+    // Setting initial brands' names
+    service.setBrandsName(initialBrandsName);
+
+    // Calling the setBrandsName method to update brands' names
+    service.setBrandsName(updatedBrandsName);
+
+    // Expecting the brandsName BehaviorSubject to have the updated value
+    service['brandsName'].subscribe((brandsName) => {
+      expect(brandsName).toBe(updatedBrandsName);
+    });
+  });
 });

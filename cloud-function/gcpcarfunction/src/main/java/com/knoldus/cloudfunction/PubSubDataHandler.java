@@ -4,14 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
-import com.google.api.gax.rpc.ApiException;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.FirestoreOptions;
 import com.google.cloud.firestore.WriteResult;
 import com.google.cloud.functions.CloudEventsFunction;
-import com.google.events.cloud.pubsub.v1.MessagePublishedData;
 import com.google.events.cloud.pubsub.v1.Message;
+import com.google.events.cloud.pubsub.v1.MessagePublishedData;
 import com.knoldus.cloudfunction.model.Vehicle;
 import io.cloudevents.CloudEvent;
 import org.json.JSONObject;
@@ -37,7 +35,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
   private String currencyApiKey;
   private String currencyApiUrl;
 
-  private static final double MILEAGE_CONVERSION_RATE_ = 1.609344;
+  protected static final double MILEAGE_CONVERSION_RATE_ = 1.609344;
   /**
    * The Firestore instance for
    * interacting with the Firestore database.
@@ -48,14 +46,8 @@ public class PubSubDataHandler implements CloudEventsFunction {
    * Constructor for the PubSubDataHandler class.
    * Initializes the Firestore instance.
    */
-  public PubSubDataHandler() {
-    try {
-      firestore = FirestoreOptions
-              .getDefaultInstance().getService();
-    } catch (ApiException e) {
-      logger.severe("Firestore initialization error: "
-              + e.getMessage());
-    }
+  public PubSubDataHandler(Firestore firestore) {
+    PubSubDataHandler.firestore = firestore;
   }
 
   private Properties loadConfigProperties() {
@@ -106,7 +98,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
     saveDataToFirestore(vehicleData);
   }
 
-  private double fetchConversionRateFromAPI(String toCurrency) {
+  protected double fetchConversionRateFromAPI(String toCurrency) {
     Properties properties = loadConfigProperties();
     currencyApiKey = properties.getProperty("currency.api.key");
     currencyApiUrl = properties.getProperty("currency.api.url");
@@ -153,7 +145,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
    * @param priceInDollars The price in dollars.
    * @return The price in rupees.
    */
-  private double transformPrice(final double priceInDollars, final double conversionRate) {
+    protected double transformPrice(final double priceInDollars, final double conversionRate) {
     return priceInDollars * conversionRate;
   }
   /**
@@ -162,7 +154,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
    * @param mileageInMiles The mileage in miles.
    * @return The mileage in kilometers per liter.
    */
-  private double transformMileage(final double mileageInMiles) {
+  protected double transformMileage(final double mileageInMiles) {
     double conversionFactor = MILEAGE_CONVERSION_RATE_;
     return mileageInMiles * conversionFactor;
   }
@@ -173,7 +165,7 @@ public class PubSubDataHandler implements CloudEventsFunction {
    * @param vehicleData
    * The model.Vehicle object containing the data to be saved.
    */
-  private void saveDataToFirestore(Vehicle vehicleData) {
+  protected void saveDataToFirestore(Vehicle vehicleData) {
     DocumentReference docRef = firestore.collection("Car").document();
     ApiFuture<WriteResult> result = docRef.set(vehicleData);
     try {

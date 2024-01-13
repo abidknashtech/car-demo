@@ -17,11 +17,14 @@ import { MatDialog } from "@angular/material/dialog";
   styleUrls: ["./cars-data.component.scss"],
 })
 export class CarsDataComponent implements OnInit {
+  // Properties for column definitions, headers, and loading state
   carColumnDef: (ColDef | ColGroupDef)[] = [];
   allTableHeaders: any[] = [];
   updatedCarHeaders: any[] = [];
   isLoading = false;
   // carModelsData: CarsData[] = [];
+
+  // Data related properties
   carBrands: CarBrand[] = [];
   carDataSubscription$!: Subscription;
   selectedCloud: string = constants.defaultCloud;
@@ -29,19 +32,26 @@ export class CarsDataComponent implements OnInit {
   selectedCarBrand!: string;
   carData: any[] = [];
   isCarsDataVisible: boolean = true;
+
+  // Constructor with injected services
   constructor(
-    public commonService: CommonService,
-    private carsDataService: CarDetailsService,
-    private router: Router,
-    public dialog: MatDialog,
+      public commonService: CommonService,
+      private carsDataService: CarDetailsService,
+      public router: Router,
+      public dialog: MatDialog,
   ) {}
 
+  // Initialization logic
   ngOnInit(): void {
+    // Check if the URL includes "gcp" and set the selected cloud accordingly
     if (this.router.url.includes("gcp")) {
       this.selectedCloud = "gcp";
     }
+    // Load car brands based on the selected cloud
     this.getCarBrands(this.selectedCloud);
   }
+
+  // Method to set headers for car data table
   setHeadersForCarsData(event: any) {
     this.updatedCarHeaders = [];
     this.updatedCarHeaders = this.commonService.setTableHeaders(
@@ -50,6 +60,8 @@ export class CarsDataComponent implements OnInit {
     );
     this.carColumnDef = this.updatedCarHeaders;
   }
+
+  // Method to get car brands based on the selected cloud
 
   getCarBrands(selectedCloud: string) {
     this.isLoading = true;
@@ -66,6 +78,7 @@ export class CarsDataComponent implements OnInit {
     });
   }
 
+  // Method to get car models based on the selected cloud and brand
   getCarModels(selectedCloud: string, brand: string) {
     this.isLoading = true;
     this.carDataSubscription$ = this.carsDataService
@@ -150,11 +163,13 @@ export class CarsDataComponent implements OnInit {
       });
   }
 
+  // Method called on car brand selection change
   onCarBrandSelectionChange(event: any) {
     this.selectedCarBrand = event.value;
     this.getCarModels(this.selectedCloud, this.selectedCarBrand);
   }
 
+  // Method to add bulk data
   addBulkData() {
     this.carsDataService
       .addBulkData(this.selectedCloud)
@@ -165,6 +180,7 @@ export class CarsDataComponent implements OnInit {
       });
   }
 
+  // Method to open a confirmation dialog
   openDialog() {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: {

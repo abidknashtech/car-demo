@@ -1,21 +1,104 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from "@angular/core/testing";
 
-import { CarsDataComponent } from './cars-data.component';
+import { CarsDataComponent } from "./cars-data.component";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MaterialModule } from "../../../shared/module/material.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatDialog } from "@angular/material/dialog";
+import { of } from "rxjs";
+// Import the component and services to be tested
+import { CarDetailsService } from "../../../shared/services/car-details.service";
+import { CommonService } from "../../../shared/services/common.service";
 
-describe('CarsDataComponent', () => {
+describe("CarsDataComponent", () => {
   let component: CarsDataComponent;
   let fixture: ComponentFixture<CarsDataComponent>;
+  let carDetailsService: CarDetailsService;
+  let commonService: CommonService;
+  let matDialog: MatDialog;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CarsDataComponent]
+      declarations: [CarsDataComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [
+        HttpClientModule,
+        RouterTestingModule,
+        MaterialModule,
+        BrowserAnimationsModule,
+      ],
+      providers: [
+        CarDetailsService,
+        CommonService,
+        { provide: MatDialog, useValue: { open: () => {} } },
+      ],
     });
     fixture = TestBed.createComponent(CarsDataComponent);
     component = fixture.componentInstance;
+    carDetailsService = TestBed.inject(CarDetailsService);
+    commonService = TestBed.inject(CommonService);
+    matDialog = TestBed.inject(MatDialog);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
+  });
+
+  it("should handle error when loading car brands on ngOnInit", fakeAsync(() => {
+    spyOn(carDetailsService, "getCarBrands").and.returnValue(of([]));
+
+    component.ngOnInit();
+    tick();
+
+    expect(component.isCarsDataVisible).toBeFalse();
+  }));
+
+  it("should handle error when updating car models on car brand selection change", fakeAsync(() => {
+    spyOn(carDetailsService, "getCarModels").and.returnValue(of([]));
+
+    component.onCarBrandSelectionChange({ value: "Toyota" });
+    tick();
+
+    expect(component.carData).toEqual([]);
+  }));
+
+  it("should set default headers on setHeadersForCarsData", () => {
+    const event = { target: { value: "default" } };
+    spyOn(commonService, "setTableHeaders").and.returnValue([]);
+
+    component.setHeadersForCarsData(event);
+
+    expect(commonService.setTableHeaders).toHaveBeenCalledWith(
+      event,
+      component.allTableHeaders,
+    );
+    expect(component.carColumnDef).toEqual([]);
+  });
+
+  it("should handle error on setHeadersForCarsData", () => {
+    const event = { target: { value: "default" } };
+    spyOn(commonService, "setTableHeaders").and.throwError("An error occurred");
+
+    expect(() => component.setHeadersForCarsData(event)).toThrowError(
+      "An error occurred",
+    );
+    expect(component.carColumnDef).toEqual([]);
+  });
+
+  it("should handle error on car brand selection change", () => {
+    spyOn(component, "getCarModels").and.throwError("An error occurred");
+
+    expect(() =>
+      component.onCarBrandSelectionChange({ value: "Toyota" }),
+    ).toThrowError("An error occurred");
+    expect(component.carData).toEqual([]);
   });
 });

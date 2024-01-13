@@ -24,7 +24,6 @@ public class CartController {
     @PostMapping("/add")
     public ResponseEntity<CartItem> addToCart(@RequestParam String productId, @RequestParam int quantity,
                                             @RequestParam String userId) {
-        log.info("Product {} adding into cart for user {}", productId, userId);
         return new ResponseEntity<>(cartService.addToCart(productId, quantity,userId), HttpStatus.CREATED);
 
     }
@@ -32,7 +31,6 @@ public class CartController {
     @PostMapping("/remove")
     public ResponseEntity<CartItem> removeFromCart(@RequestParam String productId, @RequestParam int quantity,
                                                  @RequestParam String userId) {
-        log.info("Product {} updated into cart for user {}", productId, userId);
         return new ResponseEntity<>(cartService.removeFromCart(productId,quantity,userId),HttpStatus.OK);
     }
 

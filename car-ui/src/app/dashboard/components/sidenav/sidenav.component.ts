@@ -32,6 +32,11 @@ export class SidenavComponent {
       icon: ICONS.OLD_UI,
       label: "Old UI",
     },
+    {
+      path: ROUTES.MY_ORDERS,
+      icon: ICONS.MY_ORDERS,
+      label: "My Orders",
+    }
   ];
 
   /**

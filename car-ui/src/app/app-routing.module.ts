@@ -23,6 +23,11 @@ const routes: Routes = [
       import("../app/modules/cart/cart.module").then((m) => m.CartModule),
   },
   {
+    path: "search-result",
+    loadChildren: () =>
+        import("../app/modules/search/search.module").then((m) => m.SearchModule),
+  },
+  {
     path: "**",
     component: PageNotFoundComponent,
   },

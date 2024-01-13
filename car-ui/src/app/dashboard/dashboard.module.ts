@@ -8,6 +8,8 @@ import { MaterialModule } from "../shared/module/material.module";
 import { ApiErrorComponent } from "./components/api-error/api-error.component";
 import { ServerErrorComponent } from "./components/server-error/server-error.component";
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { SearchComponent } from './components/search/search.component';
+import {SharedModule} from "../shared/shared.module";
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -16,8 +18,9 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ApiErrorComponent,
     ServerErrorComponent,
     ConfirmationDialogComponent,
+    SearchComponent,
   ],
   exports: [HeaderComponent, ApiErrorComponent],
-  imports: [CommonModule, DashboardRoutingModule, MaterialModule],
+  imports: [CommonModule, DashboardRoutingModule, MaterialModule, SharedModule],
 })
 export class DashboardModule {}

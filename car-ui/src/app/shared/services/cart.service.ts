@@ -13,11 +13,16 @@ export class CartService {
   cartItemCount$: Observable<number>;
 
   //cart service api
-  private getCartItemUrl : string =  "http://35.231.198.197:9094/cart/get";
-  private removeFromCartUrl :string = "http://35.231.198.197:9094/cart/remove";
-  private addToCartUrl : string = "http://35.231.198.197:9094/cart/add";
+  private getCartItemUrl : string =  "http://localhost:9094/cart/get";
+  private removeFromCartUrl :string = "http://localhost:9094/cart/remove";
+  private addToCartUrl : string = "http://localhost:9094/cart/add";
   //order service api
-  private placeOrderUrl :string  =  "http://35.229.127.170:9090/orders";
+  private placeOrderUrl :string  =  "http://localhost:9090/orders";
+
+  private baseSearchUrl : string = "http://localhost:8080/apis/car";
+
+  private getOrdersUrl = "http://localhost:9090/orders";
+
 
   constructor(private httpClient: HttpClient) {
     const initialCount = parseInt(localStorage.getItem('cartCount') || '0', 10);
@@ -65,6 +70,36 @@ export class CartService {
   addToCart(carId : string): Observable <any> {
     const url = this.addToCartUrl + `?productId=${carId}&quantity=1&userId=1652`;
     return this.httpClient.post<any>(url, null);
+  }
+
+  searchAllCars(){
+    const url = `${this.baseSearchUrl}/all`;
+    return this.httpClient.get <any>(url);
+  }
+
+  searchCarsById(carId: string) {
+    const url = `${this.baseSearchUrl}/byId/${carId}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByMileage(mileage: string) {
+    const url = `${this.baseSearchUrl}/byMileage/${mileage}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByBrand(brand: string) {
+    const url = `${this.baseSearchUrl}/byBrand/${brand}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  searchCarsByPrice(price: string) {
+    const url = `${this.baseSearchUrl}/byPrice/${price}`;
+    return this.httpClient.get<any>(url);
+  }
+
+  getAllOrders(){
+    const url = `${this.getOrdersUrl}/1652`;
+    return this.httpClient.get <any>(url);
   }
 
 }

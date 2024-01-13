@@ -25,6 +25,6 @@ import { NgxPaginationModule } from "ngx-pagination";
     NgOptimizedImage,
     NgxPaginationModule,
   ],
-  exports: [HomeComponent],
+  exports: [HomeComponent, CarsdataCardComponent],
 })
 export class HomeModule {}

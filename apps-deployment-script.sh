@@ -11,7 +11,6 @@ build_and_deploy_service(){
    SERVICE_NAME=$1
    CLUSTER_NAME=$2
    DEPLOYMENT_NAME=$3
-   VERSION=$4
    echo "---------build and deploy $SERVICE_NAME-----------"
    cd "$SERVICE_NAME" || exit
    if [  $SERVICE_NAME != "car-ui" ]; then
@@ -29,8 +28,7 @@ build_and_deploy_service(){
     chmod u+x ./kustomize
 
     # set docker image for kustomize
-   # shellcheck disable=SC2140
-   ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"${GITHUB_SHA}_${VERSION}"
+   ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA"
    # deploy through kubectl
    ./kustomize build . | kubectl apply -f -
     kubectl rollout status deployment/"$DEPLOYMENT_NAME"
@@ -39,12 +37,9 @@ build_and_deploy_service(){
 }
 
 
-for STR in $(cat projects-changes-deploy.txt)
-
+for project in $(cat projects-changes-deploy.txt)
 do
    :
-   project=$(echo "$STR" | cut -f1 -d-)
-   version=$(echo "$STR" | cut -f2 -d-)
   case $project in
   # case 1 build and deploy package common
   "common")
@@ -61,37 +56,37 @@ do
 
   # case 3 build and deploy inventory-service
   "inventory-service")
-    build_and_deploy_service inventory-service $GKE_CLUSTER inventoryservice "$version"
+    build_and_deploy_service inventory-service $GKE_CLUSTER inventoryservice
     cd ..;;
 
   # case 4 build and deploy payment-service
   "payment-service")
-    build_and_deploy_service payment-service $GKE_CLUSTER paymentservice "$version"
+    build_and_deploy_service payment-service $GKE_CLUSTER paymentservice
     cd ..;;
 
   # case 5 build and deploy shipment-service
   "shipment-service")
-    build_and_deploy_service shipment-service $GKE_CLUSTER shipmentservice "$version"
+    build_and_deploy_service shipment-service $GKE_CLUSTER shipmentservice
     cd ..;;
   
   # case 6 build and deploy admin-service
   "admin-service")
-    build_and_deploy_service admin-service $GKE_CLUSTER adminservice "$version"
+    build_and_deploy_service admin-service $GKE_CLUSTER adminservice
     cd ..;;
 
   # case 7 build and deploy cart-service
   "cart-service")
-      build_and_deploy_service cart-service $GKE_CLUSTER cartservice "$version"
+      build_and_deploy_service cart-service $GKE_CLUSTER cartservice
       cd ..;;
 
   # case 8 build and deploy car-ui app
   "car-ui")
-      build_and_deploy_service car-ui $GKE_CLUSTER carui "$version"
+      build_and_deploy_service car-ui $GKE_CLUSTER carui
       cd ..;;
 
   # case 8 build and deploy car-ui app
   "elastic-search")
-      build_and_deploy_service elastic-search $GKE_CLUSTER elasticsearch "$version"
+      build_and_deploy_service elastic-search $GKE_CLUSTER elasticsearch
       cd ..;;
   esac
 

@@ -14,9 +14,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class CreateProductCommandInterceptorTest {
+/**
+ * Test class for the {@link CreateProductCommandInterceptor} class, which serves as an interceptor
+ * for handling and validating {@link CreateProductCommand} instances before they are processed.
+ * The tests cover various scenarios such as successful interception, exception throwing for existing products,
+ * and handling cases where the product does not exist.
+ */
+class CreateProductCommandInterceptorTest {
+
+    /**
+     * Test case to verify the successful interception of a {@link CreateProductCommand} instance.
+     */
     @Test
-    public void test_interceptCreateProductCommand() {
+    void test_interceptCreateProductCommand() {
         ProductLookupRepository productLookupRepository = mock(ProductLookupRepository.class);
         CreateProductCommandInterceptor interceptor = new CreateProductCommandInterceptor(productLookupRepository);
         List<CommandMessage<?>> messages = new ArrayList<>();
@@ -38,8 +48,13 @@ public class CreateProductCommandInterceptorTest {
 
         assertEquals(commandMessage, interceptedCommand);
     }
+
+    /**
+     * Test case to ensure that an {@link IllegalStateException} is thrown
+     * when attempting to create a product that already exists.
+     */
     @Test
-    public void test_throwExceptionIfProductExists() {
+    void test_throwExceptionIfProductExists() {
         ProductLookupRepository productLookupRepository = mock(ProductLookupRepository.class);
         CreateProductCommandInterceptor interceptor = new CreateProductCommandInterceptor(productLookupRepository);
         List<CommandMessage<?>> messages = new ArrayList<>();
@@ -61,8 +76,13 @@ public class CreateProductCommandInterceptorTest {
         BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> result = interceptor.handle(messages);
         assertThrows(IllegalStateException.class, () -> result.apply(0, commandMessage));
     }
+
+    /**
+     * Test case to confirm that the interceptor returns the original {@link CreateProductCommand}
+     * if the product with the specified ID does not exist.
+     */
     @Test
-    public void test_returnCommandIfProductDoesNotExist() {
+    void test_returnCommandIfProductDoesNotExist() {
         ProductLookupRepository productLookupRepository = mock(ProductLookupRepository.class);
         CreateProductCommandInterceptor interceptor = new CreateProductCommandInterceptor(productLookupRepository);
         List<CommandMessage<?>> messages = new ArrayList<>();
@@ -84,8 +104,13 @@ public class CreateProductCommandInterceptorTest {
         CommandMessage<?> interceptedCommand = result.apply(0, commandMessage);
         assertEquals(commandMessage, interceptedCommand);
     }
+
+    /**
+     * Test case to verify that the interceptor handles scenarios where there is no
+     * {@link CreateProductCommand} in the list of messages.
+     */
     @Test
-    public void test_noCreateProductCommandInMessages() {
+    void test_noCreateProductCommandInMessages() {
         ProductLookupRepository productLookupRepository = mock(ProductLookupRepository.class);
         CreateProductCommandInterceptor interceptor = new CreateProductCommandInterceptor(productLookupRepository);
         List<CommandMessage<?>> messages = new ArrayList<>();
@@ -95,8 +120,13 @@ public class CreateProductCommandInterceptorTest {
         CommandMessage<?> interceptedCommand = result.apply(0, commandMessage);
         assertEquals(commandMessage, interceptedCommand);
     }
+
+    /**
+     * Test case to ensure that the interceptor correctly handles a scenario where
+     * the {@link ProductLookupRepository} returns null for a given product ID.
+     */
     @Test
-    public void test_productLookupRepositoryReturnsNull() {
+    void test_productLookupRepositoryReturnsNull() {
         ProductLookupRepository productLookupRepository = mock(ProductLookupRepository.class);
         CreateProductCommandInterceptor interceptor = new CreateProductCommandInterceptor(productLookupRepository);
         List<CommandMessage<?>> messages = new ArrayList<>();

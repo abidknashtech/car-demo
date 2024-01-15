@@ -8,6 +8,7 @@ import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.messaging.MessageDispatchInterceptor;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -21,9 +22,10 @@ public class CreateProductCommandInterceptor implements MessageDispatchIntercept
 		this.productLookupRepository = productLookupRepository;
 	}
 
+	@Nonnull
 	@Override
 	public BiFunction<Integer, CommandMessage<?>, CommandMessage<?>> handle(
-			List<? extends CommandMessage<?>> messages) {
+			@Nonnull List<? extends CommandMessage<?>> messages) {
 
 		return (index, command) -> {
 

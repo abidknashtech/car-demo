@@ -9,8 +9,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class ProductsQueryHandlerTest {
+
+    /**
+     * Test case to verify the correct behavior of the {@code findProducts} method
+     * when a valid {@code FindProductsQuery} is provided, and the corresponding product exists.
+     */
     @Test
-    public void test_valid_findProductsQuery() {
+    void test_valid_findProductsQuery() {
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");
@@ -41,8 +46,13 @@ class ProductsQueryHandlerTest {
         assertEquals(Integer.valueOf(5), result.getQuantity());
         assertEquals(Float.valueOf(0.1f), result.getTax());
     }
+
+    /**
+     * Test case to ensure that a {@code ProductNotFound} exception is thrown
+     * when attempting to find a product with a non-existing product ID.
+     */
     @Test
-    public void test_nonExistingProductId_findProductsQuery() {
+    void test_nonExistingProductId_findProductsQuery() {
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");
@@ -51,15 +61,25 @@ class ProductsQueryHandlerTest {
 
         assertThrows(ProductNotFound.class, () -> productsQueryHandler.findProducts(query));
     }
+
+    /**
+     * Test case to confirm that a {@code NullPointerException} is thrown
+     * when attempting to find products with a null {@code FindProductsQuery}.
+     */
     @Test
-    public void test_nullFindProductsQuery_findProducts() {
+    void test_nullFindProductsQuery_findProducts() {
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
 
         assertThrows(NullPointerException.class, () -> productsQueryHandler.findProducts(null));
     }
+
+    /**
+     * Test case to verify that a {@code ProductNotFound} exception is thrown
+     * when attempting to find products with a valid query, but the corresponding product entity is null.
+     */
     @Test
-    public void test_nullProductEntity_findProducts() {
+    void test_nullProductEntity_findProducts() {
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");

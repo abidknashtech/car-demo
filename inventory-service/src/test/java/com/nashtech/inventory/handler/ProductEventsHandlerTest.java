@@ -17,6 +17,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.mockito.Mockito.*;
 
+/**
+ * This class contains JUnit tests for the {@link ProductEventsHandler} class.
+ * It utilizes Mockito for mocking dependencies and focuses on testing event handling methods.
+ */
 @ContextConfiguration(classes = {ProductEventsHandler.class})
 @ExtendWith(SpringExtension.class)
 class ProductEventsHandlerTest {
@@ -25,6 +29,10 @@ class ProductEventsHandlerTest {
     @MockBean
     private ProductsRepository productsRepository;
 
+    /**
+     * Test case for handling the {@link ProductReserveCancelledEvent}.
+     * Verifies that the repository methods {@code findByProductId} and {@code save} are called appropriately.
+     */
     @Test
     void testOn() {
         ProductEntity productEntity = new ProductEntity();
@@ -50,8 +58,8 @@ class ProductEventsHandlerTest {
         productEntity2.setTax(10.0f);
         productEntity2.setTimestamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         productEntity2.setYear(1);
-        when(productsRepository.save(Mockito.<ProductEntity>any())).thenReturn(productEntity2);
-        when(productsRepository.findByProductId(Mockito.<String>any())).thenReturn(productEntity);
+        when(productsRepository.save(Mockito.any())).thenReturn(productEntity2);
+        when(productsRepository.findByProductId(Mockito.any())).thenReturn(productEntity);
         ProductReserveCancelledEvent productReservationCancelledEvent = ProductReserveCancelledEvent.builder()
                 .orderId("42")
                 .productId("42")
@@ -61,10 +69,14 @@ class ProductEventsHandlerTest {
 
         productEventsHandler.on(productReservationCancelledEvent);
 
-        verify(productsRepository).findByProductId(Mockito.<String>any());
-        verify(productsRepository).save(Mockito.<ProductEntity>any());
+        verify(productsRepository).findByProductId(Mockito.any());
+        verify(productsRepository).save(Mockito.any());
     }
 
+    /**
+     * Test case for handling the {@link ProductReservedEvent}.
+     * Verifies that the repository methods {@code findByProductId} and {@code save} are called appropriately.
+     */
     @Test
     void testOn2() {
         ProductEntity productEntity = new ProductEntity();
@@ -90,8 +102,8 @@ class ProductEventsHandlerTest {
         productEntity2.setTax(10.0f);
         productEntity2.setTimestamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         productEntity2.setYear(1);
-        when(productsRepository.save(Mockito.<ProductEntity>any())).thenReturn(productEntity2);
-        when(productsRepository.findByProductId(Mockito.<String>any())).thenReturn(productEntity);
+        when(productsRepository.save(Mockito.any())).thenReturn(productEntity2);
+        when(productsRepository.findByProductId(Mockito.any())).thenReturn(productEntity);
         ProductReservedEvent productReservedEvent = ProductReservedEvent.builder()
                 .basePrice(10.0d)
                 .brand("Brand")
@@ -111,9 +123,14 @@ class ProductEventsHandlerTest {
 
         productEventsHandler.on(productReservedEvent);
 
-        verify(productsRepository).findByProductId(Mockito.<String>any());
-        verify(productsRepository).save(Mockito.<ProductEntity>any());
+        verify(productsRepository).findByProductId(Mockito.any());
+        verify(productsRepository).save(Mockito.any());
     }
+
+    /**
+     * Test case for handling the {@link ProductCreatedEvent}.
+     * Verifies that the repository method {@code save} is called appropriately.
+     */
     @Test
     void testOn3() {
         ProductEntity productEntity = new ProductEntity();
@@ -127,7 +144,7 @@ class ProductEventsHandlerTest {
         productEntity.setTax(10.0f);
         productEntity.setTimestamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         productEntity.setYear(1);
-        when(productsRepository.save(Mockito.<ProductEntity>any())).thenReturn(productEntity);
+        when(productsRepository.save(Mockito.any())).thenReturn(productEntity);
         ProductCreatedEvent event = ProductCreatedEvent.builder()
                 .basePrice(10.0d)
                 .brand("Brand")
@@ -142,8 +159,13 @@ class ProductEventsHandlerTest {
 
         productEventsHandler.on(event);
 
-        verify(productsRepository).save(Mockito.<ProductEntity>any());
+        verify(productsRepository).save(Mockito.any());
     }
+
+    /**
+     * Another test case for handling the {@link ProductReserveCancelledEvent}.
+     * Verifies that the repository methods {@code findByProductId} and {@code save} are called appropriately.
+     */
     @Test
     void testOn4() {
         ProductEntity productEntity = new ProductEntity();
@@ -169,8 +191,8 @@ class ProductEventsHandlerTest {
         productEntity2.setTax(10.0f);
         productEntity2.setTimestamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         productEntity2.setYear(1);
-        when(productsRepository.save(Mockito.<ProductEntity>any())).thenReturn(productEntity2);
-        when(productsRepository.findByProductId(Mockito.<String>any())).thenReturn(productEntity);
+        when(productsRepository.save(Mockito.any())).thenReturn(productEntity2);
+        when(productsRepository.findByProductId(Mockito.any())).thenReturn(productEntity);
         ProductReserveCancelledEvent productReservationCancelledEvent = ProductReserveCancelledEvent.builder()
                 .orderId("42")
                 .productId("42")
@@ -179,9 +201,14 @@ class ProductEventsHandlerTest {
                 .build();
         productEventsHandler.on(productReservationCancelledEvent);
 
-        verify(productsRepository).findByProductId(Mockito.<String>any());
-        verify(productsRepository).save(Mockito.<ProductEntity>any());
+        verify(productsRepository).findByProductId(Mockito.any());
+        verify(productsRepository).save(Mockito.any());
     }
+
+    /**
+     * Test case specifically for the handling of {@link ProductReservedEvent}.
+     * Verifies that the repository methods {@code findByProductId} and {@code save} are called appropriately.
+     */
     @Test
     void testProductReservedEventHandling() {
         ProductEntity productEntity = new ProductEntity();
@@ -207,8 +234,8 @@ class ProductEventsHandlerTest {
         productEntity2.setTax(10.0f);
         productEntity2.setTimestamp(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
         productEntity2.setYear(1);
-        when(productsRepository.save(Mockito.<ProductEntity>any())).thenReturn(productEntity2);
-        when(productsRepository.findByProductId(Mockito.<String>any())).thenReturn(productEntity);
+        when(productsRepository.save(Mockito.any())).thenReturn(productEntity2);
+        when(productsRepository.findByProductId(Mockito.any())).thenReturn(productEntity);
         ProductReservedEvent productReservedEvent = ProductReservedEvent.builder()
                 .basePrice(10.0d)
                 .brand("Brand")
@@ -226,7 +253,7 @@ class ProductEventsHandlerTest {
                 .year(1)
                 .build();
         productEventsHandler.on(productReservedEvent);
-        verify(productsRepository).findByProductId(Mockito.<String>any());
-        verify(productsRepository).save(Mockito.<ProductEntity>any());
+        verify(productsRepository).findByProductId(Mockito.any());
+        verify(productsRepository).save(Mockito.any());
     }
 }

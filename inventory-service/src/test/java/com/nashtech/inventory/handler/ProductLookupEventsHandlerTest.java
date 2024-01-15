@@ -22,9 +22,14 @@ class ProductLookupEventsHandlerTest {
     @MockBean
     private ProductLookupRepository productLookupRepository;
 
+    /**
+     * Tests the {@code on} method of the {@code ProductLookupEventsHandler}.
+     * Verifies that the handler correctly saves a {@code ProductLookupEntity} to the mocked repository
+     * when handling a {@code ProductCreatedEvent}.
+     */
     @Test
     void testOn() {
-        when(productLookupRepository.save(Mockito.<ProductLookupEntity>any())).thenReturn(new ProductLookupEntity());
+        when(productLookupRepository.save(Mockito.any())).thenReturn(new ProductLookupEntity());
         ProductCreatedEvent event = ProductCreatedEvent.builder()
                 .basePrice(10.0d)
                 .brand("Brand")
@@ -38,6 +43,6 @@ class ProductLookupEventsHandlerTest {
                 .build();
         productLookupEventsHandler.on(event);
 
-        verify(productLookupRepository).save(Mockito.<ProductLookupEntity>any());
+        verify(productLookupRepository).save(Mockito.any());
     }
 }

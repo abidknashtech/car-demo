@@ -9,7 +9,6 @@ import com.nashtech.inventory.repository.ProductsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
-import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -50,11 +49,6 @@ public class ProductEventsHandler {
                 productReservationCancelledEvent.getQuantity());
 
         productsRepository.save(currentlyStoredProductEntity);
-    }
-
-    @ExceptionHandler
-    public void handle(Exception exception) throws Exception {
-        throw exception;
     }
 
 }

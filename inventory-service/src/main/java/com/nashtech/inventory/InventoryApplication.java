@@ -2,6 +2,7 @@ package com.nashtech.inventory;
 
 import com.nashtech.inventory.command.interceptors.CreateProductCommandInterceptor;
 import com.nashtech.inventory.exception.ProductsServiceEventsErrorHandler;
+import lombok.AllArgsConstructor;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.config.EventProcessingConfigurer;
@@ -12,9 +13,10 @@ import org.springframework.context.ApplicationContext;
 
 
 @SpringBootApplication
+@AllArgsConstructor
 public class InventoryApplication {
 
-	@Autowired
+
 	private CommandGateway commandGateway;
 
 	public static void main(String[] args) {

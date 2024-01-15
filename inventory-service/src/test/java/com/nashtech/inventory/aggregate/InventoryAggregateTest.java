@@ -11,18 +11,27 @@ import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/**
+ * Unit tests for the {@link InventoryAggregate} class.
+ */
 class InventoryAggregateTest {
     @Autowired
     private AggregateTestFixture<InventoryAggregate> fixture;
 
+    /**
+     * Set up the test fixture before each test method.
+     */
     @BeforeEach
     void setUp() {
         fixture = new AggregateTestFixture<>(InventoryAggregate.class);
     }
 
+    /**
+     * Test the handling of a {@link ProductCreatedEvent} with null values.
+     */
     @Test
     void test_product_created_event_handling_with_null_values() {
         InventoryAggregate inventoryAggregate = new InventoryAggregate();
@@ -40,6 +49,10 @@ class InventoryAggregateTest {
         assertNull(inventoryAggregate.getTax());
         assertNull(inventoryAggregate.getQuantity());
     }
+
+    /**
+     * Test the update of aggregate state after handling a {@link ProductCreatedEvent}.
+     */
     @Test
     void test_product_aggregate_state_update() {
         ProductCreatedEvent productCreatedEvent = ProductCreatedEvent.builder()
@@ -68,12 +81,18 @@ class InventoryAggregateTest {
         assertEquals(productCreatedEvent.getQuantity(), inventoryAggregate.getQuantity());
     }
 
+    /**
+     * Test the instantiation of the {@link InventoryAggregate} class.
+     */
     @Test
     void test_instantiation_success() {
         InventoryAggregate inventoryAggregate = new InventoryAggregate();
         assertNotNull(inventoryAggregate);
     }
 
+    /**
+     * Test the handling of a {@link CreateProductCommand}.
+     */
     @Test
     void test_create_product_command_handling() {
         String productId = "productId";
@@ -106,6 +125,9 @@ class InventoryAggregateTest {
                 .expectEvents(productCreatedEvent);
     }
 
+    /**
+     * Test the validation of the brand field in a {@link CreateProductCommand}.
+     */
     @Test
     void test_create_product_command_brand_validation() {
         CreateProductCommand createProductCommand = CreateProductCommand.builder()
@@ -166,6 +188,9 @@ class InventoryAggregateTest {
                 .expectSuccessfulHandlerExecution();
     }
 
+    /**
+     * Test the handling of a successful reservation using the {@link ReserveProductCommand}.
+     */
     @Test
     void test_reserve_product_command_handling_success() {
         String productId = "productId";
@@ -217,7 +242,9 @@ class InventoryAggregateTest {
                 .expectSuccessfulHandlerExecution();
     }
 
-
+    /**
+     * Test case to verify the handling of a reserve product command when there is insufficient quantity in stock.
+     */
     @Test
     void test_reserve_product_command_handling_insufficient_quantity() {
         String productId = "productId";
@@ -257,6 +284,9 @@ class InventoryAggregateTest {
                 });
     }
 
+    /**
+     * Test case to verify the handling of a cancel product reserve command.
+     */
     @Test
     void test_cancel_product_reserve_command_handling() {
         String productId = "productId";

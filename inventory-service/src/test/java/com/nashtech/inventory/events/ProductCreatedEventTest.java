@@ -3,7 +3,14 @@ package com.nashtech.inventory.events;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test methods to ensure proper functioning of the getters and setters in the {@link ProductCreatedEvent} class.
+ */
 class ProductCreatedEventTest {
+
+  /**
+   * Test case to verify the correctness of the getters and setters in the {@link ProductCreatedEvent} class.
+   */
   @Test
   void testGettersAndSetters() {
     ProductCreatedEvent actualProductCreatedEvent = new ProductCreatedEvent("42", "Brand", "Model", 1, "Color", 10.0d,

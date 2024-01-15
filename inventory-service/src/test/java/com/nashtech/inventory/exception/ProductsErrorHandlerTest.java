@@ -6,9 +6,18 @@ import org.springframework.http.ResponseEntity;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for the {@link ProductsErrorHandler} class.
+ */
 class ProductsErrorHandlerTest {
+
+    /**
+     * Test case to verify the behavior of handling other exceptions.
+     * It checks if the error handler properly generates an internal server error response
+     * with the correct status code, timestamp, and exception message.
+     */
     @Test
-    public void test_handleOtherExceptions_exception() {
+    void test_handleOtherExceptions_exception() {
         Exception ex = new Exception("Test Exception");
         ProductsErrorHandler errorHandler = new ProductsErrorHandler();
         ResponseEntity<Object> response = errorHandler.handleOtherExceptions(ex);
@@ -20,8 +29,13 @@ class ProductsErrorHandlerTest {
         assertEquals(new Date().getTime(), errorMessage.getTimestamp().getTime(), 1000);
         assertEquals("Test Exception", errorMessage.getMessage());
     }
+
+    /**
+     * Test case to verify the HTTP status code when handling other exceptions.
+     * It checks if the error handler returns the expected internal server error status code.
+     */
     @Test
-    public void test_handleOtherExceptions_httpStatus() {
+    void test_handleOtherExceptions_httpStatus() {
         Exception ex = new Exception("Test Exception");
         ProductsErrorHandler errorHandler = new ProductsErrorHandler();
         ResponseEntity<Object> response = errorHandler.handleOtherExceptions(ex);

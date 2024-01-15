@@ -71,7 +71,7 @@ export class CarsListComponent implements OnInit, OnDestroy {
     this.getCarModels(this.selectedCloud, this.selectedCarBrand);
   }
 
-  private getCarModels(selectedCloud: string, brandName: string) {
+  getCarModels(selectedCloud: string, brandName: string) {
     this.carsDataService
       .getCarModels(selectedCloud, brandName)
       .subscribe((carDetails) => {

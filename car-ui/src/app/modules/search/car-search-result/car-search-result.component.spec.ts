@@ -15,6 +15,7 @@ describe("CarSearchResultComponent", () => {
   let fixture: ComponentFixture<CarSearchResultComponent>;
   let mockCartService: jasmine.SpyObj<CartService>;
   let mockSnackBar: jasmine.SpyObj<MatSnackBar>;
+  let mockActivatedRoute: any;
   beforeEach(() => {
     mockCartService = jasmine.createSpyObj("CartService", [
       "addToCart",
@@ -150,4 +151,27 @@ describe("CarSearchResultComponent", () => {
     component.addToCart(carId);
     expect(mockSnackBar.open).not.toHaveBeenCalled();
   });
+
+  // Component initializes with default values when no query params are present
+  it("should initialize component with default values", () => {
+    const component = new CarSearchResultComponent(
+      mockCartService,
+      mockSnackBar,
+      mockActivatedRoute,
+    );
+    expect(component.carsData).toEqual([]);
+    expect(component.page).toEqual(1);
+    expect(component.itemsPerPage).toEqual(5);
+    expect(component.selectedCategory).toEqual("All");
+    expect(component.searchTerm).toEqual("");
+    expect(component.isDataPresent).toBe(true);
+  });
+
+  // getAllSearchedCars() method is called on initialization
+  it("should call getAllSearchedCars() method on initialization", () => {
+    spyOn(component, "getAllSearchedCars");
+    component.ngOnInit();
+    expect(component.getAllSearchedCars).toHaveBeenCalled();
+  });
+
 });

@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
       isSelected: true,
     },
   ];
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   ngOnInit() {
     if (this.router.url.includes("dashboard")) {

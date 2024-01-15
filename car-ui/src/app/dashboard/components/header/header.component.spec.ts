@@ -43,4 +43,32 @@ describe("HeaderComponent", () => {
     // Expect getCartItems to have been called
     expect(component.cartService.getCartItems).toHaveBeenCalled();
   });
+  // Initializes 'isCartUIVisible' to false by default.
+  it('should initialize isCartUIVisible to false by default', () => {
+    expect(component.isCartUIVisible).toBe(false);
+  });
+
+  // 'isCartUIVisible' is already true before 'ngOnInit' is called.
+  it('should not change isCartUIVisible if it is already true before ngOnInit is called', () => {
+    component.isCartUIVisible = true;
+    component.ngOnInit();
+    expect(component.isCartUIVisible).toBe(true);
+  });
+
+  // 'ngOnInit' is called multiple times.
+  it('should not change isCartUIVisible if ngOnInit is called multiple times', () => {
+    component.ngOnInit();
+    component.isCartUIVisible = true;
+    component.ngOnInit();
+    expect(component.isCartUIVisible).toBe(true);
+  });
+
+  // Sets 'isCartUIVisible' to true if the current route includes "cart"
+  it('should set isCartUIVisible to true when current route includes "cart"', () => {
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/cart");
+
+    component.ngOnInit();
+
+    expect(component.isCartUIVisible).toBe(true);
+  });
 });

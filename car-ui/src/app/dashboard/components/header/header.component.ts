@@ -17,8 +17,8 @@ export class HeaderComponent {
    * @param {Router} router - The Angular router for navigation.
    */
   constructor(
-    public cartService: CartService,
-    private router: Router,
+      public cartService: CartService,
+      public router: Router,
   ) {}
   /** The title to be displayed in the header. */
   title: string = "Java UI Demo";

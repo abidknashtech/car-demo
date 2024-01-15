@@ -6,6 +6,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { MaterialModule } from "../../shared/module/material.module";
 import { ActivatedRoute, convertToParamMap } from "@angular/router";
 import {of, throwError} from "rxjs";
+import {CarDetailsService} from "../../shared/services/car-details.service";
 describe("CarBrandsComponent", () => {
   let component: CarBrandsComponent;
   let fixture: ComponentFixture<CarBrandsComponent>;
@@ -64,5 +65,16 @@ describe("CarBrandsComponent", () => {
     component.ngOnInit();
 
     expect(component.isNewUI).toBeTruthy();
+  });
+
+  // When the component is being used in the "dashboard" route, sets isNewUI to false.
+  it('should set isNewUI to false when in the "dashboard" route', () => {
+    // Arrange
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/dashboard");
+    // Act
+    component.ngOnInit();
+
+    // Assert
+    expect(component.isNewUI).toBe(false);
   });
 });

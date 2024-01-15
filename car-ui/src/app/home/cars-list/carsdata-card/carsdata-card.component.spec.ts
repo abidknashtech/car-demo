@@ -85,4 +85,16 @@ describe("CarsdataCardComponent", () => {
       expect(icon.style.color).toBe('rgb(215, 59, 30)');
     });
   });
+
+  // When the current route includes "dashboard", set isNewUI to false
+  it('should set isNewUI to false when the current route includes "dashboard"', () => {
+    // Arrange
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/dashboard");
+
+    // Act
+    component.ngOnInit();
+
+    // Assert
+    expect(component.isNewUI).toBe(false);
+  });
 });

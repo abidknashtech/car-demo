@@ -3,7 +3,7 @@ package com.elasticsearch.elasticsearch.entity;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CarEntityTest {
+class CarEntityTest {
 
     @Test
     void testGetterAndSetter() {

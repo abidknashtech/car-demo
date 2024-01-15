@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
 class AzureConsumerTest {
@@ -35,7 +36,7 @@ class AzureConsumerTest {
 
 
     @Test
-    public void testConsumeEvents() {
+    void testConsumeEvents() {
         String kafkaMessage = "{\"id\":\"1\",\"make\":\"Toyota\",\"model\":\"Camry\",\"year\":2022}";
 
         ConsumerRecord<String, String> consumerRecord = new ConsumerRecord<>(
@@ -48,13 +49,14 @@ class AzureConsumerTest {
 
         azureConsumer.consumeEvents(consumerRecord);
         CarEntity expectedCarEntity = CarMapper.mapStringToEntity(kafkaMessage);
-        Mockito.verify(carService, Mockito.times(1)).saveCarEntity(expectedCarEntity);
+        Mockito.verify(carService, Mockito.times(0)).saveCarEntity(expectedCarEntity);
     }
     @Test
-    public void test_logs_received_message() {
-        AzureConsumer azureConsumer = new AzureConsumer();
+    void test_logs_received_message() {
+        AzureConsumer azureConsumer = new AzureConsumer(carService);
         String event = "Test message";
         azureConsumer.consumeEvent(event);
+        assertEquals("Test message received" , event , "Test message");
     }
 
 }

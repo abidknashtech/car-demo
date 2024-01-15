@@ -11,6 +11,9 @@ import java.util.Map;
 @Slf4j
 public class CarMapper {
 
+    private CarMapper(){
+    }
+
     public static CarEntity mapStringToEntity(String payload) {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -30,7 +33,8 @@ public class CarMapper {
             carEntity.setQuantity((Integer) payloadMap.get("quantity"));
             carEntity.setTax((Double) payloadMap.get("tax"));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error("payload is not valid {} ", e.getMessage());
+
         }
 
         return carEntity;

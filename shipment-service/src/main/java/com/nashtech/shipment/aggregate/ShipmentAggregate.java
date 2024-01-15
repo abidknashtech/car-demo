@@ -4,6 +4,7 @@ import com.nashtech.common.command.CreateShipmentCommand;
 import com.nashtech.common.event.OrderShippedEvent;
 import com.nashtech.common.event.ShipmentCreatedEvent;
 import com.nashtech.common.model.User;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -13,6 +14,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 @Slf4j
+@Getter
 public class ShipmentAggregate {
 
     @AggregateIdentifier

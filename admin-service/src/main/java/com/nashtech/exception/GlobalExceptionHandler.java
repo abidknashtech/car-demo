@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Handles the DataNotFoundException globally.
+     *
      * @param dataNotFoundException the DataNotFoundException object
      * @return a ResponseEntity object with an error message
      * and HTTP status code
@@ -57,12 +58,12 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     /**
      * Handles FirestoreDataException
      * and creates an ApiResponse with error details.
      *
-     * @param firestoreDataException
-     * The FirestoreDataException to handle.
+     * @param firestoreDataException The FirestoreDataException to handle.
      * @return A ResponseEntity containing an ApiResponse with error details
      * and a HTTP  status code.
      */
@@ -71,8 +72,7 @@ public class GlobalExceptionHandler {
             final FirestoreDataException firestoreDataException) {
         String exceptionMessage = firestoreDataException.getMessage();
         if (Objects.isNull(firestoreDataException.getMessage())) {
-            exceptionMessage = "Something went wrong "
-                    + ", Unable to retrieve the data";
+            log.error("exception occured: " + exceptionMessage);
         }
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .message(firestoreDataException.getMessage())

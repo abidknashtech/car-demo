@@ -1,4 +1,4 @@
-package com.nashtech.service;
+package com.nashtech.service.impl;
 
 import com.azure.spring.data.cosmos.exception.CosmosAccessException;
 import com.nashtech.exception.DataNotFoundException;
@@ -6,11 +6,14 @@ import com.nashtech.model.Car;
 import com.nashtech.model.CarBrand;
 import com.nashtech.repository.CosmosDbRepository;
 import com.nashtech.service.impl.CosmosDbService;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.codec.ServerSentEvent;
+import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.Message;
 import reactor.core.publisher.Flux;
@@ -20,6 +23,7 @@ import reactor.test.StepVerifier;
 import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -51,9 +55,9 @@ class CosmosDbServiceTest {
         // Run the test
         final Flux<Car> result = cosmosDbService.getCarsByBrand("brand");
         StepVerifier.create(result)
-                .expectNextMatches(car -> car.getBrand().equals("brand")) 
+                .expectNextMatches(car -> car.getBrand().equals("brand"))
                 .verifyComplete();
-        Mockito.verify(cosmosDbRepository,Mockito.times(1)).getAllCarsByBrand("brand");
+        Mockito.verify(cosmosDbRepository, Mockito.times(1)).getAllCarsByBrand("brand");
     }
 
     @Test
@@ -98,7 +102,7 @@ class CosmosDbServiceTest {
 
         // Verify the results
         StepVerifier.create(result)
-                .expectNextSequence(expectedBrands) 
+                .expectNextSequence(expectedBrands)
                 .verifyComplete();
     }
 
@@ -154,11 +158,10 @@ class CosmosDbServiceTest {
                 .consumeRecordedWith(brands -> {
                     // Convert the list to a Set to check for duplicates
                     Set<CarBrand> uniqueBrands = new HashSet<>(brands);
-                    assertThat(uniqueBrands.size()).isEqualTo(3).isSameAs(brandList);
+                    assertThat(uniqueBrands).isSameAs(brandList);
                 });
 
     }
-
 
 
     @Test
@@ -183,6 +186,30 @@ class CosmosDbServiceTest {
         // Verify that the Mono returned by the pushData method is empty
         StepVerifier.create(result)
                 .expectSubscription()
+                .expectComplete()
+                .verify();
+    }
+
+    @Test
+    void testPushData_KafkaExceptionThrown() {
+        // Arrange
+        Car car = new Car(0, "brand", "model", 2020L, "color", 0.0, 0.0, 0, 0.0);
+
+        // Mock the behavior of kafkaTemplate.send() to throw KafkaException
+        doThrow(new KafkaException("Failed to send message to Kafka"))
+                .when(kafkaTemplate).send(any(Message.class));
+
+        // Act and Assert
+        assertThrows(KafkaException.class, () -> cosmosDbService.pushData(car));
+    }
+
+    @Test
+    void testGetAllBrandsSse() {
+        // Run the test
+        final Flux<ServerSentEvent<Map<String, String>>> result = cosmosDbService.getAllBrandsSse();
+
+        // Verify the results
+        StepVerifier.create(result)
                 .expectComplete()
                 .verify();
     }

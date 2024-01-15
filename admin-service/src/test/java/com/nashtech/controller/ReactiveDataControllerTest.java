@@ -23,7 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ReactiveDataControllerTest {
+class ReactiveDataControllerTest {
 
     @Mock
     private ReactiveDataService reactiveDataService;
@@ -103,7 +103,7 @@ public class ReactiveDataControllerTest {
     @Test
     void testGetCarsByBrand() {
         final Flux<Car> carFlux = Flux.just(
-                new Car(0, "Toyota", "model", 2020L, "color", 0.0, 0.0, 0,0.0));
+                new Car(0, "Toyota", "model", 2020L, "color", 0.0, 0.0, 0, 0.0));
         when(reactiveDataService.getCarsByBrand("Toyota")).thenReturn(carFlux);
 
         Flux<Car> carsFlux = reactiveDataController.getCarsByBrand("Toyota");
@@ -147,7 +147,7 @@ public class ReactiveDataControllerTest {
                 .consumeRecordedWith(brands -> {
                     // Convert the list to a Set to check for duplicates
                     Set<CarBrand> uniqueBrands = new HashSet<>(brands);
-                    assertThat(uniqueBrands.size()).isEqualTo(3).isSameAs(brandList);
+                    assertThat(uniqueBrands).isSameAs(brandList);
                 });
 
     }

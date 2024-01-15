@@ -6,7 +6,7 @@ import {
 } from "@angular/core/testing";
 
 import { CartItemsComponent } from "./cart-items.component";
-import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { EventEmitter, NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 import { MaterialModule } from "../../../shared/module/material.module";
@@ -62,7 +62,10 @@ describe("CartItemsComponent", () => {
 
     component.placeOrder("1", 2);
 
-    expect(console.error).toHaveBeenCalledWith("Error placing order:", errorMessage);
+    expect(console.error).toHaveBeenCalledWith(
+      "Error placing order:",
+      errorMessage,
+    );
   });
   it("should handle error when increaseQuantity encounters an error", () => {
     const errorMessage = "Error updating quantity";
@@ -72,7 +75,10 @@ describe("CartItemsComponent", () => {
 
     component.increaseQuantity(component.cartItem);
 
-    expect(console.error).toHaveBeenCalledWith("Error updating quantity:", errorMessage);
+    expect(console.error).toHaveBeenCalledWith(
+      "Error updating quantity:",
+      errorMessage,
+    );
   });
   it("should emit OrderPlaced event and call removeFromDatabase when quantity is 1 in decreaseQuantity", () => {
     const response = {}; // mocked response
@@ -86,9 +92,45 @@ describe("CartItemsComponent", () => {
 
     expect(component.OrderPlaced.emit).toHaveBeenCalledWith(component.cartItem);
     expect(component.removeFromDatabase).toHaveBeenCalledWith(
-        component.cartItem.productId,
-        1,
-        "1652"
+      component.cartItem.productId,
+      1,
+      "1652",
     );
+  });
+
+  it("should handle error when decreaseQuantity encounters an error", () => {
+    const errorMessage = "Error removing item from cart";
+    mockCartService.removeFromCart.and.returnValue(throwError(errorMessage));
+
+    spyOn(console, "error");
+
+    component.decreaseQuantity(component.cartItem);
+
+    expect(console.error).toHaveBeenCalledWith(
+      "Error removing item from cart:",
+      errorMessage,
+    );
+  });
+
+  it("should handle error when placeOrder encounters an error", fakeAsync(() => {
+    const errorMessage = "Error placing order";
+    mockCartService.makeOrder.and.returnValue(throwError(errorMessage));
+
+    spyOn(console, "error");
+
+    component.placeOrder("1", 2);
+    tick(2000); // to simulate the MatSnackBar duration
+
+    expect(console.error).toHaveBeenCalledWith(
+      "Error placing order:",
+      errorMessage,
+    );
+  }));
+
+  // Ensure that constructor initializes services and properties correctly
+  it("should initialize services and properties in the constructor", () => {
+    expect(component.cartService).toBeDefined();
+    expect(component.snackBar).toBeDefined();
+    expect(component.OrderPlaced).toEqual(jasmine.any(EventEmitter));
   });
 });

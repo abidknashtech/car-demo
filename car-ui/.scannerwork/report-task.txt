@@ -3,5 +3,5 @@ projectKey=nashtech_car-ui
 serverUrl=https://sonarcloud.io
 serverVersion=8.0.0.51948
 dashboardUrl=https://sonarcloud.io/dashboard?id=nashtech_car-ui
-ceTaskId=AY0L67gqP7mmYVJ6z6gM
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AY0L67gqP7mmYVJ6z6gM
+ceTaskId=AY0L-qrVFBX9sLNtBqe-
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AY0L-qrVFBX9sLNtBqe-

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { ICellRendererAngularComp } from "ag-grid-angular";
 import { ICellRendererParams } from "ag-grid-community";
-import { CartService} from "../../services/cart.service";
+import { CartService } from "../../services/cart.service";
 import { HttpClient } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -12,9 +12,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class ActionColumnComponent implements ICellRendererAngularComp {
   constructor(
-    private cartService: CartService,
-    private httpClient: HttpClient,
-    private snackBar: MatSnackBar,
+      public cartService: CartService,
+      private httpClient: HttpClient,
+      public snackBar: MatSnackBar,
   ) {}
 
   public bulkEventCellValue!: any;
@@ -41,7 +41,7 @@ export class ActionColumnComponent implements ICellRendererAngularComp {
     });
   }
 
-  private showSnackBar(message: string) {
+  showSnackBar(message: string) {
     this.snackBar.open(message, "Close", {
       duration: 3000,
     });

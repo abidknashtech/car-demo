@@ -287,8 +287,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="12"
-                                    class="link-to-prism">src/app/home/page-not-found/page-not-found.component.ts:12</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="14"
+                                    class="link-to-prism">src/app/home/page-not-found/page-not-found.component.ts:14</a></div>
                         </td>
                     </tr>
 
@@ -319,8 +319,10 @@ import { Router } from &quot;@angular/router&quot;;
   styleUrls: [&quot;./page-not-found.component.scss&quot;],
 })
 export class PageNotFoundComponent {
+  // Injecting Router service in the constructor
   constructor(private router: Router) {}
 
+  // Method to navigate to the dashboard route
   goToDashboard() {
     this.router.navigate([&quot;/dashboard&quot;]);
   }

@@ -2,7 +2,7 @@
   <ag-grid-angular
     class="ag-theme-alpine table-view"
     data-testid="mabl-tabular-view"
-    [style.height]="tableRows.length >= 5 ? '580px' : '300px'"
+    [style.height]="tableRows?.length >= 5 ? '580px' : '300px'"
     [columnDefs]="tableHeaders"
     [defaultColDef]="defaultColDef"
     [rowData]="tableRows"

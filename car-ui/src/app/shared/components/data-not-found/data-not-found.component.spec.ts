@@ -45,4 +45,39 @@ describe("DataNotFoundComponent", () => {
     button.click();
     expect(component.generateData).toHaveBeenCalled();
   });
+
+  it("should call addBulkData method from base class on generateData", () => {
+    spyOn(component, "addBulkData");
+    component.generateData();
+    expect(component.addBulkData).toHaveBeenCalled();
+  });
+
+  it("should have the correct HTML elements", () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelector(".oops").textContent).toContain("Oops !");
+    expect(compiled.querySelector(".messages").textContent).toContain(
+      "DATA NOT FOUND",
+    );
+    expect(compiled.querySelector(".message").textContent).toContain(
+      "The data you have been searching for has not been generated",
+    );
+    expect(compiled.querySelector(".generate").textContent).toContain(
+      "Click on the below button to generate the Data.",
+    );
+    expect(compiled.querySelector(".generate-button").textContent).toContain(
+      "ADD BULK DATA",
+    );
+  });
+
+  it("should call generateData method on button click", () => {
+    spyOn(component, "generateData");
+    const button = fixture.nativeElement.querySelector(".generate-button");
+    button.click();
+    expect(component.generateData).toHaveBeenCalled();
+  });
+
+  it("should not call generateData method initially", () => {
+    spyOn(component, "generateData");
+    expect(component.generateData).not.toHaveBeenCalled();
+  });
 });

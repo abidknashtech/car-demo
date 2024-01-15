@@ -672,7 +672,7 @@ export class TabularViewComponent {
   &lt;ag-grid-angular
     class&#x3D;&quot;ag-theme-alpine table-view&quot;
     data-testid&#x3D;&quot;mabl-tabular-view&quot;
-    [style.height]&#x3D;&quot;tableRows.length &gt;&#x3D; 5 ? &#x27;580px&#x27; : &#x27;300px&#x27;&quot;
+    [style.height]&#x3D;&quot;tableRows?.length &gt;&#x3D; 5 ? &#x27;580px&#x27; : &#x27;300px&#x27;&quot;
     [columnDefs]&#x3D;&quot;tableHeaders&quot;
     [defaultColDef]&#x3D;&quot;defaultColDef&quot;
     [rowData]&#x3D;&quot;tableRows&quot;
@@ -736,7 +736,7 @@ export class TabularViewComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="mx-5">  <ag-grid-angular    class="ag-theme-alpine table-view"    data-testid="mabl-tabular-view"    [style.height]="tableRows.length >= 5 ? \'580px\' : \'300px\'"    [columnDefs]="tableHeaders"    [defaultColDef]="defaultColDef"    [rowData]="tableRows"    [pagination]="tableRows?.length >= 10"    [paginationPageSize]="10"    [suppressDragLeaveHidesColumns]="true"    [overlayLoadingTemplate]="overlayLoadingTemplate"    [overlayNoRowsTemplate]="overlayNoRowsTemplate"    [autoGroupColumnDef]="autoGroupColumnDef"  ></ag-grid-angular></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="mx-5">  <ag-grid-angular    class="ag-theme-alpine table-view"    data-testid="mabl-tabular-view"    [style.height]="tableRows?.length >= 5 ? \'580px\' : \'300px\'"    [columnDefs]="tableHeaders"    [defaultColDef]="defaultColDef"    [rowData]="tableRows"    [pagination]="tableRows?.length >= 10"    [paginationPageSize]="10"    [suppressDragLeaveHidesColumns]="true"    [overlayLoadingTemplate]="overlayLoadingTemplate"    [overlayNoRowsTemplate]="overlayNoRowsTemplate"    [autoGroupColumnDef]="autoGroupColumnDef"  ></ag-grid-angular></div></div>'
     var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TabularViewComponent'};

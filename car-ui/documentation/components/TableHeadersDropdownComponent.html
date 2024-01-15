@@ -374,8 +374,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="23"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:23</a></div>
                         </td>
                     </tr>
 
@@ -411,8 +411,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="19"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -448,8 +448,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -515,8 +515,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -582,8 +582,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -624,7 +624,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -650,7 +650,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -675,7 +675,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/shared/components/table-headers-dropdown/table-headers-dropdown.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -688,36 +688,39 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, Output } from &#x27;@angular/core&#x27;;
-import { ColDef } from &#x27;ag-grid-community&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, Output } from &quot;@angular/core&quot;;
+import { ColDef } from &quot;ag-grid-community&quot;;
 
 @Component({
-  selector: &#x27;app-table-headers-dropdown&#x27;,
-  templateUrl: &#x27;./table-headers-dropdown.component.html&#x27;,
-  styleUrls: [&#x27;./table-headers-dropdown.component.scss&#x27;]
+  selector: &quot;app-table-headers-dropdown&quot;,
+  templateUrl: &quot;./table-headers-dropdown.component.html&quot;,
+  styleUrls: [&quot;./table-headers-dropdown.component.scss&quot;],
 })
 export class TableHeadersDropdownComponent {
   @Input() tableHeaders: ColDef[] &#x3D; [];
   @Input() allTableHeaders!: ColDef[];
-  @Output() updatedHeaders: EventEmitter&lt;string[]&gt; &#x3D; new EventEmitter&lt;string[]&gt;();
+  @Output() updatedHeaders: EventEmitter&lt;string[]&gt; &#x3D; new EventEmitter&lt;
+    string[]
+  &gt;();
   newSelectedTableHeaders!: any[];
   allNewTableHeaders!: any[];
   showSettingsDropdown &#x3D; false;
 
-  ngOnInit(){
+  ngOnInit() {
     this.allNewTableHeaders &#x3D; this.newSelectedTableHeaders;
   }
 
-
-  ngOnChanges(){
+  ngOnChanges() {
     this.newSelectedTableHeaders &#x3D; this.tableHeaders
-    .filter((header) &#x3D;&gt; header.colId !&#x3D;&#x3D; undefined)
-    .map((header) &#x3D;&gt; header.colId as string);
+      .filter((header) &#x3D;&gt; header.colId !&#x3D;&#x3D; undefined)
+      .map((header) &#x3D;&gt; header.colId as string);
   }
 
-  onColumnSelectionChange(event: any){
+  onColumnSelectionChange(event: any) {
     this.allNewTableHeaders &#x3D; this.newSelectedTableHeaders;
-    this.newSelectedTableHeaders &#x3D; this.allNewTableHeaders.filter(item &#x3D;&gt; event.value.includes(item));
+    this.newSelectedTableHeaders &#x3D; this.allNewTableHeaders.filter((item) &#x3D;&gt;
+      event.value.includes(item),
+    );
     this.updatedHeaders.emit(this.newSelectedTableHeaders);
   }
 
@@ -727,42 +730,40 @@ export class TableHeadersDropdownComponent {
 
   toggleColumnSelection(columnId: string | undefined) {
     if (this.newSelectedTableHeaders.includes(columnId)) {
-      this.newSelectedTableHeaders &#x3D; this.newSelectedTableHeaders.filter(id &#x3D;&gt; id !&#x3D;&#x3D; columnId);
+      this.newSelectedTableHeaders &#x3D; this.newSelectedTableHeaders.filter(
+        (id) &#x3D;&gt; id !&#x3D;&#x3D; columnId,
+      );
     } else {
       this.newSelectedTableHeaders.push(columnId);
     }
     this.updatedHeaders.emit(this.newSelectedTableHeaders);
   }
-
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">
-
-  &lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-end mx-5&quot;&gt;
-    &lt;button mat-icon-button (click)&#x3D;&quot;toggleSettingsDropdown()&quot;&gt;
-      &lt;mat-icon &gt;settings&lt;/mat-icon&gt;
-    &lt;/button&gt;
-  &lt;/div&gt;
-  &lt;div *ngIf&#x3D;&quot;showSettingsDropdown&quot; class&#x3D;&quot;custom-dropdown&quot;&gt;
-    &lt;div *ngFor&#x3D;&quot;let header of allTableHeaders&quot;&gt;
-      &lt;label class&#x3D;&quot;settings-checkbox&quot;&gt;
-        &lt;mat-checkbox
-                [ngModel]&#x3D;&quot;newSelectedTableHeaders.includes(header.colId)&quot;
-                (ngModelChange)&#x3D;&quot;toggleColumnSelection(header.colId)&quot;
-                [disabled]&#x3D;&quot;
-newSelectedTableHeaders.length &lt;&#x3D; 2 &amp;&amp;
-newSelectedTableHeaders.includes(header.colId || &#x27;&#x27;)
-&quot;
-        &gt;
-          {{ header.headerName }}
-        &lt;/mat-checkbox&gt;
-      &lt;/label&gt;
-    &lt;/div&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;d-flex flex-wrap justify-content-end mx-5&quot;&gt;
+  &lt;button mat-icon-button (click)&#x3D;&quot;toggleSettingsDropdown()&quot;&gt;
+    &lt;mat-icon&gt;settings&lt;/mat-icon&gt;
+  &lt;/button&gt;
 &lt;/div&gt;
-
+&lt;div *ngIf&#x3D;&quot;showSettingsDropdown&quot; class&#x3D;&quot;custom-dropdown&quot;&gt;
+  &lt;div *ngFor&#x3D;&quot;let header of allTableHeaders&quot;&gt;
+    &lt;label class&#x3D;&quot;settings-checkbox&quot;&gt;
+      &lt;mat-checkbox
+        [ngModel]&#x3D;&quot;newSelectedTableHeaders.includes(header.colId)&quot;
+        (ngModelChange)&#x3D;&quot;toggleColumnSelection(header.colId)&quot;
+        [disabled]&#x3D;&quot;
+          newSelectedTableHeaders.length &lt;&#x3D; 2 &amp;&amp;
+          newSelectedTableHeaders.includes(header.colId || &#x27;&#x27;)
+        &quot;
+      &gt;
+        {{ header.headerName }}
+      &lt;/mat-checkbox&gt;
+    &lt;/label&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
 &lt;!--
 &lt;mat-form-field data-testid&#x3D;&quot;mabl-table-headers-dropdown&quot; appearance&#x3D;&quot;fill&quot;&gt;
@@ -786,10 +787,7 @@ newSelectedTableHeaders.includes(header.colId || &#x27;&#x27;)
     &lt;/mat-option&gt;
   &lt;/mat-select&gt;--&gt;
 
-
 &lt;!--&lt;/mat-form-field&gt;--&gt;
-
-
 </code></pre>
     </div>
 
@@ -855,7 +853,7 @@ newSelectedTableHeaders.includes(header.colId || &#x27;&#x27;)
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div>  <div class="d-flex flex-wrap justify-content-end mx-5">    <button mat-icon-button (click)="toggleSettingsDropdown()">      <mat-icon >settings</mat-icon>    </button>  </div>  <div *ngIf="showSettingsDropdown" class="custom-dropdown">    <div *ngFor="let header of allTableHeaders">      <label class="settings-checkbox">        <mat-checkbox                [ngModel]="newSelectedTableHeaders.includes(header.colId)"                (ngModelChange)="toggleColumnSelection(header.colId)"                [disabled]="newSelectedTableHeaders.length <= 2 &&newSelectedTableHeaders.includes(header.colId || \'\')"        >          {{ header.headerName }}        </mat-checkbox>      </label>    </div></div><!--<mat-form-field data-testid="mabl-table-headers-dropdown" appearance="fill">  <mat-select    multiple    #matSelect    (selectionChange)="onColumnSelectionChange($event)"    [(value)]="newSelectedTableHeaders"  >    <mat-option      *ngFor="let header of allTableHeaders"      [value]="header.colId"      [disabled]="        newSelectedTableHeaders.length <= 2 &&        newSelectedTableHeaders.includes(header.colId || \'\')      "    >      {{ header.headerName }}    </mat-option>  </mat-select>--><!--</mat-form-field>--></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="d-flex flex-wrap justify-content-end mx-5">  <button mat-icon-button (click)="toggleSettingsDropdown()">    <mat-icon>settings</mat-icon>  </button></div><div *ngIf="showSettingsDropdown" class="custom-dropdown">  <div *ngFor="let header of allTableHeaders">    <label class="settings-checkbox">      <mat-checkbox        [ngModel]="newSelectedTableHeaders.includes(header.colId)"        (ngModelChange)="toggleColumnSelection(header.colId)"        [disabled]="          newSelectedTableHeaders.length <= 2 &&          newSelectedTableHeaders.includes(header.colId || \'\')        "      >        {{ header.headerName }}      </mat-checkbox>    </label>  </div></div><!--<mat-form-field data-testid="mabl-table-headers-dropdown" appearance="fill">  <mat-select    multiple    #matSelect    (selectionChange)="onColumnSelectionChange($event)"    [(value)]="newSelectedTableHeaders"  >    <mat-option      *ngFor="let header of allTableHeaders"      [value]="header.colId"      [disabled]="        newSelectedTableHeaders.length <= 2 &&        newSelectedTableHeaders.includes(header.colId || \'\')      "    >      {{ header.headerName }}    </mat-option>  </mat-select>--><!--</mat-form-field>--></div>'
     var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'TableHeadersDropdownComponent'};

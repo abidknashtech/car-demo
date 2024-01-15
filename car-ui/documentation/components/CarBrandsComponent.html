@@ -214,7 +214,19 @@
                                 <a href="#carBrands" >carBrands</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#carsDataService" >carsDataService</a>
+                            </li>
+                            <li>
                                 <a href="#isNewUI" >isNewUI</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#route" >route</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#router" >router</a>
                             </li>
                             <li>
                                 <a href="#selectedCloud" >selectedCloud</a>
@@ -273,7 +285,6 @@
                 <tr>
                     <td class="col-md-4">
                             <div class="io-description"><p>Constructor of the component.</p>
-<p>Creates an instance of CarBrandsComponent.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -299,8 +310,9 @@
                                                     </td>
                                                     
                                                         <td>
-                                                                <p>The service to fetch car brand data.
-Creates an instance of CarBrandsComponent.</p>
+                                                                <ul>
+<li>The CarsListService to interact with data related to car brands.</li>
+</ul>
 
                                                         </td>
                                                 </tr>
@@ -316,6 +328,10 @@ Creates an instance of CarBrandsComponent.</p>
                                                     </td>
                                                     
                                                         <td>
+                                                                <ul>
+<li>The service to fetch car brand data.</li>
+</ul>
+
                                                         </td>
                                                 </tr>
                                                 <tr>
@@ -330,7 +346,9 @@ Creates an instance of CarBrandsComponent.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <p>The activated route to access route parameters.</p>
+                                                                <ul>
+<li>The activated route to access route parameters.</li>
+</ul>
 
                                                         </td>
                                                 </tr>
@@ -346,6 +364,10 @@ Creates an instance of CarBrandsComponent.</p>
                                                     </td>
                                                     
                                                         <td>
+                                                                <ul>
+<li>The Angular router service.</li>
+</ul>
+
                                                         </td>
                                                 </tr>
                                         </tbody>
@@ -386,14 +408,16 @@ Creates an instance of CarBrandsComponent.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="60"
-                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:60</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:65</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Fetches car brands based on the selected cloud.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -404,6 +428,7 @@ Creates an instance of CarBrandsComponent.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -418,6 +443,12 @@ Creates an instance of CarBrandsComponent.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The selected cloud for which car brands need to be fetched.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -453,14 +484,17 @@ Creates an instance of CarBrandsComponent.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="82"
-                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:82</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="92"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:92</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Lifecycle hook. Called when the component is destroyed.
+Unsubscribe from any subscriptions here (currently commented out).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -490,8 +524,8 @@ Creates an instance of CarBrandsComponent.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -529,8 +563,8 @@ Creates an instance of CarBrandsComponent.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:57</a></div>
                         </td>
                     </tr>
 
@@ -663,6 +697,38 @@ Creates an instance of CarBrandsComponent.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="carsDataService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>carsDataService</b></span>
+                        <a href="#carsDataService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/CarDetailsService.html" target="_self" >CarDetailsService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">- The service to fetch car brand data.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="isNewUI"></a>
                     <span class="name">
                         <span ><b>isNewUI</b></span>
@@ -687,6 +753,70 @@ Creates an instance of CarBrandsComponent.</p>
                         </td>
                     </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="route"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>route</b></span>
+                        <a href="#route"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ActivatedRoute</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">- The activated route to access route parameters.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Router</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/home/car-brands/car-brands.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">- The Angular router service.</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -731,7 +861,7 @@ Creates an instance of CarBrandsComponent.</p>
 import { CarsListService } from &quot;../services/cars-list.service&quot;;
 import { CarDetailsService } from &quot;../../shared/services/car-details.service&quot;;
 import { CarBrand } from &quot;../../shared/module/cars-details.model&quot;;
-import {ActivatedRoute, Router} from &quot;@angular/router&quot;;
+import { ActivatedRoute, Router } from &quot;@angular/router&quot;;
 
 /**
  * Component to display car brands and handle brand selection.
@@ -742,50 +872,55 @@ import {ActivatedRoute, Router} from &quot;@angular/router&quot;;
   styleUrls: [&quot;./car-brands.component.scss&quot;],
 })
 export class CarBrandsComponent implements OnInit, OnDestroy {
-  carBrands: CarBrand[] &#x3D; [];
-  selectedCloud: string &#x3D; &quot;&quot;;
+  carBrands: CarBrand[] &#x3D; []; // Array to store car brand data
+  selectedCloud: string &#x3D; &quot;&quot;; // Currently selected car brand
   // sseSubscription!: Subscription;
   /**
    * Flag to control the visibility of the brand loader (spinner).
    */
   brandLoader: boolean &#x3D; false;
-  isNewUI: boolean &#x3D; true;
+  isNewUI: boolean &#x3D; true; // Flag to determine if the component is using a new UI
 
   /**
    * Constructor of the component.
    *
-   * @param route The activated route to access route parameters.
-   * @param carsService The service to fetch car brand data.
-   * Creates an instance of CarBrandsComponent.
-   * @param route
-   * @param {CarsListService} carsService - The CarsListService to interact with data related to car brands.
+   * @param carsService - The CarsListService to interact with data related to car brands.
+   * @param carsDataService - The service to fetch car brand data.
+   * @param route - The activated route to access route parameters.
+   * @param router - The Angular router service.
    */
   constructor(
     private carsService: CarsListService,
-    private carsDataService: CarDetailsService,
-    private route: ActivatedRoute,
-    private router: Router
+    public carsDataService: CarDetailsService,
+    public route: ActivatedRoute,
+    public router: Router,
   ) {}
 
   /**
    * Lifecycle hook. Called when the component is initialized.
    */
   ngOnInit(): void {
+    // Check if the component is being used in the &quot;dashboard&quot; route and update isNewUI accordingly
     if (this.router.url.includes(&quot;dashboard&quot;)) {
       this.isNewUI &#x3D; false;
     }
+    // Get the selected cloud from the route parameters and fetch car brands
     this.selectedCloud &#x3D; this.route.snapshot.url[0].path;
     this.getCarBrands(this.selectedCloud);
   }
 
   /**
    * Sends the selected car brand name to the CarsListComponent.
-   * @param {string} name - The name of the selected car brand.
+   * @param name - The name of the selected car brand.
    */
   onBrandClick(name: string) {
     this.carsService.setBrandsName(name);
   }
 
+  /**
+   * Fetches car brands based on the selected cloud.
+   * @param selectedCloud - The selected cloud for which car brands need to be fetched.
+   */
   getCarBrands(selectedCloud: string): void {
     this.carsDataService.getCarBrands(selectedCloud).subscribe((brands) &#x3D;&gt; {
       this.carBrands &#x3D; brands;
@@ -808,11 +943,12 @@ export class CarBrandsComponent implements OnInit, OnDestroy {
   //     },
   //   );
   // }
-  ngOnDestroy() {
-    // if (this.sseSubscription) {
-    //   this.sseSubscription.unsubscribe();
-    // }
-  }
+
+  /**
+   * Lifecycle hook. Called when the component is destroyed.
+   * Unsubscribe from any subscriptions here (currently commented out).
+   */
+  ngOnDestroy() {}
 }
 </code></pre>
     </div>
@@ -824,8 +960,7 @@ export class CarBrandsComponent implements OnInit, OnDestroy {
   &lt;/div&gt;
 &lt;/div&gt;
 
-
-&lt;div [ngClass]&#x3D;&quot;{&#x27;contentNewUI&#x27;: !isNewUI, &#x27;content&#x27;: isNewUI, &#x27;container&#x27; : true}&quot;&gt;
+&lt;div [ngClass]&#x3D;&quot;{ contentNewUI: !isNewUI, content: isNewUI, container: true }&quot;&gt;
   &lt;div fxLayout&#x3D;&quot;row wrap&quot; fxLayoutGap&#x3D;&quot;16px grid&quot;&gt;
     &lt;div
       fxFlex&#x3D;&quot;25%&quot;
@@ -835,7 +970,11 @@ export class CarBrandsComponent implements OnInit, OnDestroy {
     &gt;
       &lt;mat-card class&#x3D;&quot;mat-elevation-z4&quot;&gt;
         &lt;mat-card-header&gt;
-          &lt;button   [style.color]&#x3D;&quot;!isNewUI ? &#x27;#076599&#x27; : &#x27;#d73b1e&#x27;&quot; routerLink&#x3D;&quot;./carList/{{carBrand.brand}}&quot;  (click)&#x3D;&quot;onBrandClick(carBrand.brand)&quot;&gt;
+          &lt;button
+            [style.color]&#x3D;&quot;!isNewUI ? &#x27;#076599&#x27; : &#x27;#d73b1e&#x27;&quot;
+            routerLink&#x3D;&quot;./carList/{{ carBrand.brand }}&quot;
+            (click)&#x3D;&quot;onBrandClick(carBrand.brand)&quot;
+          &gt;
             &lt;p&gt;{{ carBrand[&quot;brand&quot;] }}&lt;/p&gt;
           &lt;/button&gt;
         &lt;/mat-card-header&gt;
@@ -843,8 +982,6 @@ export class CarBrandsComponent implements OnInit, OnDestroy {
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-
-
 </code></pre>
     </div>
 
@@ -915,7 +1052,7 @@ button{
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="col" [style.display]="brandLoader ? \'none\' : \'block\'">  <div class="d-flex align-items-center justify-content-center min-vh-95 shift">    <mat-spinner color="warn"></mat-spinner>  </div></div><div [ngClass]="{\'contentNewUI\': !isNewUI, \'content\': isNewUI, \'container\' : true}">  <div fxLayout="row wrap" fxLayoutGap="16px grid">    <div      fxFlex="25%"      fxFlex.xs="100%"      fxFlex.sm="33%"      *ngFor="let carBrand of carBrands"    >      <mat-card class="mat-elevation-z4">        <mat-card-header>          <button   [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'" routerLink="./carList/{{carBrand.brand}}"  (click)="onBrandClick(carBrand.brand)">            <p>{{ carBrand["brand"] }}</p>          </button>        </mat-card-header>      </mat-card>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="col" [style.display]="brandLoader ? \'none\' : \'block\'">  <div class="d-flex align-items-center justify-content-center min-vh-95 shift">    <mat-spinner color="warn"></mat-spinner>  </div></div><div [ngClass]="{ contentNewUI: !isNewUI, content: isNewUI, container: true }">  <div fxLayout="row wrap" fxLayoutGap="16px grid">    <div      fxFlex="25%"      fxFlex.xs="100%"      fxFlex.sm="33%"      *ngFor="let carBrand of carBrands"    >      <mat-card class="mat-elevation-z4">        <mat-card-header>          <button            [style.color]="!isNewUI ? \'#076599\' : \'#d73b1e\'"            routerLink="./carList/{{ carBrand.brand }}"            (click)="onBrandClick(carBrand.brand)"          >            <p>{{ carBrand["brand"] }}</p>          </button>        </mat-card-header>      </mat-card>    </div>  </div></div></div>'
     var COMPONENTS = [{'name': 'ActionColumnComponent', 'selector': 'app-action-column'},{'name': 'ApiErrorComponent', 'selector': 'app-api-error'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CarBrandsComponent', 'selector': 'app-car-brands'},{'name': 'CarsdataCardComponent', 'selector': 'app-carsdata-card'},{'name': 'CarsDataComponent', 'selector': 'app-cars-data'},{'name': 'CarSearchResultComponent', 'selector': 'app-car-search-result'},{'name': 'CarsListComponent', 'selector': 'app-cars-list'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'CartItemsComponent', 'selector': 'app-cart-items'},{'name': 'CloudOptionsComponent', 'selector': 'app-cloud-options'},{'name': 'ConfirmationDialogComponent', 'selector': 'app-confirmation-dialog'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'DataNotFoundComponent', 'selector': 'app-data-not-found'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'MyOrdersComponent', 'selector': 'app-my-orders'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'SearchComponent', 'selector': 'app-search'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidenavComponent', 'selector': 'app-sidenav'},{'name': 'TabBarComponent', 'selector': 'app-tab-bar'},{'name': 'TableHeadersDropdownComponent', 'selector': 'app-table-headers-dropdown'},{'name': 'TabularViewComponent', 'selector': 'app-tabular-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CarBrandsComponent'};

@@ -79,13 +79,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/CartModule.html" data-type="entity-link" >CartModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#components-links-module-CartModule-faedad71905464465c0016007e39169f3c2b9919714d3f5e52a153c429d184bf43454a2194ca2f7b744404c86e799e27668cdfff8ffd9094370e09d28b42901b"' : 'data-bs-target="#xs-components-links-module-CartModule-faedad71905464465c0016007e39169f3c2b9919714d3f5e52a153c429d184bf43454a2194ca2f7b744404c86e799e27668cdfff8ffd9094370e09d28b42901b"' }>
+                                            'data-bs-target="#components-links-module-CartModule-a8a1ea7d2681483c0b669cf32dae4a6a647b69219be24f71150a50354739359ca159cdd051b32bb2df90a5c893cf801523b481f89b6181849ab69465f2ff42db"' : 'data-bs-target="#xs-components-links-module-CartModule-a8a1ea7d2681483c0b669cf32dae4a6a647b69219be24f71150a50354739359ca159cdd051b32bb2df90a5c893cf801523b481f89b6181849ab69465f2ff42db"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CartModule-faedad71905464465c0016007e39169f3c2b9919714d3f5e52a153c429d184bf43454a2194ca2f7b744404c86e799e27668cdfff8ffd9094370e09d28b42901b"' :
-                                            'id="xs-components-links-module-CartModule-faedad71905464465c0016007e39169f3c2b9919714d3f5e52a153c429d184bf43454a2194ca2f7b744404c86e799e27668cdfff8ffd9094370e09d28b42901b"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-CartModule-a8a1ea7d2681483c0b669cf32dae4a6a647b69219be24f71150a50354739359ca159cdd051b32bb2df90a5c893cf801523b481f89b6181849ab69465f2ff42db"' :
+                                            'id="xs-components-links-module-CartModule-a8a1ea7d2681483c0b669cf32dae4a6a647b69219be24f71150a50354739359ca159cdd051b32bb2df90a5c893cf801523b481f89b6181849ab69465f2ff42db"' }>
                                             <li class="link">
                                                 <a href="components/CartComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >CartComponent</a>
                                             </li>

@@ -1,27 +1,24 @@
-
-
-  <div class="d-flex flex-wrap justify-content-end mx-5">
-    <button mat-icon-button (click)="toggleSettingsDropdown()">
-      <mat-icon >settings</mat-icon>
-    </button>
-  </div>
-  <div *ngIf="showSettingsDropdown" class="custom-dropdown">
-    <div *ngFor="let header of allTableHeaders">
-      <label class="settings-checkbox">
-        <mat-checkbox
-                [ngModel]="newSelectedTableHeaders.includes(header.colId)"
-                (ngModelChange)="toggleColumnSelection(header.colId)"
-                [disabled]="
-newSelectedTableHeaders.length <= 2 &&
-newSelectedTableHeaders.includes(header.colId || '')
-"
-        >
-          {{ header.headerName }}
-        </mat-checkbox>
-      </label>
-    </div>
+<div class="d-flex flex-wrap justify-content-end mx-5">
+  <button mat-icon-button (click)="toggleSettingsDropdown()">
+    <mat-icon>settings</mat-icon>
+  </button>
 </div>
-
+<div *ngIf="showSettingsDropdown" class="custom-dropdown">
+  <div *ngFor="let header of allTableHeaders">
+    <label class="settings-checkbox">
+      <mat-checkbox
+        [ngModel]="newSelectedTableHeaders.includes(header.colId)"
+        (ngModelChange)="toggleColumnSelection(header.colId)"
+        [disabled]="
+          newSelectedTableHeaders.length <= 2 &&
+          newSelectedTableHeaders.includes(header.colId || '')
+        "
+      >
+        {{ header.headerName }}
+      </mat-checkbox>
+    </label>
+  </div>
+</div>
 
 <!--
 <mat-form-field data-testid="mabl-table-headers-dropdown" appearance="fill">
@@ -45,7 +42,4 @@ newSelectedTableHeaders.includes(header.colId || '')
     </mat-option>
   </mat-select>-->
 
-
 <!--</mat-form-field>-->
-
-

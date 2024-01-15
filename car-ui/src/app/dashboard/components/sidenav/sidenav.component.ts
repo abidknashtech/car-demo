@@ -43,7 +43,7 @@ export class SidenavComponent {
    * Creates an instance of SidenavComponent.
    * @param {Router} router - The Angular router for navigation.
    */
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
 
   /**
    * Initializes the component and subscribes to route change events.

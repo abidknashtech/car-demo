@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import {CartService} from "../../../shared/services/cart.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ICellRendererParams} from "ag-grid-community";
-import {ActivatedRoute} from "@angular/router";
+import { CartService } from "../../../shared/services/cart.service";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ICellRendererParams } from "ag-grid-community";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-car-search-result",
@@ -10,25 +10,24 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ["./car-search-result.component.scss"],
 })
 export class CarSearchResultComponent {
-  constructor(    private cartService: CartService,
-                  private snackBar: MatSnackBar,
-                  private route : ActivatedRoute
-
-  ) {
-  }
+  constructor(
+      public cartService: CartService,
+      private snackBar: MatSnackBar,
+      private route: ActivatedRoute,
+  ) {}
   carsData: CarDetails1[] = [];
   page: number = 1;
   itemsPerPage: number = 5;
-  selectedCategory: string = 'All';
-  searchTerm: string = '';
+  selectedCategory: string = "All";
+  searchTerm: string = "";
   isDataPresent = true;
   ngOnInit() {
     this.route.queryParams.subscribe((queryParams) => {
-      this.selectedCategory = queryParams['category'] || 'All';
-      this.searchTerm = queryParams['term'] || '';
+      this.selectedCategory = queryParams["category"] || "All";
+      this.searchTerm = queryParams["term"] || "";
       this.isDataPresent = true;
       this.getAllSearchedCars();
-  });
+    });
   }
 
   public bulkEventCellValue!: any;
@@ -38,7 +37,7 @@ export class CarSearchResultComponent {
     this.bulkEventCellValue = params;
     this.carId = params.data.carId;
   }
-  addToCart(carId : string): void {
+  addToCart(carId: string): void {
     this.cartService.addToCart(carId).subscribe((response) => {
       if (response != null) {
         this.cartService.incrementCartItemCount();
@@ -56,32 +55,31 @@ export class CarSearchResultComponent {
 
   getAllSearchedCars() {
     let searchObservable;
-    if (this.selectedCategory === 'Id') {
+    if (this.selectedCategory === "Id") {
       searchObservable = this.cartService.searchCarsById(this.searchTerm);
-    } else if (this.selectedCategory === 'Brand') {
+    } else if (this.selectedCategory === "Brand") {
       searchObservable = this.cartService.searchCarsByBrand(this.searchTerm);
-    } else if (this.selectedCategory === 'Price') {
+    } else if (this.selectedCategory === "Price") {
       searchObservable = this.cartService.searchCarsByPrice(this.searchTerm);
-    } else if (this.selectedCategory === 'Mileage') {
+    } else if (this.selectedCategory === "Mileage") {
       searchObservable = this.cartService.searchCarsByMileage(this.searchTerm);
     } else {
       searchObservable = this.cartService.searchAllCars();
     }
 
-    searchObservable
-        .subscribe(
-            (response) => {
-              if (!Array.isArray(response) && response != null) {
-                this.carsData = [response];
-              } else {
-                this.carsData = response;
-              }
-            },
-            (error) => {
-              this.handleErrorResponse(error);
-              this.isDataPresent = false;
-            }
-        );
+    searchObservable.subscribe(
+      (response) => {
+        if (!Array.isArray(response) && response != null) {
+          this.carsData = [response];
+        } else {
+          this.carsData = response;
+        }
+      },
+      (error) => {
+        this.handleErrorResponse(error);
+        this.isDataPresent = false;
+      },
+    );
   }
 
   private handleErrorResponse(error: any): void {
@@ -91,11 +89,10 @@ export class CarSearchResultComponent {
   }
 }
 
-
 interface CarDetails1 {
   brand_id: number;
   brand_name: string;
-  carId : string;
+  carId: string;
   model: string;
   year: number;
   color: string;

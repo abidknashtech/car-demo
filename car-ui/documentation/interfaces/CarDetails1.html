@@ -515,10 +515,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &quot;@angular/core&quot;;
-import {CartService} from &quot;../../../shared/services/cart.service&quot;;
-import {MatSnackBar} from &quot;@angular/material/snack-bar&quot;;
-import {ICellRendererParams} from &quot;ag-grid-community&quot;;
-import {ActivatedRoute} from &quot;@angular/router&quot;;
+import { CartService } from &quot;../../../shared/services/cart.service&quot;;
+import { MatSnackBar } from &quot;@angular/material/snack-bar&quot;;
+import { ICellRendererParams } from &quot;ag-grid-community&quot;;
+import { ActivatedRoute } from &quot;@angular/router&quot;;
 
 @Component({
   selector: &quot;app-car-search-result&quot;,
@@ -526,25 +526,24 @@ import {ActivatedRoute} from &quot;@angular/router&quot;;
   styleUrls: [&quot;./car-search-result.component.scss&quot;],
 })
 export class CarSearchResultComponent {
-  constructor(    private cartService: CartService,
-                  private snackBar: MatSnackBar,
-                  private route : ActivatedRoute
-
-  ) {
-  }
+  constructor(
+      public cartService: CartService,
+      private snackBar: MatSnackBar,
+      private route: ActivatedRoute,
+  ) {}
   carsData: CarDetails1[] &#x3D; [];
   page: number &#x3D; 1;
   itemsPerPage: number &#x3D; 5;
-  selectedCategory: string &#x3D; &#x27;All&#x27;;
-  searchTerm: string &#x3D; &#x27;&#x27;;
+  selectedCategory: string &#x3D; &quot;All&quot;;
+  searchTerm: string &#x3D; &quot;&quot;;
   isDataPresent &#x3D; true;
   ngOnInit() {
     this.route.queryParams.subscribe((queryParams) &#x3D;&gt; {
-      this.selectedCategory &#x3D; queryParams[&#x27;category&#x27;] || &#x27;All&#x27;;
-      this.searchTerm &#x3D; queryParams[&#x27;term&#x27;] || &#x27;&#x27;;
+      this.selectedCategory &#x3D; queryParams[&quot;category&quot;] || &quot;All&quot;;
+      this.searchTerm &#x3D; queryParams[&quot;term&quot;] || &quot;&quot;;
       this.isDataPresent &#x3D; true;
       this.getAllSearchedCars();
-  });
+    });
   }
 
   public bulkEventCellValue!: any;
@@ -554,7 +553,7 @@ export class CarSearchResultComponent {
     this.bulkEventCellValue &#x3D; params;
     this.carId &#x3D; params.data.carId;
   }
-  addToCart(carId : string): void {
+  addToCart(carId: string): void {
     this.cartService.addToCart(carId).subscribe((response) &#x3D;&gt; {
       if (response !&#x3D; null) {
         this.cartService.incrementCartItemCount();
@@ -572,32 +571,31 @@ export class CarSearchResultComponent {
 
   getAllSearchedCars() {
     let searchObservable;
-    if (this.selectedCategory &#x3D;&#x3D;&#x3D; &#x27;Id&#x27;) {
+    if (this.selectedCategory &#x3D;&#x3D;&#x3D; &quot;Id&quot;) {
       searchObservable &#x3D; this.cartService.searchCarsById(this.searchTerm);
-    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &#x27;Brand&#x27;) {
+    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &quot;Brand&quot;) {
       searchObservable &#x3D; this.cartService.searchCarsByBrand(this.searchTerm);
-    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &#x27;Price&#x27;) {
+    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &quot;Price&quot;) {
       searchObservable &#x3D; this.cartService.searchCarsByPrice(this.searchTerm);
-    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &#x27;Mileage&#x27;) {
+    } else if (this.selectedCategory &#x3D;&#x3D;&#x3D; &quot;Mileage&quot;) {
       searchObservable &#x3D; this.cartService.searchCarsByMileage(this.searchTerm);
     } else {
       searchObservable &#x3D; this.cartService.searchAllCars();
     }
 
-    searchObservable
-        .subscribe(
-            (response) &#x3D;&gt; {
-              if (!Array.isArray(response) &amp;&amp; response !&#x3D; null) {
-                this.carsData &#x3D; [response];
-              } else {
-                this.carsData &#x3D; response;
-              }
-            },
-            (error) &#x3D;&gt; {
-              this.handleErrorResponse(error);
-              this.isDataPresent &#x3D; false;
-            }
-        );
+    searchObservable.subscribe(
+      (response) &#x3D;&gt; {
+        if (!Array.isArray(response) &amp;&amp; response !&#x3D; null) {
+          this.carsData &#x3D; [response];
+        } else {
+          this.carsData &#x3D; response;
+        }
+      },
+      (error) &#x3D;&gt; {
+        this.handleErrorResponse(error);
+        this.isDataPresent &#x3D; false;
+      },
+    );
   }
 
   private handleErrorResponse(error: any): void {
@@ -607,11 +605,10 @@ export class CarSearchResultComponent {
   }
 }
 
-
 interface CarDetails1 {
   brand_id: number;
   brand_name: string;
-  carId : string;
+  carId: string;
   model: string;
   year: number;
   color: string;

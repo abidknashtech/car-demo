@@ -8,11 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.util.concurrent.CompletableFuture;
-
-import static javax.management.Query.eq;
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -30,19 +26,15 @@ class ProductsControllerTest {
 
     @Test
     void testGetProducts() {
-        // Arrange
         String productId = "123";
         ProductsSummary expectedProductsSummary = new ProductsSummary(/* provide necessary data */);
         CompletableFuture<ProductsSummary> queryResult = CompletableFuture.completedFuture(expectedProductsSummary);
 
-        // Mocking the behavior of the queryGateway
         when(queryGateway.query(new FindProductsQuery(productId), ProductsSummary.class))
                 .thenReturn(queryResult);
 
-        // Act
         ProductsSummary actualProductsSummary = productsController.getProducts(productId);
 
-        // Assert
         assertEquals(expectedProductsSummary, actualProductsSummary);
     }
 

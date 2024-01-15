@@ -1,11 +1,9 @@
 package com.nashtech.inventory.config;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import com.google.cloud.spring.core.GcpProjectIdProvider;
 import com.google.cloud.spring.pubsub.core.PubSubConfiguration;
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
@@ -31,33 +29,21 @@ class PubSubConfigTest {
     @MockBean
     private PubSubTemplate pubSubTemplate;
 
-    /**
-     * Method under test: {@link PubSubConfig#inputMessageChannel()}
-     */
     @Test
     void testInputMessageChannel() {
-        // Arrange, Act and Assert
         assertInstanceOf(PublishSubscribeChannel.class, pubSubConfig.inputMessageChannel());
     }
-
-    /**
-     * Method under test:
-     * {@link PubSubConfig#inboundChannelAdapter(MessageChannel, PubSubTemplate)}
-     */
     @Test
     void testInboundChannelAdapter() {
-        // Arrange
         MessageChannel messageChannel = mock(MessageChannel.class);
         GcpProjectIdProvider projectIdProvider = mock(GcpProjectIdProvider.class);
         when(projectIdProvider.getProjectId()).thenReturn("myproject");
         PubSubSubscriberTemplate pubSubSubscriberTemplate = new PubSubSubscriberTemplate(
                 new DefaultSubscriberFactory(projectIdProvider, new PubSubConfiguration()));
 
-        // Act
         pubSubConfig.inboundChannelAdapter(messageChannel,
                 new PubSubTemplate(new PubSubPublisherTemplate(mock(PublisherFactory.class)), pubSubSubscriberTemplate));
 
-        // Assert
         verify(projectIdProvider).getProjectId();
     }
 }

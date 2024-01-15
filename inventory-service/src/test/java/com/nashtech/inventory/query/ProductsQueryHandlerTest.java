@@ -4,7 +4,6 @@ import com.nashtech.inventory.exception.ProductNotFound;
 import com.nashtech.inventory.repository.ProductEntity;
 import com.nashtech.inventory.repository.ProductsRepository;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -12,7 +11,6 @@ import static org.mockito.Mockito.when;
 class ProductsQueryHandlerTest {
     @Test
     public void test_valid_findProductsQuery() {
-        // Arrange
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");
@@ -30,10 +28,8 @@ class ProductsQueryHandlerTest {
 
         when(productsRepository.findByProductId("123")).thenReturn(productEntity);
 
-        // Act
         ProductsSummary result = productsQueryHandler.findProducts(query);
 
-        // Assert
         assertNotNull(result);
         assertEquals("123", result.getProductId());
         assertEquals("Brand", result.getBrand());
@@ -47,35 +43,29 @@ class ProductsQueryHandlerTest {
     }
     @Test
     public void test_nonExistingProductId_findProductsQuery() {
-        // Arrange
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");
 
         when(productsRepository.findByProductId("123")).thenReturn(null);
 
-        // Act and Assert
         assertThrows(ProductNotFound.class, () -> productsQueryHandler.findProducts(query));
     }
     @Test
     public void test_nullFindProductsQuery_findProducts() {
-        // Arrange
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
 
-        // Act and Assert
         assertThrows(NullPointerException.class, () -> productsQueryHandler.findProducts(null));
     }
     @Test
     public void test_nullProductEntity_findProducts() {
-        // Arrange
         ProductsRepository productsRepository = mock(ProductsRepository.class);
         ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
         FindProductsQuery query = new FindProductsQuery("123");
 
         when(productsRepository.findByProductId("123")).thenReturn(null);
 
-        // Act and Assert
         assertThrows(ProductNotFound.class, () -> productsQueryHandler.findProducts(query));
     }
 }

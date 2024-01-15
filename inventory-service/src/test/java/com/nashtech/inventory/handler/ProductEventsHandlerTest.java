@@ -5,12 +5,9 @@ import com.nashtech.common.event.ProductReservedEvent;
 import com.nashtech.inventory.events.ProductCreatedEvent;
 import com.nashtech.inventory.repository.ProductEntity;
 import com.nashtech.inventory.repository.ProductsRepository;
-
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {ProductEventsHandler.class})
@@ -26,17 +22,11 @@ import static org.mockito.Mockito.*;
 class ProductEventsHandlerTest {
     @Autowired
     private ProductEventsHandler productEventsHandler;
-
     @MockBean
     private ProductsRepository productsRepository;
 
-    /**
-     * Method under test:
-     * {@link ProductEventsHandler#on(ProductReserveCancelledEvent)}
-     */
     @Test
     void testOn() {
-        // Arrange
         ProductEntity productEntity = new ProductEntity();
         productEntity.setBasePrice(10.0d);
         productEntity.setBrand("Brand");
@@ -69,20 +59,14 @@ class ProductEventsHandlerTest {
                 .userId("42")
                 .build();
 
-        // Act
         productEventsHandler.on(productReservationCancelledEvent);
 
-        // Assert
         verify(productsRepository).findByProductId(Mockito.<String>any());
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }
 
-    /**
-     * Method under test: {@link ProductEventsHandler#on(ProductReservedEvent)}
-     */
     @Test
     void testOn2() {
-        // Arrange
         ProductEntity productEntity = new ProductEntity();
         productEntity.setBasePrice(10.0d);
         productEntity.setBrand("Brand");
@@ -125,20 +109,13 @@ class ProductEventsHandlerTest {
                 .year(1)
                 .build();
 
-        // Act
         productEventsHandler.on(productReservedEvent);
 
-        // Assert
         verify(productsRepository).findByProductId(Mockito.<String>any());
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }
-
-    /**
-     * Method under test: {@link ProductEventsHandler#on(ProductCreatedEvent)}
-     */
     @Test
     void testOn3() {
-        // Arrange
         ProductEntity productEntity = new ProductEntity();
         productEntity.setBasePrice(10.0d);
         productEntity.setBrand("Brand");
@@ -163,15 +140,12 @@ class ProductEventsHandlerTest {
                 .year(1)
                 .build();
 
-        // Act
         productEventsHandler.on(event);
 
-        // Assert
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }
     @Test
     void testOn4() {
-        // Arrange
         ProductEntity productEntity = new ProductEntity();
         productEntity.setBasePrice(10.0d);
         productEntity.setBrand("Brand");
@@ -203,17 +177,13 @@ class ProductEventsHandlerTest {
                 .quantity(1)
                 .userId("42")
                 .build();
-
-        // Act
         productEventsHandler.on(productReservationCancelledEvent);
 
-        // Assert
         verify(productsRepository).findByProductId(Mockito.<String>any());
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }
     @Test
     void testProductReservedEventHandling() {
-        // Arrange
         ProductEntity productEntity = new ProductEntity();
         productEntity.setBasePrice(10.0d);
         productEntity.setBrand("Brand");
@@ -255,11 +225,7 @@ class ProductEventsHandlerTest {
                 .userId("42")
                 .year(1)
                 .build();
-
-        // Act
         productEventsHandler.on(productReservedEvent);
-
-        // Assert
         verify(productsRepository).findByProductId(Mockito.<String>any());
         verify(productsRepository).save(Mockito.<ProductEntity>any());
     }

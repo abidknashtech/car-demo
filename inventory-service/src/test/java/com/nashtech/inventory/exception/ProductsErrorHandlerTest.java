@@ -3,9 +3,7 @@ package com.nashtech.inventory.exception;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductsErrorHandlerTest {

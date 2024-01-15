@@ -55,9 +55,16 @@ To remove an item from the cart, the `/remove` endpoint of the CartApplication i
 User can increase and decrease the quantity of the particular item while placing the order.
 To place an order, the `/order` endpoint of the OrderApplication is called. When an order is successfully placed, a message is received, and the corresponding item is removed from the cart database.
 
+### Search 
+User can search for an item using a search term or search by category by selecting the "All" button and selecting the specific category from the dropdown.
+
 ### Endpoints
 - Get Cart Items: `http://localhost:9094/cart/get`
 - Place Order: `http://localhost:9090/orders`
 - Remove from Cart: `http://localhost:9094/cart/remove`
 - Add to Cart: `http://localhost:9094/cart/add`
+- Search: `http://localhost:4200/#/search-result`
+- Dashboard: `http://localhost:4200/#/dashboard`
+- Old UI: `http://localhost:4200/#/dashboard/home/gcp`
+- My Orders: `http://localhost:4200/#/dashboard/orders`
 

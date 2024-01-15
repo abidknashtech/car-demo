@@ -68,7 +68,7 @@ public class GcpConsumer implements CloudConsumer<BasicAcknowledgeablePubsubMess
         basicAcknowledgeablePubsubMessage.ack();
     }
 
-    private void processMessage(BasicAcknowledgeablePubsubMessage message) {
+    public void processMessage(BasicAcknowledgeablePubsubMessage message) {
         CarEntity[] gcHubMessageArray;
         String eventMsgString = "";
         try {

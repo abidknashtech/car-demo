@@ -16,9 +16,9 @@ This application is designed to manage the shipment process in a system using th
 * Additionally, it uses the PubSubPublisherService to publish the shipment details to a Google Cloud Pub/Sub topic.
 
 ### Google Cloud Pub/Sub Integration:
-* The PubSubPublisherService initializes the Pub/Sub publisher during application startup (@PostConstruct).
+* The PubSubPublisherService initializes the Pub/Sub publisher during application startup.
 * The publisher is responsible for converting shipment data into a Pub/Sub message and publishing it to the configured topic.
-* During application shutdown (@PreDestroy), the publisher is gracefully shut down.
+* During application shutdown the publisher is gracefully shut down.
 
 ### Data Storage:
 * Shipment details, including user information, are persisted to a database for future reference.

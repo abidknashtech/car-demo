@@ -5,6 +5,7 @@ import com.nashtech.common.event.PaymentApprovedEvent;
 import com.nashtech.common.event.PaymentCancelledEvent;
 import com.nashtech.common.model.PaymentDetails;
 import com.nashtech.common.model.User;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -14,6 +15,7 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 @Aggregate
 @Slf4j
+@Getter
 public class PaymentAggregate {
 
     @AggregateIdentifier
@@ -50,6 +52,7 @@ public class PaymentAggregate {
                         .productId(processPaymentCommand.getProductId())
                         .user(paymentUser)
                         .quantity(processPaymentCommand.getQuantity())
+                        .brand(processPaymentCommand.getBrand())
                         .subTotal(processPaymentCommand.getSubTotal())
                         .total(processPaymentCommand.getTotal())
                         .tax(processPaymentCommand.getTax())
@@ -97,7 +100,7 @@ public class PaymentAggregate {
                 .validUntilYear(2028)
                 .validUntilMonth(6)
                 .cvv(334)
-                .balanceAmount(10000000d) //1Cr
+                .balanceAmount(1000000000d) //1arab
                 .build();
     }
 

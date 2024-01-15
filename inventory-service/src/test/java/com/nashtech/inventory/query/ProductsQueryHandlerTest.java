@@ -1,0 +1,81 @@
+package com.nashtech.inventory.query;
+
+import com.nashtech.inventory.exception.ProductNotFound;
+import com.nashtech.inventory.repository.ProductEntity;
+import com.nashtech.inventory.repository.ProductsRepository;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+class ProductsQueryHandlerTest {
+    @Test
+    public void test_valid_findProductsQuery() {
+        // Arrange
+        ProductsRepository productsRepository = mock(ProductsRepository.class);
+        ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
+        FindProductsQuery query = new FindProductsQuery("123");
+
+        ProductEntity productEntity = new ProductEntity();
+        productEntity.setProductId("123");
+        productEntity.setBrand("Brand");
+        productEntity.setModel("Model");
+        productEntity.setYear(2021);
+        productEntity.setColor("Red");
+        productEntity.setMileage(1000.0);
+        productEntity.setBasePrice(10000.0);
+        productEntity.setQuantity(5);
+        productEntity.setTax(0.1f);
+
+        when(productsRepository.findByProductId("123")).thenReturn(productEntity);
+
+        // Act
+        ProductsSummary result = productsQueryHandler.findProducts(query);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("123", result.getProductId());
+        assertEquals("Brand", result.getBrand());
+        assertEquals("Model", result.getModel());
+        assertEquals(Integer.valueOf(2021), result.getYear());
+        assertEquals("Red", result.getColor());
+        assertEquals(Double.valueOf(1000.0), result.getMileage());
+        assertEquals(Double.valueOf(10000.0), result.getBasePrice());
+        assertEquals(Integer.valueOf(5), result.getQuantity());
+        assertEquals(Float.valueOf(0.1f), result.getTax());
+    }
+    @Test
+    public void test_nonExistingProductId_findProductsQuery() {
+        // Arrange
+        ProductsRepository productsRepository = mock(ProductsRepository.class);
+        ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
+        FindProductsQuery query = new FindProductsQuery("123");
+
+        when(productsRepository.findByProductId("123")).thenReturn(null);
+
+        // Act and Assert
+        assertThrows(ProductNotFound.class, () -> productsQueryHandler.findProducts(query));
+    }
+    @Test
+    public void test_nullFindProductsQuery_findProducts() {
+        // Arrange
+        ProductsRepository productsRepository = mock(ProductsRepository.class);
+        ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
+
+        // Act and Assert
+        assertThrows(NullPointerException.class, () -> productsQueryHandler.findProducts(null));
+    }
+    @Test
+    public void test_nullProductEntity_findProducts() {
+        // Arrange
+        ProductsRepository productsRepository = mock(ProductsRepository.class);
+        ProductsQueryHandler productsQueryHandler = new ProductsQueryHandler(productsRepository);
+        FindProductsQuery query = new FindProductsQuery("123");
+
+        when(productsRepository.findByProductId("123")).thenReturn(null);
+
+        // Act and Assert
+        assertThrows(ProductNotFound.class, () -> productsQueryHandler.findProducts(query));
+    }
+}

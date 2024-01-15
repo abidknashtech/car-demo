@@ -6,7 +6,7 @@ spring:
     gcp:
       project-id: ${GCP_PROJECT_ID}
 
-apiUrl: /model_random.json?key=dcbc8750
+apiUrl: /3_fixed_band.json?key=dcbc8750
 mockaroo:
   api:
     url: https://my.api.mockaroo.com

@@ -1,5 +1,19 @@
 version: '3.3'
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=mycluster
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
   axonserver:
     image: axoniq/axonserver
     hostname: axonserver
@@ -32,3 +46,5 @@ volumes:
 
 networks:
   axon-network:
+
+# insert into products (product_id, base_price, brand, color, mileage, model, quantity,tax, timestamp,year) values('101',1000000,'Honda Car','Red',30,'JMI987',20,1.5,now(),2023);

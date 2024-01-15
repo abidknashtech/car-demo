@@ -69,7 +69,7 @@ spec:
           secretAccessKeySecretRef:
             name: gcpsm-secret
             key: secret-access-credentials
-      projectID: oval-crawler-398007
+      projectID: datamesh-2
 ---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
@@ -106,6 +106,6 @@ metadata:
   name: payment-configmap
 data:
   # Configuration values can be set as key-value properties
-  MYSQL_HOST: 34.75.219.35
-  AXON_HOST: 34.74.21.70:8124
+  MYSQL_HOST: 34.148.245.29
+  AXON_HOST: 34.74.31.122:8124
   SERVICE_NAME: PaymentService

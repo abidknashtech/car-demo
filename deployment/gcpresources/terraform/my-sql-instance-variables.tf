@@ -60,6 +60,13 @@ variable shipment_db_name {
   description = "Name of the default database to create"
   default     = "shipment_db"
 }
+
+# cart database
+variable cart_db_name {
+  description = "Name of the default database to create"
+  default     = "cart_db"
+}
+
 # user settings
 variable user_name {
   description = "The name of the default user"

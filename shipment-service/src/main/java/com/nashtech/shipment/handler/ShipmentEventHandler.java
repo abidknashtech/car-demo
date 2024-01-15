@@ -36,6 +36,7 @@ public class ShipmentEventHandler {
                 user.getEmailId(),
                 user.getMobileNumber(),
                 shipmentCreatedEvent.getProductId(),
+                shipmentCreatedEvent.getBrand(),
                 shipmentCreatedEvent.getQuantity(),
                 shipmentCreatedEvent.getBasePrice(),
                 shipmentCreatedEvent.getSubTotal(),

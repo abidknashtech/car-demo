@@ -13,7 +13,9 @@ build_and_deploy_service(){
    DEPLOYMENT_NAME=$3
    echo "---------build and deploy $SERVICE_NAME-----------"
    cd "$SERVICE_NAME" || exit
-   mvn clean install
+   if [  $SERVICE_NAME != "car-ui" ]; then
+       mvn clean install  -s $GITHUB_WORKSPACE/settings.xml
+   fi
    echo "---------packaging done, start docker build-----------"
    docker build -f Dockerfile --tag gcr.io/"$PROJECT_ID"/"$SERVICE_NAME":"$GITHUB_SHA" .
    echo  "--------docker build done, docker push---------------"
@@ -41,9 +43,10 @@ do
   case $project in
   # case 1 build and deploy package common
   "common")
-    echo "=========================Deploying common package==================="
+    echo "=========================Deploying common package=================="
     cd common || exit
-    mvn -B clean deploy --file pom.xml
+    mvn -B package --file pom.xml
+    mvn deploy -s $GITHUB_WORKSPACE/settings.xml
     cd ..;;
 
   # case 2 build and deploy order-service
@@ -76,6 +79,15 @@ do
       build_and_deploy_service cart-service $GKE_CLUSTER cartservice
       cd ..;;
 
+  # case 8 build and deploy car-ui app
+  "car-ui")
+      build_and_deploy_service car-ui $GKE_CLUSTER carui
+      cd ..;;
+
+  # case 8 build and deploy car-ui app
+  "elastic-search")
+      build_and_deploy_service elastic-search $GKE_CLUSTER elasticsearch
+      cd ..;;
   esac
 
 done

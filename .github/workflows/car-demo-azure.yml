@@ -1,4 +1,4 @@
-name: azure-car-demo-pipeline
+name: car-demo-azure-pipeline
 
 on:
   push:

@@ -21,6 +21,7 @@ public class ShipmentAggregate {
     private String paymentId;
     private String productId;
     private Integer quantity;
+    private String brand;
     private Double basePrice;
     private Double subTotal;
     private Double total;
@@ -40,6 +41,7 @@ public class ShipmentAggregate {
                     .paymentId(createShipmentCommand.getPaymentId())
                     .productId(createShipmentCommand.getProductId())
                     .quantity(createShipmentCommand.getQuantity())
+                    .brand(createShipmentCommand.getBrand())
                     .basePrice(createShipmentCommand.getBasePrice())
                     .tax(createShipmentCommand.getTax())
                     .totalTax(createShipmentCommand.getTotalTax())
@@ -63,6 +65,7 @@ public class ShipmentAggregate {
         this.orderId = shipmentCreatedEvent.getOrderId();
         this.paymentId = shipmentCreatedEvent.getPaymentId();
         this.productId = shipmentCreatedEvent.getProductId();
+        this.brand = shipmentCreatedEvent.getBrand();
         this.quantity = shipmentCreatedEvent.getQuantity();
         this.basePrice = shipmentCreatedEvent.getBasePrice();
         this.subTotal = shipmentCreatedEvent.getSubTotal();

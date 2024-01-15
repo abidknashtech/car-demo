@@ -12,6 +12,7 @@ public class PaymentApprovedEvent {
     String productId;
     User user;
     Integer quantity;
+    String brand;
     Double subTotal;
     Double total;
     Float tax;

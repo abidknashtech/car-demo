@@ -12,6 +12,10 @@ spec:
       labels:
         app: adminservice
     spec:
+      volumes:
+        - name: google-cloud-keys
+          secret:
+            secretName: gac-key
       containers:
         - name: adminservice
           image: gcr.io/PROJECT_ID/IMAGE:TAG
@@ -20,6 +24,13 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          volumeMounts:
+            - name: google-cloud-keys
+              mountPath: /var/secrets/google
+              readOnly: true
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/key.json
           envFrom:
             - configMapRef:
                 name: admin-configmap
@@ -45,5 +56,5 @@ metadata:
   name: admin-configmap
 data:
   # Configuration values can be set as key-value properties
-  GCP_PROJECT_ID: oval-crawler-398007
-  PUB_SUB_TOPIC_ID: Vehicle
+  GCP_PROJECT_ID: datamesh-2
+  PUB_SUB_TOPIC_ID: vehicle

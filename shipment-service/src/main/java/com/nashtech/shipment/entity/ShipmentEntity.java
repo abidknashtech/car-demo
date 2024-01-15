@@ -26,6 +26,7 @@ public class ShipmentEntity {
     private String mobileNumber;
 
     private String productId;
+    private String brand;
     private Integer quantity;
     private Double basePrice;
     private Double subTotal;

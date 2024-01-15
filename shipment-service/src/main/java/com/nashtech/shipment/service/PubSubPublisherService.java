@@ -20,13 +20,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class PubSubPublisherService {
     private Publisher publisher;
+    @SuppressWarnings("java:S6813")
     @Autowired
     private GCPConfig gcpConfig;
     private ObjectMapper objectMapper;
 
     public PubSubPublisherService(GCPConfig gcpConfig, Publisher publisher) {
         this.gcpConfig = gcpConfig;
-        TopicName topicName = TopicName.of(gcpConfig.getProjectId(), gcpConfig.getTopicId());
         objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         this.publisher = publisher;

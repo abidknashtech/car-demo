@@ -15,19 +15,22 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("azure")
 public class AzureConsumer implements CloudConsumer<String> {
+    private final CarService service;
+
     @Autowired
-    private CarService service;
+    public AzureConsumer(CarService service) {
+        this.service = service;
+    }
 
     @KafkaListener(topics = "${topic.producer}")
     public void consumeEvents(ConsumerRecord<String,String> event)  {
 
         log.info("Received message from kafka queue: {}", event.value());
-        CarEntity carEntity = CarMapper.mapStringToEntity(event.value().toString());
+        CarEntity carEntity = CarMapper.mapStringToEntity(event.value());
        service.saveCarEntity(carEntity);
        log.info(carEntity.toString());
     }
     public void consumeEvent(String event) {
-        log.info("Received message from kafka queue: {}", event.toString());
-
+        log.info("Received message from kafka queue: {}", event);
     }
 }

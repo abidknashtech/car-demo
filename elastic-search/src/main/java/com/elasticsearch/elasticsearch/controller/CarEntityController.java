@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping("/apis/car")
 public class CarEntityController {
 
+    private final CarService service;
+
     @Autowired
-    private CarService service;
+    public CarEntityController(CarService service) {
+        this.service = service;
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<CarEntity>> getAllCarEntity() {

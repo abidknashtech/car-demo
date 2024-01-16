@@ -25,21 +25,21 @@ public class GcpConsumer implements CloudConsumer<BasicAcknowledgeablePubsubMess
     @Value("${pubSub.subscriptionId}")
     private String subscription;
 
-    @Autowired
-    private PubSubTemplate pubSubTemplate;
-
-    @Autowired
-    private CarEntityRepository carEntityRepository;
-
-    @Autowired
-    private CarService service;
+    private final PubSubTemplate pubSubTemplate;
+    private final CarService service;
 
     private final ObjectMapper objectMapper;
 
-    public GcpConsumer(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    private final CarEntityRepository carEntityRepository;
 
+    @Autowired
+    public GcpConsumer(PubSubTemplate pubSubTemplate, CarService service, ObjectMapper objectMapper,
+                       CarEntityRepository carEntityRepository) {
+        this.pubSubTemplate = pubSubTemplate;
+        this.service = service;
+        this.objectMapper = objectMapper;
+        this.carEntityRepository = carEntityRepository;
+    }
 
     public String subscription() {
         return this.subscription;

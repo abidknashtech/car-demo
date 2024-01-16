@@ -3,18 +3,19 @@ package com.elasticsearch.elasticsearch.service.impl;
 import com.elasticsearch.elasticsearch.entity.CarEntity;
 import com.elasticsearch.elasticsearch.repository.CarEntityRepository;
 import com.elasticsearch.elasticsearch.service.CarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
 public class CarServiceImpl implements CarService {
 
-    @Autowired
-    private CarEntityRepository repository;
+    private final CarEntityRepository repository;
+
+    public CarServiceImpl(CarEntityRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public CarEntity getCarEntityWithCarId(Integer carId) {
@@ -38,7 +39,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarEntity> getAllCarEntity() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
+        return StreamSupport.stream(repository.findAll().spliterator(), false).toList();
     }
 
     @Override

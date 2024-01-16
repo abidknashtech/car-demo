@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CarEntitySerializerTest {
+class CarEntitySerializerTest {
     private CarEntitySerializer carEntitySerializer;
 
     @BeforeEach

@@ -5,14 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-class CarTest {
+@RunWith(MockitoJUnitRunner.class)
+public class CarTest {
   /**
    * Method under test: {@link Car#canEqual(Object)}
    */
   @Test
-  void testCanEqual() {
+  public void testCanEqual() {
     // Arrange
     Car car = new Car();
     String string = "Other";
@@ -28,7 +31,7 @@ class CarTest {
    * Method under test: {@link Car#canEqual(Object)}
    */
   @Test
-  void testCanEqual2() {
+  public void testCanEqual2() {
     // Arrange
     Car car = new Car();
     Car car2 = new Car();
@@ -44,13 +47,10 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals() {
+  public void testEquals() {
     // Arrange
     Car car = new Car();
     Car car2 = null;
-
-    // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -60,13 +60,12 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals2() {
+  public void testEquals2() {
     // Arrange
     Car car = new Car();
     String string = "Different type to Car";
 
     // Act
-    boolean actualEqualsResult = car.equals(string);
 
     // Assert
     assertNotEquals(car, string);
@@ -76,13 +75,12 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals3() {
+  public void testEquals3() {
     // Arrange
     Car car = new Car(1, "Brand", "Model", 1L, "Color", 10.0d, 10.0d, 1, 10.0d);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -92,13 +90,12 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals4() {
+  public void testEquals4() {
     // Arrange
     Car car = new Car();
     Car car2 = new Car(1, "Brand", "Model", 1L, "Color", 10.0d, 10.0d, 1, 10.0d);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -108,14 +105,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals5() {
+  public void testEquals5() {
     // Arrange
     Car car = new Car();
     car.setBrand("Brand");
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -125,14 +121,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals6() {
+  public void testEquals6() {
     // Arrange
     Car car = new Car();
     car.setModel("Model");
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -142,14 +137,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals7() {
+  public void testEquals7() {
     // Arrange
     Car car = new Car();
     car.setYear(1L);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -159,14 +153,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals8() {
+  public void testEquals8() {
     // Arrange
     Car car = new Car();
     car.setColor("Color");
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -176,14 +169,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals9() {
+  public void testEquals9() {
     // Arrange
     Car car = new Car();
     car.setMileage(10.0d);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -193,14 +185,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals10() {
+  public void testEquals10() {
     // Arrange
     Car car = new Car();
     car.setPrice(10.0d);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -210,14 +201,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals11() {
+  public void testEquals11() {
     // Arrange
     Car car = new Car();
     car.setQuantity(1);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -227,14 +217,13 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals12() {
+  public void testEquals12() {
     // Arrange
     Car car = new Car();
     car.setTax(10.0d);
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -244,7 +233,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals13() {
+  public void testEquals13() {
     // Arrange
     Car car = new Car();
 
@@ -252,7 +241,6 @@ class CarTest {
     car2.setBrand("Brand");
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -262,7 +250,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals14() {
+  public void testEquals14() {
     // Arrange
     Car car = new Car();
 
@@ -270,7 +258,6 @@ class CarTest {
     car2.setModel("Model");
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -280,7 +267,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals15() {
+  public void testEquals15() {
     // Arrange
     Car car = new Car();
 
@@ -288,7 +275,6 @@ class CarTest {
     car2.setYear(1L);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -298,7 +284,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals16() {
+  public void testEquals16() {
     // Arrange
     Car car = new Car();
 
@@ -306,7 +292,6 @@ class CarTest {
     car2.setColor("Color");
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -316,7 +301,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals17() {
+  public void testEquals17() {
     // Arrange
     Car car = new Car();
 
@@ -324,7 +309,6 @@ class CarTest {
     car2.setMileage(10.0d);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -334,7 +318,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals18() {
+  public void testEquals18() {
     // Arrange
     Car car = new Car();
 
@@ -342,7 +326,6 @@ class CarTest {
     car2.setPrice(10.0d);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -352,7 +335,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals19() {
+  public void testEquals19() {
     // Arrange
     Car car = new Car();
 
@@ -360,7 +343,6 @@ class CarTest {
     car2.setQuantity(1);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -370,7 +352,7 @@ class CarTest {
    * Method under test: {@link Car#equals(Object)}
    */
   @Test
-  void testEquals20() {
+  public void testEquals20() {
     // Arrange
     Car car = new Car();
 
@@ -378,7 +360,6 @@ class CarTest {
     car2.setTax(10.0d);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertNotEquals(car, car2);
@@ -393,12 +374,11 @@ class CarTest {
    * </ul>
    */
   @Test
-  void testEqualsAndHashCode() {
+  public void testEqualsAndHashCode() {
     // Arrange
     Car car = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car);
 
     // Assert
     assertEquals(car, car);
@@ -415,13 +395,12 @@ class CarTest {
    * </ul>
    */
   @Test
-  void testEqualsAndHashCode2() {
+  public void testEqualsAndHashCode2() {
     // Arrange
     Car car = new Car();
     Car car2 = new Car();
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertEquals(car, car2);
@@ -438,13 +417,12 @@ class CarTest {
    * </ul>
    */
   @Test
-  void testEqualsAndHashCode3() {
+  public void testEqualsAndHashCode3() {
     // Arrange
     Car car = new Car(1, "Brand", "Model", 1L, "Color", 10.0d, 10.0d, 1, 10.0d);
     Car car2 = new Car(1, "Brand", "Model", 1L, "Color", 10.0d, 10.0d, 1, 10.0d);
 
     // Act
-    boolean actualEqualsResult = car.equals(car2);
 
     // Assert
     assertEquals(car, car2);
@@ -479,7 +457,7 @@ class CarTest {
    * </ul>
    */
   @Test
-  void testGettersAndSetters() {
+  public void testGettersAndSetters() {
     // Arrange and Act
     Car actualCar = new Car();
     String brand = "Brand";
@@ -553,7 +531,7 @@ class CarTest {
    * </ul>
    */
   @Test
-  void testGettersAndSetters2() {
+  public void testGettersAndSetters2() {
     // Arrange
     int carId = 1;
     String brand = "Brand";

@@ -3,12 +3,14 @@ package com.knoldus.function.trigger;
 import com.knoldus.function.model.Car;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.OutputBinding;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
-
+@RunWith(MockitoJUnitRunner.class)
 public class EventHubTriggerJavaTest {
 
     @Mock
@@ -28,9 +30,11 @@ public class EventHubTriggerJavaTest {
     @InjectMocks
     private EventHubTriggerJava eventHubTriggerJava;
 
-    @BeforeEach
+    @Before
     public void setUp() {
+
         MockitoAnnotations.openMocks(this);
+        eventHubTriggerJava = new EventHubTriggerJava();
     }
 
     @Test

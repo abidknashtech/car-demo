@@ -80,7 +80,7 @@ public class PaymentAggregate {
     }
 
     //Hard coded User details
-    private User getUser() {
+    public User getUser() {
         return User.builder()
                 .userId("1652")
                 .firstName("Abid")
@@ -92,7 +92,7 @@ public class PaymentAggregate {
     }
 
     //Hard coded payment details
-    private PaymentDetails getPaymentDetails() {
+    public PaymentDetails getPaymentDetails() {
         return PaymentDetails.builder()
                 .userId("1652")
                 .bank("SBI")
@@ -104,7 +104,7 @@ public class PaymentAggregate {
                 .build();
     }
 
-    private PaymentCancelledEvent buildPaymentCancelEvent(ProcessPaymentCommand processPaymentCommand, String reasonToFailed) {
+    public PaymentCancelledEvent buildPaymentCancelEvent(ProcessPaymentCommand processPaymentCommand, String reasonToFailed) {
         return PaymentCancelledEvent.builder()
                 .paymentId(processPaymentCommand.getPaymentId())
                 .orderId(processPaymentCommand.getOrderId())

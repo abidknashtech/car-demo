@@ -1,15 +1,87 @@
 package com.nashtech.payment.aggregate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.nashtech.common.command.ProcessPaymentCommand;
 import com.nashtech.common.event.PaymentApprovedEvent;
 import com.nashtech.common.event.PaymentCancelledEvent;
+import com.nashtech.common.model.PaymentDetails;
 import com.nashtech.common.model.User;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class PaymentAggregateTest {
+    /**
+     * Method under test:
+     * {@link PaymentAggregate#buildPaymentCancelEvent(ProcessPaymentCommand, String)}
+     */
+    @Test
+    void testBuildPaymentCancelEvent() {
+        // Arrange
+        PaymentAggregate paymentAggregate = new PaymentAggregate();
+        ProcessPaymentCommand processPaymentCommand = ProcessPaymentCommand.builder()
+                .basePrice(10.0d)
+                .brand("Brand")
+                .orderId("42")
+                .paymentId("42")
+                .productId("42")
+                .quantity(1)
+                .subTotal(10.0d)
+                .tax(10.0f)
+                .total(10.0d)
+                .totalTax(10.0f)
+                .userId("42")
+                .build();
+
+        // Act
+        PaymentCancelledEvent actualBuildPaymentCancelEventResult = paymentAggregate
+                .buildPaymentCancelEvent(processPaymentCommand, "Just cause");
+
+        // Assert
+        assertEquals("42", actualBuildPaymentCancelEventResult.getOrderId());
+        assertEquals("42", actualBuildPaymentCancelEventResult.getPaymentId());
+        assertEquals("42", actualBuildPaymentCancelEventResult.getProductId());
+        assertEquals("42", actualBuildPaymentCancelEventResult.getUserId());
+        assertEquals("Just cause", actualBuildPaymentCancelEventResult.getReasonToFailed());
+        assertEquals(1, actualBuildPaymentCancelEventResult.getQuantity().intValue());
+    }
+
+    /**
+     * Method under test: {@link PaymentAggregate#getPaymentDetails()}
+     */
+    @Test
+    void testGetPaymentDetails() {
+        // Arrange and Act
+        PaymentDetails actualPaymentDetails = (new PaymentAggregate()).getPaymentDetails();
+
+        // Assert
+        assertEquals("0900987654435443", actualPaymentDetails.getCardNumber());
+        assertEquals("1652", actualPaymentDetails.getUserId());
+        assertEquals("SBI", actualPaymentDetails.getBank());
+        assertEquals(1.0E9d, actualPaymentDetails.getBalanceAmount().doubleValue());
+        assertEquals(2028, actualPaymentDetails.getValidUntilYear().intValue());
+        assertEquals(334, actualPaymentDetails.getCvv().intValue());
+        assertEquals(6, actualPaymentDetails.getValidUntilMonth().intValue());
+    }
+
+    /**
+     * Method under test: {@link PaymentAggregate#getUser()}
+     */
+    @Test
+    void testGetUser() {
+        // Arrange and Act
+        User actualUser = (new PaymentAggregate()).getUser();
+
+        // Assert
+        assertEquals("1652", actualUser.getUserId());
+        assertEquals("9087658765", actualUser.getMobileNumber());
+        assertEquals("Abid", actualUser.getFirstName());
+        assertEquals("Khan", actualUser.getLastName());
+        assertEquals("Noida", actualUser.getAddress());
+        assertEquals("abid.khan@nashtechglobal.com", actualUser.getEmailId());
+    }
+
     /**
      * Method under test: {@link PaymentAggregate#PaymentAggregate()}
      */
@@ -19,11 +91,26 @@ class PaymentAggregateTest {
         PaymentAggregate actualPaymentAggregate = new PaymentAggregate();
 
         // Assert
+        PaymentDetails paymentDetails = actualPaymentAggregate.getPaymentDetails();
+        assertEquals("0900987654435443", paymentDetails.getCardNumber());
+        assertEquals("1652", paymentDetails.getUserId());
+        User user = actualPaymentAggregate.getUser();
+        assertEquals("1652", user.getUserId());
+        assertEquals("9087658765", user.getMobileNumber());
+        assertEquals("Abid", user.getFirstName());
+        assertEquals("Khan", user.getLastName());
+        assertEquals("Noida", user.getAddress());
+        assertEquals("SBI", paymentDetails.getBank());
+        assertEquals("abid.khan@nashtechglobal.com", user.getEmailId());
         assertNull(actualPaymentAggregate.getBasePrice());
         assertNull(actualPaymentAggregate.getQuantity());
         assertNull(actualPaymentAggregate.getOrderId());
         assertNull(actualPaymentAggregate.getPaymentId());
         assertNull(actualPaymentAggregate.getProductId());
+        assertEquals(1.0E9d, paymentDetails.getBalanceAmount().doubleValue());
+        assertEquals(2028, paymentDetails.getValidUntilYear().intValue());
+        assertEquals(334, paymentDetails.getCvv().intValue());
+        assertEquals(6, paymentDetails.getValidUntilMonth().intValue());
     }
 
     /**

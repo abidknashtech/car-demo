@@ -41,7 +41,7 @@
 
     <properties>
         <java.version>19</java.version>
-        <axon-starter.version>4.8.1</axon-starter.version>
+        <axon-starter.version>4.9.1</axon-starter.version>
         <dotenv.version>4.0.0</dotenv.version>
         <mysql-connector.version>8.0.33</mysql-connector.version>
         <maven.jacoco.version>0.8.8</maven.jacoco.version>

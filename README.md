@@ -62,7 +62,7 @@ The listed services are operate sequentially.
 ***Phase-1***
 - admin-service
 - inventory-service 
-- order-service    
+- order-service  [README.md](order-service%2FREADME.md) 
 - payment-service  
 - shipment-service 
 - elasticsearch

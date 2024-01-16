@@ -8,10 +8,61 @@ import com.nashtech.common.event.PaymentApprovedEvent;
 import com.nashtech.common.event.PaymentCancelledEvent;
 import com.nashtech.common.model.PaymentDetails;
 import com.nashtech.common.model.User;
-import org.junit.jupiter.api.Disabled;
+import org.axonframework.test.aggregate.AggregateTestFixture;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PaymentAggregateTest {
+
+    private AggregateTestFixture<PaymentAggregate> fixture;
+
+    @BeforeEach
+    void setUp() {
+        fixture = new AggregateTestFixture<>(PaymentAggregate.class);
+    }
+
+    @Test
+    void testShipmentAggregateCreation() {
+
+        ProcessPaymentCommand processPaymentCommand = ProcessPaymentCommand.builder()
+                .basePrice(10.0d)
+                .brand("Brand")
+                .orderId("42")
+                .paymentId("42")
+                .productId("42")
+                .quantity(1)
+                .subTotal(10.0d)
+                .tax(10.0f)
+                .total(10.0d)
+                .totalTax(10.0f)
+                .userId("1652")
+                .build();
+
+        PaymentApprovedEvent paymentApprovedEvent = PaymentApprovedEvent.builder()
+                .basePrice(10.0d)
+                .brand("Brand")
+                .orderId("42")
+                .paymentId("42")
+                .productId("42")
+                .quantity(1)
+                .subTotal(10.0d)
+                .tax(10.0f)
+                .total(10.0d)
+                .totalTax(10.0f)
+                .user(User.builder()
+                        .userId("1652")
+                        .firstName("Abid")
+                        .lastName("Khan")
+                        .address("Noida")
+                        .emailId("abid.khan@nashtechglobal.com")
+                        .mobileNumber("9087658765")
+                        .build()).build();
+
+        fixture.givenNoPriorActivity()
+                .when(processPaymentCommand)
+                .expectEvents(paymentApprovedEvent);
+    }
+
     /**
      * Method under test:
      * {@link PaymentAggregate#buildPaymentCancelEvent(ProcessPaymentCommand, String)}

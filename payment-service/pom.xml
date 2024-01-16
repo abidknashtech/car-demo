@@ -65,6 +65,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-test</artifactId>
+			<version>4.8.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -115,6 +121,7 @@
 						<exclude>**/*model*/**</exclude>
 						<exclude>**/*Application*</exclude>
 						<exclude>**/*entity*/**</exclude>
+						<exclude>**/*data*/**</exclude>
 						<exclude>**/resources/**</exclude>
 					</excludes>
 				</configuration>
@@ -186,6 +193,7 @@
 					**/*common*/**,
 					**/*constant*/**,
 					**/*model*/**,
+					**/*data*/**,
 					**/*Application.*
 				</sonar.coverage.exclusions>
 			</properties>

@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 @Slf4j
-public class PaymentsEventHandlerTest {
+class PaymentsEventHandlerTest {
     @Mock
     private PaymentsRepository paymentsRepository;
 
@@ -24,7 +24,7 @@ public class PaymentsEventHandlerTest {
     }
 
     @Test
-    public void testPaymentApprovedEventHandling() {
+    void testPaymentApprovedEventHandling() {
         // Given
         PaymentApprovedEvent paymentApprovedEvent = PaymentApprovedEvent.builder().build();
 

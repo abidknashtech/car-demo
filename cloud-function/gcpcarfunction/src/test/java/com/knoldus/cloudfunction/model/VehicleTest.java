@@ -1,18 +1,23 @@
 package com.knoldus.cloudfunction.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
-class VehicleTest {
+@RunWith(MockitoJUnitRunner.class)
+public class VehicleTest {
+
     /**
      * Method under test: {@link Vehicle#canEqual(Object)}
      */
     @Test
-    void testCanEqual() {
+    public void testCanEqual() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         String string = "Other";
@@ -28,7 +33,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#canEqual(Object)}
      */
     @Test
-    void testCanEqual2() {
+    public void testCanEqual2() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -63,7 +68,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals() {
+    public void testEquals() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -88,7 +93,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals2() {
+    public void testEquals2() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -113,7 +118,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals3() {
+    public void testEquals3() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Model");
@@ -148,7 +153,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals4() {
+    public void testEquals4() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(null);
@@ -183,7 +188,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals5() {
+    public void testEquals5() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -218,7 +223,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals6() {
+    public void testEquals6() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -253,7 +258,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals7() {
+    public void testEquals7() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -288,7 +293,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals8() {
+    public void testEquals8() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -323,7 +328,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals9() {
+    public void testEquals9() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -358,7 +363,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals10() {
+    public void testEquals10() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -393,7 +398,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals11() {
+    public void testEquals11() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -428,7 +433,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals12() {
+    public void testEquals12() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -463,7 +468,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals13() {
+    public void testEquals13() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -498,7 +503,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals14() {
+    public void testEquals14() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -533,7 +538,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals15() {
+    public void testEquals15() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -568,7 +573,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals16() {
+    public void testEquals16() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -603,7 +608,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals17() {
+    public void testEquals17() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -638,7 +643,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals18() {
+    public void testEquals18() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -673,7 +678,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals19() {
+    public void testEquals19() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -708,7 +713,7 @@ class VehicleTest {
      * Method under test: {@link Vehicle#equals(Object)}
      */
     @Test
-    void testEquals20() {
+    public void testEquals20() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -748,7 +753,7 @@ class VehicleTest {
      * </ul>
      */
     @Test
-    void testEqualsAndHashCode() {
+    public void testEqualsAndHashCode() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -779,7 +784,7 @@ class VehicleTest {
      * </ul>
      */
     @Test
-    void testEqualsAndHashCode2() {
+    public void testEqualsAndHashCode2() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -821,7 +826,7 @@ class VehicleTest {
      * </ul>
      */
     @Test
-    void testEqualsAndHashCode3() {
+    public void testEqualsAndHashCode3() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(null);
@@ -863,7 +868,7 @@ class VehicleTest {
      * </ul>
      */
     @Test
-    void testEqualsAndHashCode4() {
+    public void testEqualsAndHashCode4() {
         // Arrange
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand("Brand");
@@ -923,7 +928,7 @@ class VehicleTest {
      * </ul>
      */
     @Test
-    void testGettersAndSetters() {
+    public void testGettersAndSetters() {
         // Arrange and Act
         Vehicle actualVehicle = new Vehicle();
         String brand = "Brand";
@@ -964,8 +969,86 @@ class VehicleTest {
         assertEquals(1, actualCarId.intValue());
         assertEquals(1, actualQuantity.intValue());
         assertEquals(1, actualYear.intValue());
-        assertEquals(10.0d, actualMileage.doubleValue());
-        assertEquals(10.0d, actualPrice.doubleValue());
-        assertEquals(10.0d, actualTax.doubleValue());
+        assertEquals(10.0d, actualMileage.doubleValue(), 0.0);
+        assertEquals(10.0d, actualPrice.doubleValue(), 0.0);
+        assertEquals(10.0d, actualTax.doubleValue(), 0.0);
     }
+
+    // Creating a new instance of Vehicle with valid parameters should succeed.
+    @Test
+    public void test_create_instance_with_valid_parameters() {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setCarId(1);
+        vehicle.setModel("Model");
+        vehicle.setBrand("Brand");
+        vehicle.setYear(2022);
+        vehicle.setColor("Red");
+        vehicle.setMileage(100.0);
+        vehicle.setPrice(20000.0);
+        vehicle.setQuantity(10);
+        vehicle.setTax(5.0);
+        assertNotNull(vehicle);
+        assertEquals(1, vehicle.getCarId().intValue());
+        assertEquals("Model", vehicle.getModel());
+        assertEquals("Brand", vehicle.getBrand());
+        assertEquals(2022, vehicle.getYear().intValue());
+        assertEquals("Red", vehicle.getColor());
+        assertEquals(100.0, vehicle.getMileage(), 0.0);
+        assertEquals(20000.0, vehicle.getPrice(), 0.0);
+        assertEquals(10, vehicle.getQuantity().intValue());
+        assertEquals(5.0, vehicle.getTax(), 0.0);
+    }
+
+    // All attributes of a Vehicle instance should be accessible and modifiable.
+    @Test
+    public void test_attributes_accessibility_and_modifiability() {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setCarId(1);
+        vehicle.setModel("Model");
+        vehicle.setBrand("Brand");
+        vehicle.setYear(2022);
+        vehicle.setColor("Red");
+        vehicle.setMileage(100.0);
+        vehicle.setPrice(20000.0);
+        vehicle.setQuantity(10);
+        vehicle.setTax(5.0);
+
+        assertEquals(1, vehicle.getCarId().intValue());
+        assertEquals("Model", vehicle.getModel());
+        assertEquals("Brand", vehicle.getBrand());
+        assertEquals(2022, vehicle.getYear().intValue());
+        assertEquals("Red", vehicle.getColor());
+        assertEquals(100.0, vehicle.getMileage(), 0.0);
+        assertEquals(20000.0, vehicle.getPrice(), 0.0);
+        assertEquals(10, vehicle.getQuantity().intValue());
+        assertEquals(5.0, vehicle.getTax(), 0.0);
+    }
+
+    // Two Vehicle instances with the same attributes should be considered equal.
+    @Test
+    public void test_instances_equality() {
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.setCarId(1);
+        vehicle1.setModel("Model");
+        vehicle1.setBrand("Brand");
+        vehicle1.setYear(2022);
+        vehicle1.setColor("Red");
+        vehicle1.setMileage(100.0);
+        vehicle1.setPrice(20000.0);
+        vehicle1.setQuantity(10);
+        vehicle1.setTax(5.0);
+        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setCarId(1);
+        vehicle2.setModel("Model");
+        vehicle2.setBrand("Brand");
+        vehicle2.setYear(2022);
+        vehicle2.setColor("Red");
+        vehicle2.setMileage(100.0);
+        vehicle2.setPrice(20000.0);
+        vehicle2.setQuantity(10);
+        vehicle2.setTax(5.0);
+
+        assertEquals(vehicle1, vehicle2);
+    }
+
 }

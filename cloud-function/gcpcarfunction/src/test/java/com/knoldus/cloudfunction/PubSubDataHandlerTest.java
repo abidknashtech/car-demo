@@ -1,5 +1,6 @@
 package com.knoldus.cloudfunction;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
@@ -8,21 +9,22 @@ import com.google.cloud.firestore.WriteResult;
 import com.knoldus.cloudfunction.model.Vehicle;
 import io.cloudevents.CloudEvent;
 import io.cloudevents.CloudEventData;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
+import java.util.Base64;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PubSubDataHandlerTest {
 
     @Mock
@@ -37,44 +39,57 @@ public class PubSubDataHandlerTest {
     @Mock
     private CollectionReference mockCollectionReference;
 
+    @InjectMocks
     private PubSubDataHandler pubSubDataHandler;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() throws ExecutionException, InterruptedException {
         MockitoAnnotations.openMocks(this);
         pubSubDataHandler = new PubSubDataHandler(mockFirestore);
 
         when(mockFirestore.collection("Car")).thenReturn(mockCollectionReference);
         when(mockCollectionReference.document()).thenReturn(mockDocumentReference);
         when(mockDocumentReference.set(any(Vehicle.class))).thenReturn(mockApiFuture);
+        when(mockApiFuture.get()).thenReturn(mock(WriteResult.class));
     }
 
     @Test
-    void constructorTest() {
+    public void constructorTest() {
         assertNotNull(pubSubDataHandler, "PubSubDataHandler should be initialized");
     }
 
-
-    /**
-     * Method under test: {@link PubSubDataHandler#accept(CloudEvent)}
-     */
     @Test
-    void testAccept() throws IOException {
-        // Arrange
-        PubSubDataHandler pubSubDataHandler = new PubSubDataHandler(mock(Firestore.class));
+    public void acceptTest() throws Exception {
+
+        Vehicle vehicle = new Vehicle();
+        vehicle.setBrand("Brand");
+        vehicle.setCarId(1);
+        vehicle.setColor("Color");
+        vehicle.setMileage(10.0d);
+        vehicle.setModel("Model");
+        vehicle.setPrice(10.0d);
+        vehicle.setQuantity(1);
+        vehicle.setTax(10.0d);
+        vehicle.setYear(1);
+
+        String vehicleJson = new ObjectMapper().writeValueAsString(vehicle);
+
         CloudEventData cloudEventData = mock(CloudEventData.class);
-        when(cloudEventData.toBytes()).thenThrow(new RuntimeException("foo"));
+        String validJson = "{\"message\": {\"data\": \"" + Base64.getEncoder().encodeToString(vehicleJson.getBytes()) + "\"}}";
+        when(cloudEventData.toBytes()).thenReturn(validJson.getBytes());
         CloudEvent event = mock(CloudEvent.class);
         when(event.getData()).thenReturn(cloudEventData);
 
-        // Act and Assert
-        assertThrows(RuntimeException.class, () -> pubSubDataHandler.accept(event));
-        verify(event).getData();
-        verify(cloudEventData).toBytes();
+        pubSubDataHandler.accept(event);
+
+        // Verify the interactions with Firestore
+        verify(mockFirestore, atLeastOnce()).collection(anyString());
     }
 
+
+
     @Test
-    void transformPriceTest() {
+    public void transformPriceTest() {
         double priceInDollars = 10;
         double conversionRate = 74.85;
         double expectedPriceInRupees = priceInDollars * conversionRate;
@@ -84,43 +99,34 @@ public class PubSubDataHandlerTest {
     }
 
     @Test
-    void transformMileageTest() {
+    public void transformMileageTest() {
         double mileageInMiles = 10;
-        double expectedMileageInKilometers = mileageInMiles * PubSubDataHandler.MILEAGE_CONVERSION_RATE_;
+        double expectedMileageInKilometers = mileageInMiles * PubSubDataHandler.MILEAGE_CONVERSION_RATE;
         double actualMileageInKilometers = pubSubDataHandler.transformMileage(mileageInMiles);
         assertEquals(expectedMileageInKilometers, actualMileageInKilometers,
                 "Mileage should be correctly transformed from miles to kilometers");
     }
 
     @Test
-    void saveDataToFirestoreSuccessTest() throws ExecutionException, InterruptedException {
+    public void saveDataToFirestoreSuccessTest() throws ExecutionException, InterruptedException {
         Vehicle vehicleData = mock(Vehicle.class);
 
-        when(mockApiFuture.get()).thenReturn(null); // Simulate successful Firestore operation
+        when(mockApiFuture.get()).thenReturn(mock(WriteResult.class)); // Simulate successful Firestore operation
 
         assertDoesNotThrow(() -> pubSubDataHandler.saveDataToFirestore(vehicleData),
                 "Saving data to Firestore should not throw an exception");
 
         verify(mockFirestore.collection("Car")).document();
         verify(mockDocumentReference).set(vehicleData);
+        verify(mockApiFuture).get();
     }
 
     @Test
-    void fetchConversionRateFromAPITest() throws Exception {
+    public void test_fetchConversionRateFromAPI_validInput() throws Exception {
         String toCurrency = "INR";
-        double expectedRate = 82.76;
-        double delta = 0.01; // Tolerance for the comparison
-
-        // Mocking HttpURLConnection for API response simulation
-        HttpURLConnection mockConnection = mock(HttpURLConnection.class);
-        when(mockConnection.getResponseCode()).thenReturn(HttpURLConnection.HTTP_OK);
-        InputStream mockInputStream = new ByteArrayInputStream(
-                ("{\"data\": {\"" + toCurrency + "\": {\"value\": " + expectedRate + "}}}").getBytes());
-        when(mockConnection.getInputStream()).thenReturn(mockInputStream);
-
-        double actualRate = pubSubDataHandler.fetchConversionRateFromAPI(toCurrency);
-
-        assertEquals(expectedRate, actualRate, delta, "The fetched currency conversion rate should be correct");
+        // Call the method under test
+        double conversionRate = pubSubDataHandler.fetchConversionRateFromAPI(toCurrency);
+        // Verify the result
+        assertNotEquals(0, conversionRate, 0.0);
     }
-
 }

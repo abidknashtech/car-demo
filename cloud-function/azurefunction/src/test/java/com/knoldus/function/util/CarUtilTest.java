@@ -2,14 +2,17 @@ package com.knoldus.function.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 
-class CarUtilTest {
+@RunWith(MockitoJUnitRunner.class)
+public class CarUtilTest {
     /**
      * Method under test: {@link CarUtil#updateMileage(Double)}
      */
     @Test
-    void testUpdateMileage() {
+    public void testUpdateMileage() {
         // Arrange
         double mileage = 10.0d;
 
@@ -24,7 +27,7 @@ class CarUtilTest {
      * Method under test: {@link CarUtil#updatePrice(Double)}
      */
     @Test
-    void testUpdatePrice() {
+    public void testUpdatePrice() {
         // Arrange
         double price = 10.0d;
 

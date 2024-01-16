@@ -2,8 +2,6 @@ package com.knoldus.function.trigger;
 
 import com.knoldus.function.model.Car;
 import com.knoldus.function.util.CarUtil;
-//import com.knoldus.function.util.VehicleUtil;
-//import com.knoldus.function.model.VehicleDetail;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
 import java.util.*;

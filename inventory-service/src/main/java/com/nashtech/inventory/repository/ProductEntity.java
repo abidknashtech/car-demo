@@ -3,14 +3,16 @@ package com.nashtech.inventory.repository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
-
+import lombok.*;
 import java.util.Date;
 
 
 @Entity
 @Table(name="products")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class ProductEntity {
 	@Id
 	private String productId;
@@ -23,5 +25,4 @@ public class ProductEntity {
 	private Integer quantity;
 	private Float tax;
 	private Date timestamp = new Date();
-
 }

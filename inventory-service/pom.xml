@@ -13,7 +13,16 @@
 	<artifactId>inventory-service</artifactId>
 	<version>1.0.0</version>
 	<name>inventory-service</name>
-
+	<properties>
+		<java.version>19</java.version>
+		<common.version>2.2</common.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
+		<spring-cloud.version>2022.0.1</spring-cloud.version>
+		<maven.compiler.source>19</maven.compiler.source>
+		<maven.sonar.version>3.9.1.2184</maven.sonar.version>
+		<maven.jacoco.version>0.8.8</maven.jacoco.version>
+	</properties>
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -58,17 +67,6 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<properties>
-		<java.version>19</java.version>
-		<common.version>2.2</common.version>
-		<validation-api.version>2.0.1.Final</validation-api.version>
-		<spring-cloud-gcp.version>4.1.1</spring-cloud-gcp.version>
-		<spring-cloud.version>2022.0.1</spring-cloud.version>
-		<maven.compiler.source>19</maven.compiler.source>
-		<maven.sonar.version>3.9.1.2184</maven.sonar.version>
-		<maven.jacoco.version>0.8.8</maven.jacoco.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -108,6 +106,43 @@
 			<version>4.7.2</version>
 			<scope>compile</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-test</artifactId>
+			<version>4.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

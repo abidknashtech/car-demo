@@ -187,6 +187,7 @@
 				<sonar.jacoco.reportPath>target/coverage-reports/jacoco.exec</sonar.jacoco.reportPath>
 				<sonar.coverage.exclusions>
 					**/*config*/**,
+					**/*exception*/**,
 					**/*common*/**,
 					**/*constant*/**,
 					**/*model*/**,

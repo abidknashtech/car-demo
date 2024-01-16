@@ -2,6 +2,7 @@ package com.nashtech.service.impl;
 
 import com.azure.spring.data.cosmos.exception.CosmosAccessException;
 import com.nashtech.service.CloudDataService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.kafka.KafkaException;
@@ -15,7 +16,6 @@ import com.nashtech.model.Car;
 import com.nashtech.model.CarBrand;
 import com.nashtech.repository.CosmosDbRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,20 +26,20 @@ import java.util.Map;
 @Service
 @Slf4j
 @Profile("cosmos")
+@AllArgsConstructor
 public class CosmosDbService implements CloudDataService {
     /**
      * The reactive repository for {@link Car} entities
      * in Cosmos DB.
      * Used for performing CRUD operations and reactive data access.
      */
-    @Autowired
+
     private CosmosDbRepository cosmosDbRepository;
 
     /**
      * The KafkaTemplate for sending vehicle data to Kafka topics.
      */
-    @Autowired
-    private  KafkaTemplate<String, Car> kafkaTemplate;
+    private KafkaTemplate<String, Car> kafkaTemplate;
 
     /**
      * Event hub topic name.
@@ -55,11 +55,10 @@ public class CosmosDbService implements CloudDataService {
      * and sends it using the configured {@link KafkaTemplate}.
      *
      * @param reactiveDataCar The {@link Car} object to be sent to Kafka.
-     * @throws KafkaException
-     * If an error occurs while sending the message to Kafka.
+     * @throws KafkaException If an error occurs while sending the message to Kafka.
      */
     @Override
-    public Mono<Void> pushData(final Car reactiveDataCar)  {
+    public Mono<Void> pushData(final Car reactiveDataCar) {
         try {
             Message<Car> message = MessageBuilder
                     .withPayload(reactiveDataCar)
@@ -67,10 +66,11 @@ public class CosmosDbService implements CloudDataService {
                     .build();
             kafkaTemplate.send(message);
         } catch (KafkaException kafkaException) {
-            throw kafkaException;
+            throw new KafkaException("Error during publishing", kafkaException);
         }
         return Mono.empty();
     }
+
     /**
      * Retrieves a Flux of cars with specified brand in reactive manner.
      * The Flux represents a stream of data that can be subscribed to for
@@ -133,7 +133,7 @@ public class CosmosDbService implements CloudDataService {
 
     @Override
     public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSse() {
-        return null;
+        return Flux.empty();
     }
 
 }

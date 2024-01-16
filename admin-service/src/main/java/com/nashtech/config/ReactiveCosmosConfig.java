@@ -65,6 +65,7 @@ public class ReactiveCosmosConfig extends AbstractCosmosConfiguration {
      */
     @Bean
     @Profile("cosmos")
+    @Override
     public CosmosConfig cosmosConfig() {
         return CosmosConfig.builder()
                 .enableQueryMetrics(true)

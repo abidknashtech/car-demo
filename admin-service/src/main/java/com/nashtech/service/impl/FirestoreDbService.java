@@ -1,5 +1,6 @@
 package com.nashtech.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.cloud.firestore.Firestore;
@@ -10,14 +11,16 @@ import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.PubsubMessage;
 import com.google.pubsub.v1.TopicName;
 import com.nashtech.exception.DataNotFoundException;
+import com.nashtech.exception.MyCustomException;
 import com.nashtech.model.Car;
 import com.nashtech.model.CarBrand;
 import com.nashtech.repository.FirestoreDbRepository;
 import com.nashtech.service.CloudDataService;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.codec.ServerSentEvent;
@@ -27,13 +30,14 @@ import reactor.core.publisher.FluxSink;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.io.IOException;
 
 /**
  * Service implementation class for
@@ -42,12 +46,12 @@ import java.io.IOException;
 @Slf4j
 @Service
 @Profile("firestore")
+@AllArgsConstructor
 public class FirestoreDbService implements CloudDataService {
 
     /**
      * The VehicleRepository instance used to retrieve car information.
      */
-    @Autowired
     private FirestoreDbRepository firestoreDbRepository;
 
     /**
@@ -65,11 +69,15 @@ public class FirestoreDbService implements CloudDataService {
 
     /**
      * The FirestoreDbService constructor.
+     *
      * @param fireStoreInstance firestore instance.
      */
     public FirestoreDbService(final Firestore fireStoreInstance) {
         this.firestore = fireStoreInstance;
+
     }
+
+
 
     /**
      * The ID of the Pub/Sub topic to
@@ -82,24 +90,27 @@ public class FirestoreDbService implements CloudDataService {
      * Static Publisher instance for asynchronous vehicle
      * data publishing to the Google Cloud Pub/Sub topic.
      */
-    private static Publisher publisher;
+    @Setter
+    private Publisher publisher;
 
     /**
      * The Jackson ObjectMapper used
      * for serialization and deserialization of JSON data.
      */
-    private static ObjectMapper objectMapper;
+    @Setter
+    private ObjectMapper objectMapper;
+
 
     /**
      * Initializes the static Publisher instance for
      * vehicle data publishing to the Google Cloud Pub/Sub topic.
-     *
+     * <p>
      * This method is annotated with @PostConstruct
      * and is automatically called after the bean is constructed,
      * ensuring that the Publisher is ready for use.
      *
      * @throws IOException If an error occurs during the
-     * initialization of the Publisher.
+     *                     initialization of the Publisher.
      */
     @PostConstruct
     public void init() throws IOException {
@@ -118,13 +129,15 @@ public class FirestoreDbService implements CloudDataService {
      * resources are released.
      */
     @PreDestroy
-    public void cleanup() {
+    public void cleanup()  {
         try {
             if (publisher != null) {
                 publisher.shutdown();
                 publisher.awaitTermination(1, TimeUnit.MINUTES);
             }
         } catch (InterruptedException interruptedException) {
+            // Re-interrupt the thread or rethrow the InterruptedException
+            Thread.currentThread().interrupt();
             log.error("Error while shutting down Publisher: {}",
                     interruptedException.getMessage());
         }
@@ -140,24 +153,26 @@ public class FirestoreDbService implements CloudDataService {
      * publishing process.
      */
     public Mono<Void> pushData(final Car cars) {
+        String vehicleJson;
         try {
-            String vehicleJson = objectMapper.writeValueAsString(cars);
-            ByteString data = ByteString.copyFromUtf8(vehicleJson);
-            PubsubMessage pubsubMessage = PubsubMessage.newBuilder().
-                    setData(data).build();
-
-            return Mono.just(publisher.publish(pubsubMessage))
-                    .doOnError(error -> {
-                        throw new RuntimeException(error.getMessage());
-                    }).then();
-        } catch (Exception exception) {
-            return Mono.empty();
+            vehicleJson = objectMapper.writeValueAsString(cars);
+        } catch (JsonProcessingException exception) {
+            return Mono.error(exception);
         }
+
+        ByteString data = ByteString.copyFromUtf8(vehicleJson);
+        PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
+
+        return Mono.fromRunnable(() -> publisher.publish(pubsubMessage))
+                .doOnError(error -> {
+                   throw new MyCustomException("Error occurred during publishing", error);
+                }).then();
     }
+
     /**
      * Retrieves all CarBrands from Firestore database.
-     * @return A Flux of CarBrand objects.
      *
+     * @return A Flux of CarBrand objects.
      */
     @Override
     public Flux<CarBrand> getAllBrands() {
@@ -182,12 +197,11 @@ public class FirestoreDbService implements CloudDataService {
      *
      * @param brand The brand of the Car to filter by.
      * @return A Flux of Car objects matching the given brand.
-     *
      */
     @Override
     public Flux<Car> getCarsByBrand(final String brand) {
         return firestoreDbRepository.findByBrand(brand)
-                .filter(gcpCarEntity -> gcpCarEntity != null)
+                .filter(Objects::nonNull)
                 .map(gcpCarEntity -> Car.builder()
                         .carId(gcpCarEntity.getCarId())
                         .model(gcpCarEntity.getModel())
@@ -214,42 +228,40 @@ public class FirestoreDbService implements CloudDataService {
 
     /**
      * Retrieves all CarBrands from Firestore database.
-     * @return A Flux of CarBrand objects.
      *
+     * @return A Flux of CarBrand objects.
      */
     public Flux<ServerSentEvent<Map<String, String>>> getAllBrandsSse() {
         Set<String> emittedBrands = Collections
                 .synchronizedSet(new HashSet<>());
 
-        return Flux.<ServerSentEvent<Map<String, String>>>create(emitter -> {
-            firestore.collection("Car")
-                    .addSnapshotListener((snapshots, e) -> {
-                        if (e != null) {
-                            log.error("Error in Firestore snapshot listener",
-                                    e);
-                            emitter.error(e);
-                            return;
-                        }
+        return Flux.<ServerSentEvent<Map<String, String>>>create(emitter -> firestore.collection("Car")
+                .addSnapshotListener((snapshots, e) -> {
+                    if (e != null) {
+                        log.error("Error in Firestore snapshot listener",
+                                e);
+                        emitter.error(e);
+                        return;
+                    }
 
-                        for (QueryDocumentSnapshot doc : snapshots) {
-                            Map<String, Object> data = doc.getData();
-                            String brand = (String) data.get("brand");
+                    for (QueryDocumentSnapshot doc : snapshots) {
+                        Map<String, Object> data = doc.getData();
+                        String brand = (String) data.get("brand");
 
-                            synchronized (emittedBrands) {
-                                if (!emittedBrands.contains(brand)) {
-                                    emittedBrands.add(brand);
+                        synchronized (emittedBrands) {
+                            if (!emittedBrands.contains(brand)) {
+                                emittedBrands.add(brand);
 
-                                    processAndEmitEvent(emitter, brand)
-                                            .subscribeOn(Schedulers.parallel())
-                                            .subscribe();
-                                }
+                                processAndEmitEvent(emitter, brand)
+                                        .subscribeOn(Schedulers.parallel())
+                                        .subscribe();
                             }
                         }
-                    });
-        }).concatWith(Flux.never());
+                    }
+                })).concatWith(Flux.never());
     }
 
-    private Mono<Void> processAndEmitEvent(final FluxSink<ServerSentEvent<
+    public Mono<Void> processAndEmitEvent(final FluxSink<ServerSentEvent<
             Map<String, String>>> emitter, final String brand) {
         return Mono.fromRunnable(() -> {
             Map<String, String> eventData = new HashMap<>();
@@ -262,5 +274,7 @@ public class FirestoreDbService implements CloudDataService {
 
             emitter.next(event);
         });
-}
+    }
+
+
 }

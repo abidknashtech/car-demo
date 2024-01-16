@@ -4,8 +4,8 @@ import com.nashtech.model.Car;
 import com.nashtech.model.CarBrand;
 import com.nashtech.service.CloudDataService;
 import com.nashtech.service.ReactiveDataService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,13 @@ import java.util.Map;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class ReactiveDataServiceImpl implements
         ReactiveDataService {
 
     /**
      * WebClient instance for making HTTP requests to the external API.
      */
-    @Autowired
     private WebClient webClient;
 
     /**
@@ -38,7 +38,6 @@ public class ReactiveDataServiceImpl implements
     /**
      * The CloudDataService instance used to retrieve car information.
      */
-    @Autowired
     private CloudDataService cloudDataService;
 
 
@@ -47,22 +46,22 @@ public class ReactiveDataServiceImpl implements
      * @throws WebClientException If an error occurs during
      * data retrieval from the external API.
      */
-    public void fetchAndSendData() {
-        webClient.get()
-                .uri(apiUrl)
-                .retrieve()
-                .bodyToFlux(Car.class)
-                .onErrorResume(WebClientException.class, error -> {
-                    log.error("Error occurred during data retrieval", error);
-                    return Flux.error(
-                            new WebClientException(
-                                    "Failed to retrieve car data") {
-                    });
-                })
-                .subscribe(
-                        data -> cloudDataService.pushData(data)
-                );
-    }
+        public void fetchAndSendData() {
+            webClient.get()
+                    .uri(apiUrl)
+                    .retrieve()
+                    .bodyToFlux(Car.class)
+                    .onErrorResume(WebClientException.class, error -> {
+                        log.error("Error occurred during data retrieval", error);
+                        return Flux.error(
+                                new WebClientException(
+                                        "Failed to retrieve car data") {
+                        });
+                    })
+                    .subscribe(
+                            data -> cloudDataService.pushData(data)
+                    );
+        }
 
     /**
      * Retrieves a Flux of cars with specified brand in reactive manner.

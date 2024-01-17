@@ -193,7 +193,7 @@
                 <sonar.organization>nashtech</sonar.organization>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonarConfig>b47aeba29df2889126c736ee7012a5a490edc34a</sonarConfig> <!-- NOSONAR -->
-                <sonar.login>${sonarConfig}</sonar.login> <!-- NOSONAR -->
+                <sonar.token>${sonarConfig}</sonar.token> <!-- NOSONAR -->
                 <sonar.jacoco.reportPath>target/coverage-reports/jacoco.exec</sonar.jacoco.reportPath>
                 <sonar.coverage.exclusions>
                     **/*config*/**,

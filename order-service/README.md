@@ -31,6 +31,11 @@ curl --location 'http://localhost:9090/orders/create' \
 ```
 curl --location 'http://localhost:9090/orders/1652'
 ```
+
+## Saga Orchestration
+Saga orchestration is a design pattern in distributed systems where car-demo process is broken down into a series of smaller, independent transactions (sagas) that can be orchestrated to ensure consistency and reliability across the entire process.
+
+![saga.png](..%2Fdocumentation%2Fsaga.png)
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

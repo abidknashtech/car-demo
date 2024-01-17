@@ -47,14 +47,12 @@ class ErrorMessageTest {
     @Test
     void testEquals() {
         // Arrange, Act and Assert
-        assertNotEquals(
+        assertNotEquals(null,
                 new ErrorMessage(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
-                        "Not all who wander are lost"),
-                null);
-        assertNotEquals(
+                        "Not all who wander are lost"));
+        assertNotEquals("Different type to ErrorMessage",
                 new ErrorMessage(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()),
-                        "Not all who wander are lost"),
-                "Different type to ErrorMessage");
+                        "Not all who wander are lost"));
     }
 
     /**

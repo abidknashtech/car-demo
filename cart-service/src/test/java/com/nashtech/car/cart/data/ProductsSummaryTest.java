@@ -67,7 +67,7 @@ class ProductsSummaryTest {
         productsSummary.setYear(1);
 
         // Act and Assert
-        assertNotEquals(productsSummary, null);
+        assertNotEquals(null, productsSummary);
     }
 
     /**
@@ -88,7 +88,7 @@ class ProductsSummaryTest {
         productsSummary.setYear(1);
 
         // Act and Assert
-        assertNotEquals(productsSummary, "Different type to ProductsSummary");
+        assertNotEquals("Different type to ProductsSummary", productsSummary);
     }
 
     /**

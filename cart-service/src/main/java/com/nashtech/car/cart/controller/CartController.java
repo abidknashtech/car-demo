@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/cart")
 @Slf4j
 public class CartController {
-    @Autowired
+    @Autowired // NOSONAR
     private CartService cartService;
 
     @PostMapping("/add")

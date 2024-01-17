@@ -63,7 +63,7 @@ The listed services are operate sequentially.
 - admin-service
 - inventory-service 
 - order-service  [README.md](order-service%2FREADME.md) 
-- payment-service  
+- payment-service  [README.md](payment-service/README.md)
 - shipment-service 
 - elasticsearch
 

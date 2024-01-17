@@ -101,4 +101,30 @@ describe("CarsDataComponent", () => {
     ).toThrowError("An error occurred");
     expect(component.carData).toEqual([]);
   });
+
+  // When the URL includes "gcp", the selected cloud is set to "gcp".
+  it('should set selected cloud to "gcp" when URL includes "gcp"', () => {
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/dashboard/gcp");
+    component.ngOnInit();
+    expect(component.selectedCloud).toEqual("gcp");
+  });
+
+  // Method successfully retrieves car brands based on selected cloud
+  it('should retrieve car brands when no car brands are retrieved', () => {
+    const selectedCloud = "aws";
+
+    spyOn(carDetailsService, 'getCarBrands').and.returnValue(of([]));
+    component.getCarBrands(selectedCloud);
+    expect(component.carBrands.length).toBe(0);
+    expect(component.isCarsDataVisible).toBe(false);
+  });
+
+  it('should retrieve car brands when no car brands are retrieved', () => {
+    const selectedCloud = "aws";
+
+    spyOn(carDetailsService, 'getCarBrands').and.returnValue(of([{brand: "Audi"}]));
+    component.getCarBrands(selectedCloud);
+    expect(component.carBrands.length).toBeGreaterThan(0);
+    expect(component.isCarsDataVisible).toBe(true);
+  });
 });

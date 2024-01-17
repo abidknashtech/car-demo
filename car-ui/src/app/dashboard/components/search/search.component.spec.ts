@@ -66,4 +66,20 @@ describe("SearchComponent", () => {
       },
     });
   });
+
+  // Logs the search term to the console when called with valid input.
+  it('should log the search term to the console when called with valid input', () => {
+    spyOn(console, 'log');
+    component.searchTerm = 'valid input';
+    component.filterItems();
+    expect(console.log).toHaveBeenCalledWith('Search for :  ', 'valid input');
+  });
+
+  // Does not throw any errors or exceptions when called with valid input.
+  it('should not throw any errors or exceptions when called with valid input', () => {
+    expect(() => {
+      component.searchTerm = 'valid input';
+      component.filterItems();
+    }).not.toThrow();
+  });
 });

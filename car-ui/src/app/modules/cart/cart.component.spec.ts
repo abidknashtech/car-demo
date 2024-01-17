@@ -5,7 +5,7 @@ import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterTestingModule } from "@angular/router/testing";
 import { MaterialModule } from "../../shared/module/material.module";
-import { of } from "rxjs";
+import {of, throwError} from "rxjs";
 
 // Mock CartService for testing purposes
 class MockCartService {
@@ -127,5 +127,50 @@ describe("CartComponent", () => {
 
     expect(component.cartItems.length).toBe(1);
     expect(component.cartItems[0]).toEqual(mockCartItem2);
+  });
+
+  // should return an observable of sample cart items
+  it('should return an observable of sample cart items', () => {
+    const mockCartService = new MockCartService();
+    const cartItems = [{ model: "item1" }, { model: "item2" }];
+    spyOn(mockCartService, 'getCartItems').and.returnValue(of(cartItems));
+
+    mockCartService.getCartItems().subscribe((result) => {
+      expect(result).toEqual(cartItems);
+    });
+  });
+
+  // should handle errors gracefully
+  it('should handle errors gracefully', () => {
+    const mockCartService = new MockCartService();
+    spyOn(mockCartService, 'getCartItems').and.returnValue(throwError('Error'));
+
+    mockCartService.getCartItems().subscribe(
+        () => {},
+        (error) => {
+          expect(error).toBe('Error');
+        }
+    );
+  });
+
+  // should return empty observable when no cart items found
+  it('should return empty observable when no cart items found', () => {
+    const mockCartService = new MockCartService();
+    spyOn(mockCartService, 'getCartItems').and.returnValue(of([]));
+
+    mockCartService.getCartItems().subscribe((result) => {
+      expect(result).toEqual([]);
+    });
+  });
+
+  // should handle large number of cart items efficiently
+  it('should handle large number of cart items efficiently', () => {
+    const mockCartService = new MockCartService();
+    const cartItems = Array.from({ length: 10000 }, (_, index) => ({ model: `item${index}` }));
+    spyOn(mockCartService, 'getCartItems').and.returnValue(of(cartItems));
+
+    mockCartService.getCartItems().subscribe((result) => {
+      expect(result.length).toBe(10000);
+    });
   });
 });

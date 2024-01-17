@@ -25,4 +25,18 @@ describe("HomeComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  // When the router URL does not include "dashboard", the isHeaderVisible property should be true by default.
+  it('should set isHeaderVisible to true when router URL does not include "dashboard"', () => {
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/home");
+    component.ngOnInit();
+    expect(component.isHeaderVisible).toBe(true);
+  });
+
+  // When the router URL includes "dashboard", the isHeaderVisible property should be set to false.
+  it('should set isHeaderVisible to false when router URL includes "dashboard"', () => {
+    spyOnProperty(component.router, 'url', 'get').and.returnValue("/dashboard");
+    component.ngOnInit();
+    expect(component.isHeaderVisible).toBe(false);
+  });
 });

@@ -74,4 +74,19 @@ describe("CarsListComponent", () => {
     expect(component.carModelDetails).toEqual(carDetails);
     expect(component.showcarList).toEqual(true);
   });
+
+  // Updates the page number with the value from the event.
+  it('should update page and call getCarModels', () => {
+    // Arrange
+    const event = 2;  // Replace with your desired event value
+
+    spyOn(component, 'getCarModels');
+
+    // Act
+    component.onTableDataChange(event);
+
+    // Assert
+    expect(component.page).toEqual(event);
+    expect(component.getCarModels).toHaveBeenCalled();
+  });
 });

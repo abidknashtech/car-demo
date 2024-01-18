@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-import java.util.Date;
-
 @Builder
 @Getter
 public class RejectOrderCommand {

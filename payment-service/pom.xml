@@ -41,7 +41,7 @@
 
 	<properties>
 		<java.version>19</java.version>
-		<common.version>2.2</common.version>
+		<common.version>2.3</common.version>
 		<maven.compiler.source>19</maven.compiler.source>
 		<maven.sonar.version>3.9.1.2184</maven.sonar.version>
 		<maven.jacoco.version>0.8.8</maven.jacoco.version>

@@ -2,7 +2,7 @@ name: car-demo-azure-pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feature/sonar-test ]
 
 jobs:
   setup-build-publish-deploy:

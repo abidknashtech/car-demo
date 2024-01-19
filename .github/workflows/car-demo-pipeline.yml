@@ -18,6 +18,10 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env: 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn verify sonar:sonar \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=nashtech \
+          -Dsonar.projectKey=${{ github.event.repository.name }}
   setup-build-publish-deploy:
     runs-on: ubuntu-latest
     permissions:

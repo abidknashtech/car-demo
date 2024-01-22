@@ -32,7 +32,7 @@
 			<id>github</id>
 			<url>https://maven.pkg.github.com/abidknashtech/car-demo</url>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 	</repositories>

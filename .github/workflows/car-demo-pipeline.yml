@@ -13,9 +13,10 @@ jobs:
       Greeting: Hello
     steps:
       - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK! ${{ github.workspace}} $GITHUB_JOB"
+        run: echo "$Greeting $First_Name. Today is [$JOBS $GITHUB_JOB] [${{ github.jobs[github.job].name }}]"
         env:
           First_Name: Mona AA
+          JOBS: ${{ toJson(github) }} 
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest

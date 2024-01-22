@@ -43,7 +43,7 @@
 			<name>abidknashtech</name>
 			<url>https://maven.pkg.github.com/abidknashtech/car-demo</url>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 	</distributionManagement>

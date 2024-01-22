@@ -21,7 +21,7 @@
         </repository>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/NashTech-Labs/car-demo</url>
+            <url>https://maven.pkg.github.com/abidknashtech/car-demo</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -31,8 +31,8 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>NashTech-Labs</name>
-            <url>https://maven.pkg.github.com/NashTech-Labs/car-demo</url>
+            <name>abidknashtech</name>
+            <url>https://maven.pkg.github.com/abidknashtech/car-demo</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -42,7 +42,7 @@
     <properties>
         <java.version>19</java.version>
         <project-reactor.version>3.5.9</project-reactor.version>
-        <common.version>2.2</common.version>
+        <common.version>2.3</common.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
         <maven.compiler.source>19</maven.compiler.source>
         <maven.sonar.version>3.9.1.2184</maven.sonar.version>

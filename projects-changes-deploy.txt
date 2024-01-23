@@ -1,1 +1,2 @@
+common
 inventory-service

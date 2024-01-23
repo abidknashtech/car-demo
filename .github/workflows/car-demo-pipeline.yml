@@ -19,6 +19,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: SonarCloud Scan
+        working-directory: ./cart-service
         run: mvn verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=abidknashtech -Dsonar.projectKey=cart-service
         env:
          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

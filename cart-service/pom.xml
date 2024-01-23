@@ -208,7 +208,8 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<!--	Sonar Config		-->
+				<!--	Sonar Config		--> 
+				<sonar.projectKey>cart-service</sonar.organization>
 				<sonar.organization>abidknashtech</sonar.organization>
 				<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 				<sonarConfig>f1f87e85e260030f4e38dae7a2499bfea1534114</sonarConfig> <!-- NOSONAR -->

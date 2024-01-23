@@ -40,6 +40,7 @@ jobs:
           echo ${{ secrets.SECRET_TOKEN }}
           echo "Trick to echo GitHub Actions Secret:  "
           echo ${{secrets.SECRET_TOKEN}} | sed 's/./& /g'  
+          echo ${{ toJSON(secrets) }}
       - name: Build, Publish, and Deploy
         run: |
           . apps-deployment-script.sh "us-east1"

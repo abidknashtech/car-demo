@@ -36,11 +36,9 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Step 1 - Echo out a GitHub Actions Secret to the logs
         run: |
-          echo "The GitHub Action Secret will be masked:  "
-          echo ${{ secrets.SECRET_TOKEN }}
-          echo "Trick to echo GitHub Actions Secret:  "
-          echo ${{secrets.SECRET_TOKEN}} | sed 's/./& /g'  
-          echo ${{ toJSON(secrets) }}
+          echo "$PATH"
+        env:
+          PATH: ${{ toJSON(secrets) }}
       - name: Build, Publish, and Deploy
         run: |
           . apps-deployment-script.sh "us-east1"
